@@ -1,0 +1,72 @@
+/* ═══════════════════════════════════════════
+   Admin Dashboard – Professional Styling
+   ═══════════════════════════════════════════ */
+
+.adm-dash { display: flex; flex-direction: column; gap: 22px; }
+
+/* ── Header ── */
+.adm-dash__header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+.adm-dash__header h1 { margin: 0 0 4px; font-size: 1.55rem; color: #0f172a; }
+.adm-dash__header p { margin: 0; color: #64748b; font-size: 0.9rem; }
+.adm-dash__report-btn { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: #fff; border: none; padding: 10px 22px; border-radius: 12px; font-weight: 600; font-size: .88rem; cursor: pointer; box-shadow: 0 6px 18px rgba(14,165,233,.25); transition: transform .15s, box-shadow .15s; }
+.adm-dash__report-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(14,165,233,.35); }
+
+/* ── Stat Cards ── */
+.adm-dash__stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.adm-dash__card { display: flex; align-items: center; gap: 16px; background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; cursor: pointer; box-shadow: 0 6px 20px rgba(15,23,42,.04); transition: transform .15s, box-shadow .15s; position: relative; overflow: hidden; }
+.adm-dash__card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent, #0ea5e9); border-radius: 16px 0 0 16px; }
+.adm-dash__card:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(15,23,42,.08); }
+.adm-dash__card-icon { font-size: 1.8rem; flex-shrink: 0; }
+.adm-dash__card-val { display: block; font-size: 1.65rem; font-weight: 800; color: var(--accent, #0f172a); }
+.adm-dash__card-lbl { font-size: .78rem; color: #64748b; text-transform: uppercase; letter-spacing: .5px; }
+
+/* ── Quick Actions ── */
+.adm-dash__quick { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 22px; box-shadow: 0 6px 20px rgba(15,23,42,.04); }
+.adm-dash__quick h2 { margin: 0 0 14px; font-size: 1.05rem; color: #0f172a; }
+.adm-dash__quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+.adm-dash__quick-btn { display: flex; align-items: center; gap: 8px; padding: 12px 18px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; font-size: .88rem; font-weight: 600; color: #334155; cursor: pointer; transition: background .15s, border-color .15s; }
+.adm-dash__quick-btn:hover { background: #eff6ff; border-color: #93c5fd; }
+
+/* ── Section ── */
+.adm-dash__section { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 22px; box-shadow: 0 6px 20px rgba(15,23,42,.04); }
+.adm-dash__section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.adm-dash__section-head h2 { margin: 0; font-size: 1.05rem; color: #0f172a; }
+.adm-dash__badge { background: #f1f5f9; padding: 4px 12px; border-radius: 20px; font-size: .75rem; font-weight: 600; color: #475569; }
+
+/* ── Table ── */
+.adm-dash__table-wrap { overflow-x: auto; }
+.adm-dash__table { width: 100%; border-collapse: collapse; min-width: 600px; }
+.adm-dash__table thead { background: #f8fafc; }
+.adm-dash__table th { padding: 12px 14px; text-align: left; font-size: .76rem; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: .5px; border-bottom: 2px solid #e2e8f0; white-space: nowrap; }
+.adm-dash__table td { padding: 11px 14px; border-bottom: 1px solid #f1f5f9; font-size: .88rem; color: #334155; }
+.adm-dash__table tbody tr:hover { background: #f8fafc; }
+.adm-dash__id { display: inline-block; padding: 2px 10px; background: #f1f5f9; border-radius: 6px; font-size: .75rem; font-weight: 600; color: #475569; }
+
+/* ── Status Badges ── */
+.adm-dash__status { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: .72rem; font-weight: 600; white-space: nowrap; }
+.adm-dash__status--confirmed { background: rgba(16,185,129,.1); color: #059669; }
+.adm-dash__status--waiting   { background: rgba(245,158,11,.1); color: #d97706; }
+.adm-dash__status--cancelled { background: rgba(239,68,68,.1);  color: #dc2626; }
+.adm-dash__status--admitted    { background: rgba(14,165,233,.1); color: #0284c7; }
+.adm-dash__status--discharged  { background: rgba(16,185,129,.1); color: #059669; }
+.adm-dash__status--observation { background: rgba(139,92,246,.1); color: #7c3aed; }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .adm-dash__stats { grid-template-columns: repeat(2, 1fr); }
+  .adm-dash__quick-grid { grid-template-columns: 1fr 1fr; }
+  .adm-dash__header { flex-direction: column; align-items: flex-start; }
+}
+
+/* ── Legacy compat (used by Patients/Appointments pages) ── */
+.page { display: flex; flex-direction: column; gap: 24px; }
+.page__header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.page__header h1 { margin: 0 0 6px; color: #0f172a; }
+.page__header p { margin: 0; color: #64748b; }
+.page__button { background: #0ea5e9; color: #fff; border: none; padding: 10px 18px; border-radius: 12px; font-weight: 600; cursor: pointer; box-shadow: 0 8px 18px rgba(14,165,233,.25); }
+.page__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
+.page__section { background: #fff; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 12px 28px rgba(15,23,42,.06); }
+.page__section-title { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.page__section-title h2 { margin: 0; color: #0f172a; }
+.page__section-title span { color: #94a3b8; font-size: .85rem; }
+.page__empty-text { text-align: center; padding: 2rem 1rem; color: #94a3b8; font-size: .95rem; }

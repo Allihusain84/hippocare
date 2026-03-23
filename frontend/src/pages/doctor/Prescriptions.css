@@ -1,0 +1,54 @@
+@import "./Dashboard.css";
+
+.prescriptions {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(300px, 1.2fr);
+  gap: 20px;
+}
+
+.history {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+}
+
+.form {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  display: grid;
+  gap: 14px;
+}
+
+.form h3 {
+  margin: 0;
+  color: #0f172a;
+}
+
+.form textarea,
+.form input {
+  border: 1px solid #cbd5f5;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  background: #f8fafc;
+}
+
+.form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form__success {
+  color: #16a34a;
+  font-weight: 600;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .prescriptions {
+    grid-template-columns: 1fr;
+  }
+}

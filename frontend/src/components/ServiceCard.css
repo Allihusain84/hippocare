@@ -1,0 +1,100 @@
+/* ───────────────────────────────────────────────
+   ServiceCard – reusable card styling
+   ─────────────────────────────────────────────── */
+
+/* Fade-in + slide-up entrance animation */
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Base card ── */
+.service-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 28px 22px;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease;
+  animation: cardFadeIn 0.5s ease both;
+}
+
+/* ── Hover – lift + shadow + light-blue tint ── */
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(2, 132, 199, 0.15);
+  background: #f0f9ff;
+  border-color: #bae6fd;
+}
+
+/* Focus-visible outline for keyboard users */
+.service-card:focus-visible {
+  outline: 2px solid #0284c7;
+  outline-offset: 3px;
+}
+
+/* ── Icon badge ── */
+.service-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  font-size: 1.7rem;
+  background: #e0f2fe;
+  border-radius: 14px;
+  margin-bottom: 14px;
+  transition: background 0.3s ease;
+}
+
+.service-card:hover .service-card__icon {
+  background: #bae6fd;
+}
+
+/* ── Name ── */
+.service-card__name {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* ── Description ── */
+.service-card__desc {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+/* ───────────────────────────────────────────────
+   Compact variant – used inside the Navbar dropdown
+   ─────────────────────────────────────────────── */
+.service-card--compact {
+  padding: 16px 14px;
+  border-radius: 12px;
+}
+
+.service-card--compact .service-card__icon {
+  width: 42px;
+  height: 42px;
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+  border-radius: 10px;
+}
+
+.service-card--compact .service-card__name {
+  font-size: 0.88rem;
+  margin-bottom: 0;
+}

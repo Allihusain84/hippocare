@@ -1,0 +1,235 @@
+/* ============================================================
+   Photo Gallery – pg__ prefix
+   ============================================================ */
+
+/* ── Hero Banner ── */
+.pg__banner {
+  position: relative;
+  height: 260px;
+  background: url("https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=1400&q=80")
+    center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.pg__banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(76, 155, 120, 0.88) 0%, rgba(58, 130, 100, 0.82) 100%);
+}
+
+.pg__banner-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 48px;
+  color: #fff;
+}
+
+.pg__banner-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.pg__breadcrumb {
+  font-size: 0.95rem;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.pg__breadcrumb a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.pg__breadcrumb span {
+  opacity: 0.75;
+}
+
+/* ── Banner Building Image (top-right) ── */
+.pg__banner-building {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 55%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 1;
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 20%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,1) 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 20%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,1) 100%);
+  pointer-events: none;
+}
+
+/* ── Section ── */
+.pg__section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 56px 24px 64px;
+  text-align: center;
+}
+
+.pg__subtitle {
+  color: #4c9b78;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0 0 6px;
+  letter-spacing: 1px;
+}
+
+.pg__heading {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 40px;
+}
+
+/* ── Grid ── */
+.pg__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+/* ── Card ── */
+.pg__card {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+  aspect-ratio: 4 / 3;
+}
+
+.pg__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.pg__card:hover .pg__img {
+  transform: scale(1.08);
+}
+
+.pg__card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 26, 46, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.pg__card:hover .pg__card-overlay {
+  opacity: 1;
+}
+
+.pg__card-zoom {
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+}
+
+/* Photo caption below each card */
+.pg__card-caption {
+  margin: 0;
+  padding: 10px 12px;
+  background: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #0f172a;
+  text-align: center;
+  border-top: 2px solid #0284c7;
+  letter-spacing: 0.2px;
+  line-height: 1.3;
+}
+
+/* ── Lightbox ── */
+.pg__lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: pgFadeIn 0.3s ease;
+}
+
+@keyframes pgFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.pg__lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.pg__lightbox-close:hover {
+  transform: scale(1.2);
+}
+
+.pg__lightbox-img {
+  max-width: 90%;
+  max-height: 78vh;
+  border-radius: 10px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  object-fit: contain;
+}
+
+.pg__lightbox-caption {
+  color: #ccc;
+  margin-top: 14px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .pg__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pg__banner-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .pg__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .pg__banner {
+    height: 200px;
+  }
+
+  .pg__banner-content {
+    padding: 0 24px;
+  }
+
+  .pg__banner-title {
+    font-size: 1.6rem;
+  }
+
+  .pg__heading {
+    font-size: 1.5rem;
+  }
+}

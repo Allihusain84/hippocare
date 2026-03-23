@@ -1,0 +1,199 @@
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   3D Search Icon + Expanding Search Bar Animation
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.search-anim-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  perspective: 600px;
+}
+
+/* ── Search trigger button ── */
+.search-anim__btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.22rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: #0f172a;
+  transition:
+    background 0.2s ease,
+    transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.2s ease;
+  transform-style: preserve-3d;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.search-anim__btn:hover {
+  background: rgba(2, 132, 199, 0.08);
+}
+
+/* 3D spin + pop keyframe */
+@keyframes searchSpin3D {
+  0% {
+    transform: rotateY(0deg) scale(1);
+  }
+  40% {
+    transform: rotateY(180deg) scale(1.12);
+  }
+  100% {
+    transform: rotateY(360deg) scale(1);
+  }
+}
+
+.search-anim__btn--spinning {
+  animation: searchSpin3D 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  pointer-events: none;
+}
+
+/* ── Expanding search bar (drops below icon) ── */
+.search-anim__bar {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(226, 232, 240, 0.7);
+  border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  width: 0;
+  opacity: 0;
+  padding: 0;
+  transition:
+    width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.25s ease,
+    padding 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.search-anim__bar--open {
+  width: min(320px, 60vw);
+  opacity: 1;
+  padding: 6px 14px;
+  pointer-events: auto;
+}
+
+.search-anim__bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.92rem;
+  font-family: inherit;
+  color: #0f172a;
+  padding: 8px 0;
+  min-width: 0;
+}
+
+.search-anim__bar input::placeholder {
+  color: #94a3b8;
+}
+
+.search-anim__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #64748b;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.search-anim__close:hover {
+  color: #0f172a;
+}
+
+/* ── Search results dropdown ── */
+.search-anim__results {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 52px);
+  width: min(360px, 70vw);
+  max-height: 340px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.7);
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.04);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0;
+}
+
+.search-anim__result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: #0f172a;
+  transition: background 0.12s ease;
+}
+
+.search-anim__result:hover,
+.search-anim__result--active {
+  background: rgba(2, 132, 199, 0.07);
+}
+
+.search-anim__result-title {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+.search-anim__result-cat {
+  font-size: 0.72rem;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.search-anim__no-results {
+  padding: 18px 16px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.88rem;
+}
+
+/* Respect reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .search-anim__btn--spinning {
+    animation: none;
+  }
+  .search-anim__bar {
+    transition: none;
+  }
+}

@@ -1,0 +1,363 @@
+/*
+ * Radiology.css
+ * -------------
+ * Radiology page – radio__ prefix
+ * Mirrors Pharmacy/AccidentTrauma layout & theme.
+ */
+
+/* ── Reset / Page ── */
+.radio {
+  min-height: 100vh;
+  background: #f8fafc;
+  font-family: inherit;
+}
+
+/* ==================================================================
+   NAV BAR
+   ================================================================== */
+
+.radio__nav {
+  background: #0b3d5b;
+  padding: 0 24px;
+}
+
+.radio__nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.radio__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.radio__logo {
+  height: 36px;
+  width: auto;
+}
+
+.radio__nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.radio__nav-links a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.radio__nav-links a:hover {
+  color: #fff;
+}
+
+/* ==================================================================
+   HERO BANNER
+   ================================================================== */
+
+.radio__banner {
+  position: relative;
+  height: 220px;
+  background:
+    url("../../assets/hippocare-hospital.png")
+    center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radio__banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.radio__banner-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+}
+
+.radio__banner-content h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+  letter-spacing: 1px;
+}
+
+.radio__breadcrumb {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.radio__breadcrumb a {
+  color: #93c5fd;
+  text-decoration: none;
+}
+
+.radio__breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.radio__breadcrumb span {
+  margin: 0 6px;
+  opacity: 0.6;
+}
+
+/* ==================================================================
+   MAIN CONTENT (two-column)
+   ================================================================== */
+
+.radio__main {
+  max-width: 1200px;
+  margin: 36px auto;
+  padding: 0 24px;
+}
+
+.radio__left {
+  min-width: 0;
+}
+
+/* ==================================================================
+   IMAGE SLIDESHOW
+   ================================================================== */
+
+.radio__slider {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.radio__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.radio__slide--active {
+  opacity: 1;
+}
+
+/* Branded overlay */
+.radio__brand-overlay {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  z-index: 5;
+  pointer-events: none;
+  perspective: 500px;
+}
+
+.radio__brand-overlay-text {
+  display: inline-block;
+  background: linear-gradient(135deg, #0b3d5b, #0284c7);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  padding: 6px 14px;
+  border-radius: 5px;
+  box-shadow:
+    0 4px 12px rgba(11, 61, 91, 0.4),
+    0 8px 24px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  text-transform: uppercase;
+  font-family: 'Segoe UI', 'Inter', Arial, sans-serif;
+  transform: rotateX(8deg) rotateY(-4deg);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Dots */
+.radio__dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.radio__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.25s;
+  padding: 0;
+}
+
+.radio__dot--active {
+  background: #fff;
+}
+
+/* ==================================================================
+   CONTENT BOXES (bordered)
+   ================================================================== */
+
+.radio__content-box {
+  margin-top: 32px;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 28px 28px 20px;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.radio__content-box h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid #0284c7;
+  display: inline-block;
+}
+
+.radio__content-box p {
+  color: #334155;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin: 0 0 14px;
+  text-align: justify;
+}
+
+/* ==================================================================
+   STRUCTURED SECTIONS (Read More / Read Less)
+   ================================================================== */
+
+.radio__section {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.radio__section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.radio__section-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0b3d5b;
+  margin: 0 0 8px;
+}
+
+.radio__section-expand {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.radio__section-expand--open {
+  max-height: 600px;
+  opacity: 1;
+}
+
+.radio__read-more {
+  background: none;
+  border: none;
+  color: #0284c7;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+  margin-top: 2px;
+  transition: color 0.2s;
+}
+
+.radio__read-more:hover {
+  color: #0b3d5b;
+}
+
+/* ==================================================================
+   SIDEBAR
+   ================================================================== */
+
+
+
+/* ==================================================================
+   RESPONSIVE
+   ================================================================== */
+
+/* ── Expert Doctors Carousel ── */
+.radio__experts{margin-top:36px;overflow:hidden}
+.radio__experts-header{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:24px}
+.radio__experts-header h2{font-size:1.5rem;font-weight:800;color:#0f172a;margin:0;padding-bottom:6px;border-bottom:3px solid #dc2626}
+.radio__experts-sub{flex:1;color:#64748b;font-size:.88rem;margin:0}
+.radio__experts-arrows{display:flex;gap:8px;margin-left:auto}
+.radio__experts-arrow{width:36px;height:36px;border-radius:50%;border:2px solid #0b3d5b;background:#fff;color:#0b3d5b;font-size:1.3rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s}
+.radio__experts-arrow:hover:not(:disabled){background:#0b3d5b;color:#fff}
+.radio__experts-arrow:disabled{opacity:.35;cursor:not-allowed}
+.radio__experts-track{display:flex;gap:20px;transition:transform .45s ease}
+.radio__expert-card{min-width:calc(50% - 10px);max-width:calc(50% - 10px);background:#fff;border:2px solid #e2e8f0;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.06);transition:transform .25s,box-shadow .25s}
+.radio__expert-card:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(0,0,0,.1)}
+.radio__expert-img-wrap{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:#e2e8f0}
+.radio__expert-img{width:100%;height:100%;object-fit:cover}
+.radio__expert-exp{position:absolute;bottom:10px;left:10px;background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.4px}
+.radio__expert-body{padding:16px 18px 18px}
+.radio__expert-partner{display:inline-block;font-size:.72rem;font-weight:600;color:#0b3d5b;background:#e0f2fe;padding:3px 10px;border-radius:14px;margin-bottom:8px}
+.radio__expert-name{font-size:1.1rem;font-weight:800;color:#0b3d5b;margin:0 0 4px;transition:color .2s}
+.radio__expert-name:hover{color:#dc2626}
+.radio__expert-spec{font-size:.84rem;color:#64748b;margin:0 0 10px}
+.radio__expert-stats{display:flex;gap:14px;font-size:.78rem;color:#334155;margin-bottom:8px}
+.radio__expert-fee{font-size:.82rem;color:#334155;margin-bottom:14px}
+.radio__expert-fee strong{color:#0b3d5b}
+.radio__expert-actions{display:flex;gap:10px}
+.radio__expert-cta{flex:1;padding:10px 0;background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;font-size:.82rem;font-weight:700;border:none;border-radius:10px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 12px rgba(220,38,38,.25)}
+.radio__expert-cta:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(220,38,38,.35)}
+.radio__expert-profile{padding:10px 16px;background:none;border:2px solid #0b3d5b;color:#0b3d5b;font-size:.82rem;font-weight:700;border-radius:10px;cursor:pointer;transition:background .2s,color .2s}
+.radio__expert-profile:hover{background:#0b3d5b;color:#fff}
+
+@media (max-width: 768px) {
+  .radio__expert-card { min-width: 100%; max-width: 100% }
+  .radio__experts-header { flex-direction: column; align-items: flex-start }
+  .radio__experts-arrows { margin-left: 0 }
+}
+
+@media (max-width: 600px) {
+  .radio__banner {
+    height: 170px;
+  }
+
+  .radio__banner-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .radio__nav-inner {
+    flex-direction: column;
+    height: auto;
+    padding: 12px 0;
+    gap: 8px;
+  }
+
+  .radio__content-box {
+    padding: 20px 16px 16px;
+  }
+}

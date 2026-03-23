@@ -1,0 +1,12 @@
+- [x] Verify that the copilot-instructions.md file in the .github directory is created. (Created)
+- [x] Clarify Project Requirements (React Vite + Router + CSS + HMS UI)
+- [x] Scaffold the Project (Vite React template)
+- [x] Customize the Project (Pages, layout, routing, mock data, styles)
+- [x] Install Required Extensions (None required)
+- [x] Compile the Project (npm run build)
+- [x] Create and Run Task (Not required for this project)
+- [x] Launch the Project (npm run dev)
+- [x] Ensure Documentation is Complete
+- Work through each checklist item systematically.
+- Keep communication concise and focused.
+- Follow development best practices.

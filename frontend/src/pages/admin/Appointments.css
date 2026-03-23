@@ -1,0 +1,117 @@
+/* ═══════════════════════════════════════════
+   Admin Appointments – Professional Dashboard
+   ═══════════════════════════════════════════ */
+
+/* ── Layout ── */
+.adm-apt { display: flex; flex-direction: column; gap: 20px; }
+
+/* ── Header ── */
+.adm-apt__header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.adm-apt__header h1 { margin: 0 0 4px; color: #0f172a; font-size: 1.55rem; }
+.adm-apt__header p { margin: 0; color: #64748b; font-size: 0.9rem; }
+.adm-apt__add-btn { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: #fff; border: none; padding: 10px 22px; border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 0.9rem; box-shadow: 0 6px 18px rgba(14,165,233,.25); transition: transform .15s, box-shadow .15s; }
+.adm-apt__add-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(14,165,233,.35); }
+
+/* ── Stat strip ── */
+.adm-apt__stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 14px; }
+.adm-apt__stat { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px; text-align: center; box-shadow: 0 4px 14px rgba(15,23,42,.04); }
+.adm-apt__stat-val { display: block; font-size: 1.65rem; font-weight: 800; color: #0f172a; }
+.adm-apt__stat-lbl { font-size: .78rem; color: #64748b; text-transform: uppercase; letter-spacing: .5px; }
+.adm-apt__stat--blue   .adm-apt__stat-val { color: #0ea5e9; }
+.adm-apt__stat--cyan   .adm-apt__stat-val { color: #06b6d4; }
+.adm-apt__stat--green  .adm-apt__stat-val { color: #16a34a; }
+.adm-apt__stat--amber  .adm-apt__stat-val { color: #d97706; }
+.adm-apt__stat--purple .adm-apt__stat-val { color: #7c3aed; }
+.adm-apt__stat--red    .adm-apt__stat-val { color: #dc2626; }
+
+/* ── Filters ── */
+.adm-apt__filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.adm-apt__search { flex: 1 1 260px; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: .88rem; outline: none; transition: border-color .2s; }
+.adm-apt__search:focus { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,.12); }
+.adm-apt__select { padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: .88rem; background: #fff; cursor: pointer; outline: none; }
+.adm-apt__select:focus { border-color: #0ea5e9; }
+.adm-apt__date-filter { padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: .88rem; background: #fff; outline: none; cursor: pointer; }
+.adm-apt__date-filter:focus { border-color: #0ea5e9; }
+.adm-apt__clear-date { padding: 8px 14px; border: 1px solid #fca5a5; background: #fff; color: #dc2626; border-radius: 10px; font-size: .82rem; font-weight: 600; cursor: pointer; transition: background .15s; white-space: nowrap; }
+.adm-apt__clear-date:hover { background: #fef2f2; }
+
+/* ── Table ── */
+.adm-apt__table-wrap { overflow-x: auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; box-shadow: 0 6px 20px rgba(15,23,42,.04); }
+.adm-apt__table { width: 100%; border-collapse: collapse; min-width: 950px; }
+.adm-apt__table thead { background: #f8fafc; }
+.adm-apt__table th { padding: 12px 14px; text-align: left; font-size: .76rem; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: .5px; border-bottom: 2px solid #e2e8f0; white-space: nowrap; }
+.adm-apt__table td { padding: 11px 14px; border-bottom: 1px solid #f1f5f9; font-size: .88rem; color: #334155; }
+.adm-apt__table tbody tr:hover { background: #f8fafc; }
+.adm-apt__row { transition: background .15s; }
+.adm-apt__empty { text-align: center; color: #94a3b8; padding: 2rem 0 !important; }
+.adm-apt__id-badge { display: inline-block; padding: 2px 10px; background: #f1f5f9; border-radius: 6px; font-size: .75rem; font-weight: 600; color: #475569; }
+.adm-apt__type-badge { display: inline-block; padding: 2px 10px; background: rgba(99,102,241,.08); color: #6366f1; font-weight: 600; font-size: .75rem; border-radius: 6px; }
+
+/* ── Status select in table ── */
+.adm-apt__status { padding: 4px 10px; border-radius: 20px; font-size: .75rem; font-weight: 600; border: none; cursor: pointer; outline: none; appearance: none; -webkit-appearance: none; }
+.adm-apt__status--green { background: rgba(16,185,129,.1); color: #059669; }
+.adm-apt__status--amber { background: rgba(245,158,11,.1); color: #d97706; }
+.adm-apt__status--blue  { background: rgba(14,165,233,.1); color: #0284c7; }
+.adm-apt__status--red   { background: rgba(239,68,68,.1); color: #dc2626; }
+.adm-apt__status--gray  { background: rgba(100,116,139,.1); color: #475569; }
+
+/* ── Actions ── */
+.adm-apt__actions { display: flex; gap: 6px; }
+.adm-apt__action-btn { width: 32px; height: 32px; border: 1px solid #e2e8f0; background: #fff; border-radius: 8px; font-size: .88rem; cursor: pointer; display: grid; place-items: center; transition: background .15s, border-color .15s; }
+.adm-apt__action-btn--view:hover { background: #eff6ff; border-color: #93c5fd; }
+.adm-apt__action-btn--del:hover { background: #fef2f2; border-color: #fca5a5; }
+
+/* ── Overlay + Modal ── */
+.adm-apt__overlay { position: fixed; inset: 0; background: rgba(15,23,42,.45); backdrop-filter: blur(4px); z-index: 1000; display: grid; place-items: center; padding: 20px; animation: admAptFadeIn .2s ease; }
+@keyframes admAptFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.adm-apt__modal { background: #fff; border-radius: 20px; padding: 0; max-width: 580px; width: 100%; max-height: 88vh; overflow-y: auto; position: relative; box-shadow: 0 24px 60px rgba(15,23,42,.15); animation: admAptSlideUp .25s ease; }
+.adm-apt__modal--sm { max-width: 420px; }
+@keyframes admAptSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.adm-apt__modal-head { display: flex; align-items: center; justify-content: space-between; padding: 22px 24px 14px; border-bottom: 1px solid #f1f5f9; position: sticky; top: 0; background: #fff; z-index: 2; border-radius: 20px 20px 0 0; }
+.adm-apt__modal-head h2 { margin: 0; font-size: 1.15rem; color: #0f172a; }
+.adm-apt__close { background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 1rem; cursor: pointer; display: grid; place-items: center; transition: background .15s; flex-shrink: 0; }
+.adm-apt__close:hover { background: #e2e8f0; }
+
+/* ── Form ── */
+.adm-apt__form { display: flex; flex-direction: column; gap: 14px; padding: 20px 24px 24px; }
+.adm-apt__form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.adm-apt__label { display: flex; flex-direction: column; gap: 4px; font-size: .82rem; font-weight: 600; color: #475569; }
+.adm-apt__label--sm { max-width: 120px; }
+.adm-apt__input { padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: .88rem; outline: none; }
+.adm-apt__input:focus { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,.1); }
+.adm-apt__form-section-title { display: flex; align-items: center; gap: 8px; font-size: .88rem; font-weight: 700; color: #0f172a; margin: 6px 0 -4px; padding: 8px 0 4px; border-top: 1px dashed #e2e8f0; }
+.adm-apt__submit-btn { padding: 12px; border: none; border-radius: 12px; background: linear-gradient(135deg, #0ea5e9, #0284c7); color: #fff; font-size: .9rem; font-weight: 700; cursor: pointer; box-shadow: 0 6px 18px rgba(14,165,233,.25); transition: transform .15s; margin-top: 4px; }
+.adm-apt__submit-btn:hover { transform: translateY(-1px); }
+
+/* ── Profile / Detail View ── */
+.adm-apt__profile { padding: 20px 24px 24px; }
+.adm-apt__profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.adm-apt__detail { display: flex; flex-direction: column; gap: 2px; }
+.adm-apt__detail-lbl { font-size: .72rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: .3px; }
+.adm-apt__detail--full { grid-column: 1 / -1; }
+
+/* ── Badge ── */
+.adm-apt__badge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: .72rem; font-weight: 600; white-space: nowrap; }
+.adm-apt__badge--green { background: rgba(16,185,129,.1); color: #059669; }
+.adm-apt__badge--amber { background: rgba(245,158,11,.1); color: #d97706; }
+.adm-apt__badge--blue  { background: rgba(14,165,233,.1); color: #0284c7; }
+.adm-apt__badge--red   { background: rgba(239,68,68,.1); color: #dc2626; }
+.adm-apt__badge--gray  { background: rgba(100,116,139,.1); color: #475569; }
+
+/* ── Delete confirm actions ── */
+.adm-apt__modal-actions { display: flex; gap: 10px; justify-content: flex-end; padding: 16px 24px 22px; }
+.adm-apt__cancel-btn { padding: 9px 20px; border: 1px solid #e2e8f0; background: #fff; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background .15s; }
+.adm-apt__cancel-btn:hover { background: #f8fafc; }
+.adm-apt__delete-btn { padding: 9px 20px; border: none; background: #dc2626; color: #fff; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background .15s; }
+.adm-apt__delete-btn:hover { background: #b91c1c; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .adm-apt__stats { grid-template-columns: repeat(2, 1fr); }
+  .adm-apt__form-row { grid-template-columns: 1fr; }
+  .adm-apt__profile-grid { grid-template-columns: 1fr; }
+  .adm-apt__header { flex-direction: column; align-items: flex-start; }
+  .adm-apt__label--sm { max-width: none; }
+}

@@ -1,0 +1,264 @@
+.auth {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.6)),
+    url("../../assets/hospitalimage.png") center/cover no-repeat;
+  padding: 24px;
+}
+
+.auth__card {
+  width: min(480px, 100%);
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+  padding: 28px;
+  border: 1px solid #e2e8f0;
+  max-height: 92vh;
+  overflow-y: auto;
+}
+
+.auth__card h1 {
+  margin: 0 0 8px;
+  color: #0f172a;
+}
+
+.auth__card p {
+  margin: 0 0 20px;
+  color: #64748b;
+}
+
+.auth__card form {
+  display: grid;
+  gap: 14px;
+}
+
+.auth__card label {
+  display: grid;
+  gap: 6px;
+  color: #334155;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.auth__card input,
+.auth__card select {
+  border: 1px solid #cbd5f5;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  background: #f8fafc;
+}
+
+.auth__button {
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  color: #ffffff;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth__button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.3);
+}
+
+.auth__links {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.auth__links a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth__error {
+  color: #ef4444;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* ────────── Demo Credentials Section ────────── */
+
+.auth__demo {
+  margin-top: 18px;
+  padding: 16px;
+  background: #f1f5f9;
+  border-radius: 12px;
+  font-size: 0.85rem;
+}
+
+.auth__demo h4 {
+  margin: 0 0 10px;
+  color: #0f172a;
+  font-size: 0.95rem;
+}
+
+.auth__demo-hint {
+  font-weight: 400;
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+
+/* System pills (Admin / Patient) */
+.auth__demo-system {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.auth__demo-pill {
+  flex: 1;
+  padding: 8px 12px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.auth__demo-pill:hover {
+  background: #e0f2fe;
+  border-color: #0ea5e9;
+}
+
+/* Department accordion container */
+.auth__demo-depts {
+  max-height: 280px;
+  overflow-y: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.auth__demo-depts::-webkit-scrollbar {
+  width: 5px;
+}
+.auth__demo-depts::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+/* Department button */
+.auth__demo-dept {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.auth__demo-dept:last-child {
+  border-bottom: none;
+}
+
+.auth__demo-dept-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1e293b;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.auth__demo-dept-btn:hover {
+  background: #f8fafc;
+}
+
+.auth__demo-dept--open .auth__demo-dept-btn {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.auth__demo-dept-arrow {
+  font-size: 0.65rem;
+  color: #94a3b8;
+}
+
+/* Doctor list inside a department */
+.auth__demo-dept-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 6px;
+}
+
+.auth__demo-dept-list li {
+  padding: 0 6px;
+}
+
+.auth__demo-doc-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 7px 10px;
+  margin: 2px 0;
+  border: none;
+  border-radius: 6px;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: background 0.15s;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.auth__demo-doc-btn:hover {
+  background: #dbeafe;
+}
+
+.auth__demo-doc-name {
+  font-weight: 600;
+  color: #334155;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.auth__demo-doc-creds {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.auth__demo-doc-email {
+  color: #64748b;
+  font-size: 0.72rem;
+  font-family: "Courier New", monospace;
+}
+
+.auth__demo-doc-pwd {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #0ea5e9;
+  background: #e0f2fe;
+  padding: 1px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.auth__demo-note {
+  margin: 10px 0 0;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.78rem;
+}
+
+.auth__demo-note strong {
+  color: #0ea5e9;
+}
+
+/* Staff demo section */
+.auth__demo-staff { margin-top: 12px; border-top: 1px dashed #e2e8f0; padding-top: 10px; }
+.auth__demo-staff-title { margin: 0 0 8px; font-size: .88rem; font-weight: 700; color: #7c3aed; }

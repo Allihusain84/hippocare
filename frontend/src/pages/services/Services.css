@@ -1,0 +1,140 @@
+/* ───────────────────────────────────────────────
+   Services Page – full-page grid of all services
+   ─────────────────────────────────────────────── */
+
+.services-page {
+  background: #f8fafc;
+  min-height: 100vh;
+  color: #0f172a;
+}
+
+/* ── Navigation ── */
+.services-page__nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.services-page__nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.services-page__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #0b4b6b;
+  font-weight: 800;
+  font-size: 1.25rem;
+}
+
+.services-page__logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.services-page__nav-links {
+  display: flex;
+  gap: 20px;
+  font-weight: 600;
+}
+
+.services-page__nav-links a {
+  color: #0f172a;
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 6px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.services-page__nav-links a:hover,
+.services-page__nav-active {
+  color: #0284c7 !important;
+  text-decoration-color: #0284c7 !important;
+}
+
+/* ── Hero ── */
+.services-page__hero {
+  text-align: center;
+  padding: 60px 24px 36px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.services-page__hero h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0 0 12px;
+  color: #0b4b6b;
+}
+
+.services-page__hero p {
+  font-size: 1.05rem;
+  color: #475569;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── Grid ── */
+.services-page__grid-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
+
+.services-page__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+/* ── Footer ── */
+.services-page__footer {
+  text-align: center;
+  padding: 28px 24px;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* ───────────────────────────────────────────────
+   Responsive breakpoints
+   ─────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .services-page__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .services-page__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .services-page__hero h1 {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-page__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-page__nav-inner {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

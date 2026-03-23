@@ -1,0 +1,37 @@
+.vm { min-height:100vh; background:#f8fafc; }
+
+/* Nav */
+.vm__nav { background:#0b3d5b; padding:0 24px; }
+.vm__nav-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:60px; }
+.vm__brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; font-size:1.2rem; font-weight:700; }
+.vm__logo { height:36px; width:auto; }
+.vm__nav-links { display:flex; gap:24px; }
+.vm__nav-links a { color:rgba(255,255,255,.85); text-decoration:none; font-size:.9rem; font-weight:500; transition:color .2s; }
+.vm__nav-links a:hover { color:#fff; }
+
+/* Banner */
+.vm__banner { position:relative; height:220px; background:url("../../assets/hippocare-hospital.png") center/cover no-repeat; display:flex; align-items:center; justify-content:center; }
+.vm__banner-overlay { position:absolute; inset:0; background:rgba(11,61,91,.78); }
+.vm__banner-content { position:relative; z-index:1; text-align:center; color:#fff; }
+.vm__banner-content h1 { font-size:2.4rem; font-weight:800; margin:0 0 8px; }
+.vm__breadcrumb { font-size:.9rem; opacity:.9; margin:0; }
+.vm__breadcrumb a { color:#93c5fd; text-decoration:none; }
+.vm__breadcrumb a:hover { text-decoration:underline; }
+.vm__breadcrumb span { margin:0 6px; opacity:.6; }
+
+/* Section */
+.vm__section { max-width:900px; margin:40px auto; padding:0 24px 60px; display:flex; flex-direction:column; gap:32px; }
+
+.vm__card { background:#fff; border-radius:14px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,.06); }
+.vm__card h2 { font-size:1.4rem; font-weight:700; color:#0b3d5b; margin:0 0 16px; }
+.vm__card p { color:#334155; font-size:.94rem; line-height:1.75; margin:0 0 12px; text-align:justify; }
+
+.vm__values-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:14px; }
+.vm__values-list li { color:#334155; font-size:.94rem; line-height:1.7; padding-left:20px; position:relative; }
+.vm__values-list li::before { content:"✦"; position:absolute; left:0; color:#2ecc71; font-size:.85rem; }
+
+@media(max-width:600px){
+  .vm__banner{ height:170px; }
+  .vm__banner-content h1{ font-size:1.8rem; }
+  .vm__nav-inner{ flex-direction:column; height:auto; padding:12px 0; gap:8px; }
+}

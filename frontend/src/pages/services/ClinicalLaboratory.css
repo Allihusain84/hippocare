@@ -1,0 +1,467 @@
+/*
+ * ClinicalLaboratory.css
+ * ----------------------
+ * Clinical Laboratory page – clab__ prefix
+ * Accent: teal #0d9488
+ */
+
+.clab {
+  min-height: 100vh;
+  background: #f8fafc;
+  font-family: inherit;
+}
+
+/* ==================================================================
+   NAV BAR
+   ================================================================== */
+
+.clab__nav {
+  background: #0b3d5b;
+  padding: 0 24px;
+}
+
+.clab__nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.clab__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.clab__logo {
+  height: 36px;
+  width: auto;
+}
+
+.clab__nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.clab__nav-links a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.clab__nav-links a:hover {
+  color: #fff;
+}
+
+/* ==================================================================
+   HERO BANNER
+   ================================================================== */
+
+.clab__banner {
+  position: relative;
+  height: 220px;
+  background:
+    url("../../assets/hippocare-hospital.png")
+    center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clab__banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.clab__banner-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+}
+
+.clab__banner-content h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+  letter-spacing: 1px;
+}
+
+.clab__breadcrumb {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.clab__breadcrumb a {
+  color: #93c5fd;
+  text-decoration: none;
+}
+
+.clab__breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.clab__breadcrumb span {
+  margin: 0 6px;
+  opacity: 0.6;
+}
+
+/* ==================================================================
+   MAIN CONTENT (two-column)
+   ================================================================== */
+
+.clab__main {
+  max-width: 1200px;
+  margin: 36px auto;
+  padding: 0 24px;
+}
+
+.clab__left {
+  min-width: 0;
+}
+
+/* ==================================================================
+   IMAGE SLIDESHOW
+   ================================================================== */
+
+.clab__slider {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.clab__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.clab__slide--active {
+  opacity: 1;
+}
+
+.clab__brand-overlay {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  z-index: 5;
+  pointer-events: none;
+  perspective: 500px;
+}
+
+.clab__brand-overlay-text {
+  display: inline-block;
+  background: linear-gradient(135deg, #0b3d5b, #0284c7);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  padding: 6px 14px;
+  border-radius: 5px;
+  box-shadow:
+    0 4px 12px rgba(11, 61, 91, 0.4),
+    0 8px 24px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  text-transform: uppercase;
+  font-family: 'Segoe UI', 'Inter', Arial, sans-serif;
+  transform: rotateX(8deg) rotateY(-4deg);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.clab__dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.clab__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.25s;
+  padding: 0;
+}
+
+.clab__dot--active {
+  background: #fff;
+}
+
+/* ==================================================================
+   CONTENT BOXES (bordered)
+   ================================================================== */
+
+.clab__content-box {
+  margin-top: 32px;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 28px 28px 20px;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.clab__content-box h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid #0d9488;
+  display: inline-block;
+}
+
+.clab__content-box p {
+  color: #334155;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin: 0 0 14px;
+  text-align: justify;
+}
+
+/* ==================================================================
+   STRUCTURED SECTIONS (Read More / Read Less)
+   ================================================================== */
+
+.clab__section {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.clab__section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.clab__section-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0b3d5b;
+  margin: 0 0 8px;
+}
+
+.clab__section-expand {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.clab__section-expand--open {
+  max-height: 600px;
+  opacity: 1;
+}
+
+.clab__read-more {
+  background: none;
+  border: none;
+  color: #0d9488;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+  margin-top: 2px;
+  transition: color 0.2s;
+}
+
+.clab__read-more:hover {
+  color: #0b3d5b;
+}
+
+/* ==================================================================
+   SIDEBAR
+   ================================================================== */
+
+.clab__sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 24px;
+}
+
+.clab__sidebar-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.clab__sidebar-title {
+  margin: 0;
+  padding: 16px 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: #0b3d5b;
+}
+
+.clab__sidebar-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+}
+
+.clab__sidebar-item {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.clab__sidebar-item:last-child {
+  border-bottom: none;
+}
+
+.clab__sidebar-item a,
+.clab__sidebar-item span {
+  display: block;
+  padding: 12px 20px;
+  font-size: 0.88rem;
+  color: #334155;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.clab__sidebar-item a:hover {
+  background: #f1f5f9;
+  color: #0b3d5b;
+}
+
+.clab__sidebar-item--active {
+  background: #0d9488;
+}
+
+.clab__sidebar-item--active span {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ==================================================================
+   RESPONSIVE
+   ================================================================== */
+
+/* ── Lab Head Section ── */
+.clab__head-section{margin-top:36px}
+.clab__head-title{font-size:1.5rem;font-weight:800;color:#0f172a;margin:0 0 20px;padding-bottom:6px;border-bottom:3px solid #0ea5e9;display:inline-block}
+.clab__head-card{display:flex;gap:24px;background:#fff;border:2px solid #e2e8f0;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.06);padding:24px}
+.clab__head-img-wrap{position:relative;min-width:180px;width:180px;height:180px;border-radius:12px;overflow:hidden;background:#e2e8f0;flex-shrink:0}
+.clab__head-img{width:100%;height:100%;object-fit:cover}
+.clab__head-exp{position:absolute;bottom:8px;left:8px;background:linear-gradient(135deg,#0ea5e9,#0284c7);color:#fff;font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px}
+.clab__head-info h3{font-size:1.2rem;font-weight:800;color:#0b3d5b;margin:0 0 6px}
+.clab__head-role{font-size:.88rem;color:#64748b;margin:0 0 4px}
+.clab__head-qual{font-size:.82rem;color:#334155;margin:0 0 10px}
+.clab__head-overview{font-size:.88rem;color:#475569;line-height:1.6;margin:0}
+
+/* ── Lab Staff Grid ── */
+.clab__staff{margin-top:32px}
+.clab__staff-heading{font-size:1.5rem;font-weight:800;color:#0f172a;margin:0 0 6px;padding-bottom:6px;border-bottom:3px solid #0ea5e9;display:inline-block}
+.clab__staff-sub{color:#64748b;font-size:.88rem;margin:0 0 24px}
+.clab__staff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.clab__staff-card{background:#fff;border:2px solid #e2e8f0;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.06);transition:transform .25s,box-shadow .25s}
+.clab__staff-card:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(0,0,0,.1)}
+.clab__staff-img-wrap{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:#e2e8f0}
+.clab__staff-img{width:100%;height:100%;object-fit:cover}
+.clab__staff-exp{position:absolute;bottom:10px;left:10px;background:linear-gradient(135deg,#0ea5e9,#0284c7);color:#fff;font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px}
+.clab__staff-body{padding:16px 18px 18px}
+.clab__staff-name{font-size:1.05rem;font-weight:800;color:#0b3d5b;margin:0 0 4px}
+.clab__staff-role{font-size:.84rem;color:#64748b;margin:0 0 6px}
+.clab__staff-qual{font-size:.8rem;color:#334155;margin:0}
+/* View Profile Button */
+.clab__view-profile-btn{margin-top:10px;width:100%;padding:8px 0;background:linear-gradient(135deg,#0ea5e9,#0284c7);color:#fff;border:none;border-radius:8px;font-size:.85rem;font-weight:700;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s;letter-spacing:.3px}
+.clab__view-profile-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(14,165,233,.35);background:linear-gradient(135deg,#0284c7,#0369a1)}
+/* Profile Modal Overlay */
+.clab__modal-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;animation:clabFadeIn .25s ease}
+@keyframes clabFadeIn{from{opacity:0}to{opacity:1}}
+.clab__modal{background:#fff;border-radius:20px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.3),0 0 0 1px rgba(14,165,233,.1);animation:clabSlideUp .35s cubic-bezier(.21,1.02,.73,1)}
+@keyframes clabSlideUp{from{transform:translateY(40px) scale(.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+.clab__modal-close{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.9);border:none;width:36px;height:36px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:background .2s,transform .2s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.clab__modal-close:hover{background:#fff;transform:scale(1.1)}
+/* Banner */
+.clab__modal-banner{background:linear-gradient(135deg,#0b3d5b 0%,#0284c7 50%,#0ea5e9 100%);padding:18px 28px 14px;border-radius:20px 20px 0 0;position:relative;overflow:hidden}
+.clab__modal-banner::after{content:'';position:absolute;top:-30%;right:-10%;width:200px;height:200px;background:rgba(255,255,255,.06);border-radius:50%}
+.clab__modal-banner-brand{color:rgba(255,255,255,.92);font-size:.78rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+/* Header */
+.clab__modal-header{display:flex;gap:20px;padding:24px 28px 0;align-items:center;margin-top:-30px;position:relative;z-index:2}
+.clab__modal-img-wrap{width:110px;height:110px;border-radius:50%;overflow:hidden;flex-shrink:0;border:4px solid #fff;box-shadow:0 6px 24px rgba(14,165,233,.3)}
+.clab__modal-img{width:100%;height:100%;object-fit:cover}
+.clab__modal-title h2{font-size:1.35rem;font-weight:800;color:#0b3d5b;margin:0 0 4px}
+.clab__modal-role{font-size:.88rem;color:#64748b;margin:0 0 10px}
+/* Badges row */
+.clab__modal-badges{display:flex;flex-wrap:wrap;gap:8px}
+.clab__modal-exp-badge{display:inline-block;background:linear-gradient(135deg,#0ea5e9,#0284c7);color:#fff;font-size:.72rem;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:.3px}
+.clab__modal-qual-badge{display:inline-block;background:#e0f2fe;color:#0369a1;font-size:.72rem;font-weight:700;padding:4px 14px;border-radius:20px;border:1px solid #7dd3fc}
+/* Body */
+.clab__modal-body{padding:22px 28px 28px}
+.clab__modal-section{margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #f1f5f9}
+.clab__modal-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.clab__modal-section h4{font-size:.92rem;font-weight:700;color:#0b3d5b;margin:0 0 10px;display:flex;align-items:center;gap:4px}
+.clab__modal-section p{font-size:.87rem;color:#334155;line-height:1.7;margin:0}
+.clab__modal-tags{display:flex;flex-wrap:wrap;gap:8px}
+.clab__modal-tag{background:#e0f2fe;color:#0284c7;font-size:.76rem;font-weight:600;padding:5px 16px;border-radius:22px;border:1px solid #7dd3fc;transition:background .2s}
+.clab__modal-tag:hover{background:#bae6fd}
+.clab__modal-list{margin:0;padding:0 0 0 18px;font-size:.85rem;color:#334155;line-height:1.85}
+.clab__modal-list li{position:relative;padding-left:4px}
+.clab__modal-list li::marker{color:#0ea5e9}
+/* Info grid */
+.clab__modal-info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.clab__modal-info-item{background:linear-gradient(135deg,#f8fafc,#f0f9ff);border:1px solid #e0f2fe;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:3px;transition:transform .15s,box-shadow .15s}
+.clab__modal-info-item:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(14,165,233,.1)}
+.clab__modal-info-label{font-size:.7rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.4px}
+.clab__modal-info-item span:last-child{font-size:.84rem;color:#0f172a;font-weight:600}
+/* Footer */
+.clab__modal-footer{margin-top:20px;padding-top:16px;border-top:1px solid #e0f2fe;text-align:center}
+.clab__modal-footer span{font-size:.75rem;color:#94a3b8;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+
+@media (max-width: 768px) {
+  .clab__head-card { flex-direction: column; align-items: center; text-align: center }
+  .clab__staff-grid { grid-template-columns: 1fr }
+}
+
+@media (max-width: 600px) {
+  .clab__banner {
+    height: 170px;
+  }
+
+  .clab__banner-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .clab__nav-inner {
+    flex-direction: column;
+    height: auto;
+    padding: 12px 0;
+    gap: 8px;
+  }
+
+  .clab__content-box {
+    padding: 20px 16px 16px;
+  }
+
+  .clab__modal-header{flex-direction:column;align-items:center;text-align:center;margin-top:-20px}
+  .clab__modal-info-grid{grid-template-columns:1fr}
+  .clab__modal{margin:12px;border-radius:16px}
+  .clab__modal-banner{border-radius:16px 16px 0 0}
+  .clab__modal-badges{justify-content:center}
+}

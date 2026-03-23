@@ -1,0 +1,15 @@
+/* ═══════════════════════════════════════════
+   ServiceNav – shared nav bar for all service pages
+   ═══════════════════════════════════════════ */
+.svc-nav{background:#0b3d5b;padding:0 24px;position:sticky;top:0;z-index:100}
+.svc-nav__inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+.svc-nav__brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:700;font-size:1.15rem}
+.svc-nav__logo{height:38px}
+.svc-nav__links{display:flex;gap:18px}
+.svc-nav__links a{color:#ffffffcc;text-decoration:none;font-size:.95rem;transition:color .2s}
+.svc-nav__links a:hover{color:#38bdf8}
+
+@media(max-width:600px){
+  .svc-nav__inner{flex-direction:column;height:auto;padding:10px 0}
+  .svc-nav__links{gap:12px;flex-wrap:wrap;justify-content:center}
+}

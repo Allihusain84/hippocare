@@ -1,0 +1,243 @@
+/* DoctorProfile.css – dpro__ prefix – Accent: #0b3d5b / #dc2626 */
+.dpro{min-height:100vh;background:#f8fafc;font-family:inherit}
+
+/* Navbar */
+.dpro__nav{background:#0b3d5b;padding:0 24px}
+.dpro__nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+.dpro__brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-size:1.2rem;font-weight:700}
+.dpro__logo{height:36px;width:auto}
+.dpro__nav-links{display:flex;gap:24px}
+.dpro__nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
+.dpro__nav-links a:hover{color:#fff}
+
+/* Breadcrumb */
+.dpro__breadcrumb-bar{background:#fff;border-bottom:1px solid #e2e8f0;padding:12px 24px}
+.dpro__breadcrumb-inner{max-width:1200px;margin:0 auto;font-size:.85rem;color:#64748b;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.dpro__breadcrumb-inner a{color:#0284c7;text-decoration:none}
+.dpro__breadcrumb-inner a:hover{text-decoration:underline}
+.dpro__breadcrumb-current{color:#0f172a;font-weight:600}
+
+/* Hero */
+.dpro__hero{max-width:1200px;margin:32px auto;padding:0 24px}
+.dpro__hero-inner{display:flex;gap:36px;background:#fff;border:2px solid #e2e8f0;border-radius:18px;padding:36px;box-shadow:0 6px 24px rgba(0,0,0,.06);align-items:flex-start}
+.dpro__hero-info{flex:1;min-width:0}
+.dpro__hero-photo{flex-shrink:0;width:260px}
+.dpro__hero-photo img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:16px;box-shadow:0 8px 28px rgba(0,0,0,.1)}
+
+/* Name */
+.dpro__name-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.dpro__name{font-size:1.7rem;font-weight:800;color:#0b3d5b;margin:0}
+.dpro__verified{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:.8rem;font-weight:700}
+
+/* Tags */
+.dpro__tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.dpro__tag{display:inline-block;background:#e0f2fe;color:#0b3d5b;font-size:.76rem;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:.3px}
+
+/* Qualifications */
+.dpro__qualifications{font-size:.88rem;color:#64748b;margin:0 0 18px;font-weight:500}
+
+/* Stats */
+.dpro__stats-row{display:flex;gap:24px;margin-bottom:16px}
+.dpro__stat{display:flex;flex-direction:column;align-items:center;background:#f1f5f9;padding:14px 22px;border-radius:12px;min-width:100px;position:relative}
+.dpro__stat-val{font-size:1.15rem;font-weight:800;color:#0b3d5b}
+.dpro__stat-label{font-size:.72rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.4px;font-weight:600}
+.dpro__stat--clickable{cursor:pointer;transition:background .2s,box-shadow .2s;border:2px solid transparent}
+.dpro__stat--clickable:hover{background:#e0f2fe;border-color:#0284c7;box-shadow:0 4px 14px rgba(2,132,199,.15)}
+.dpro__stat-hint{font-size:.62rem;color:#0284c7;font-weight:600;margin-top:4px;opacity:.7;transition:opacity .2s}
+.dpro__stat--clickable:hover .dpro__stat-hint{opacity:1}
+
+/* Enquiry */
+.dpro__enquiry{font-size:.84rem;color:#334155;background:#fef9c3;padding:10px 16px;border-radius:10px;margin-bottom:18px;border-left:4px solid #eab308}
+.dpro__enquiry strong{color:#0b3d5b}
+
+/* Timings */
+.dpro__timings{margin-bottom:20px}
+.dpro__timings h3{font-size:1rem;font-weight:700;color:#0b3d5b;margin:0 0 10px}
+.dpro__timing-list{display:flex;flex-direction:column;gap:6px}
+.dpro__timing-row{display:flex;align-items:center;gap:12px;padding:8px 14px;background:#f1f5f9;border-radius:8px;font-size:.85rem}
+.dpro__timing-day{font-weight:600;color:#0f172a;min-width:180px}
+.dpro__timing-time{color:#334155}
+
+/* Fee */
+.dpro__fee-row{margin-bottom:16px}
+.dpro__fee{font-size:.95rem;color:#334155}
+.dpro__fee strong{color:#0b3d5b;font-size:1.15rem}
+
+/* Action Buttons */
+.dpro__actions{display:flex;gap:12px;flex-wrap:wrap}
+.dpro__btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:13px 28px;font-size:.9rem;font-weight:700;border:none;border-radius:12px;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.dpro__btn--primary{background:linear-gradient(135deg,#0b3d5b,#0284c7);color:#fff;box-shadow:0 4px 16px rgba(11,61,91,.3)}
+.dpro__btn--primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(11,61,91,.35)}
+.dpro__btn--whatsapp{background:#fff;border:2px solid #25d366;color:#25d366}
+.dpro__btn--whatsapp:hover{background:#25d366;color:#fff;transform:translateY(-2px)}
+
+/* Not found */
+.dpro__not-found{max-width:600px;margin:80px auto;text-align:center;padding:40px}
+.dpro__not-found h2{font-size:1.5rem;color:#0f172a;margin-bottom:12px}
+.dpro__not-found p{color:#64748b;margin-bottom:24px}
+.dpro__back-btn{padding:12px 28px;background:#0b3d5b;color:#fff;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s}
+.dpro__back-btn:hover{background:#0284c7}
+.dpro__empty{color:#94a3b8;font-style:italic;padding:16px 0}
+
+/* ==================================================================
+   TABS SECTION
+   ================================================================== */
+.dpro__tabs-section{max-width:1200px;margin:0 auto 60px;padding:0 24px}
+.dpro__tabs-inner{background:#fff;border:2px solid #e2e8f0;border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.04)}
+.dpro__tabs{display:flex;border-bottom:2px solid #e2e8f0;background:#f8fafc}
+.dpro__tab{flex:1;padding:16px;text-align:center;font-size:.9rem;font-weight:600;color:#64748b;background:none;border:none;cursor:pointer;transition:color .2s,border-color .2s;border-bottom:3px solid transparent;margin-bottom:-2px}
+.dpro__tab:hover{color:#0b3d5b}
+.dpro__tab--active{color:#0b3d5b;border-bottom-color:#dc2626;background:#fff}
+.dpro__tab-content{padding:28px 28px 24px}
+
+/* Overview */
+.dpro__overview h2{font-size:1.3rem;font-weight:700;color:#0f172a;margin:0 0 14px;padding-bottom:6px;border-bottom:3px solid #dc2626;display:inline-block}
+.dpro__overview p{font-size:.9rem;line-height:1.75;color:#334155;margin:0 0 12px;text-align:justify}
+
+/* Treatments */
+.dpro__treatments h2{font-size:1.3rem;font-weight:700;color:#0f172a;margin:0 0 14px;padding-bottom:6px;border-bottom:3px solid #dc2626;display:inline-block}
+.dpro__treatment-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dpro__treatment-list li{display:flex;align-items:center;gap:8px;padding:12px 16px;background:#f1f5f9;border-radius:10px;font-size:.88rem;color:#0f172a;font-weight:500;transition:background .2s}
+.dpro__treatment-list li:hover{background:#e0f2fe}
+.dpro__treatment-icon{font-size:1rem}
+
+/* Hospitals */
+.dpro__hospitals h2{font-size:1.3rem;font-weight:700;color:#0f172a;margin:0 0 14px;padding-bottom:6px;border-bottom:3px solid #dc2626;display:inline-block}
+.dpro__hospital-cards{display:flex;gap:16px;flex-wrap:wrap}
+.dpro__hospital-card{display:flex;align-items:center;gap:14px;padding:18px 22px;background:#f1f5f9;border-radius:14px;border:1px solid #e2e8f0;min-width:240px;flex:1;transition:box-shadow .2s}
+.dpro__hospital-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.dpro__hospital-icon{font-size:1.8rem}
+.dpro__hospital-card h4{font-size:.95rem;font-weight:700;color:#0b3d5b;margin:0 0 2px}
+.dpro__hospital-card p{font-size:.82rem;color:#64748b;margin:0}
+
+/* FAQs */
+.dpro__faqs h2{font-size:1.3rem;font-weight:700;color:#0f172a;margin:0 0 14px;padding-bottom:6px;border-bottom:3px solid #dc2626;display:inline-block}
+.dpro__faq{margin-bottom:10px;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.dpro__faq summary{padding:14px 18px;font-size:.9rem;font-weight:600;color:#0b3d5b;cursor:pointer;background:#f8fafc;transition:background .2s}
+.dpro__faq summary:hover{background:#e0f2fe}
+.dpro__faq[open] summary{background:#0b3d5b;color:#fff}
+.dpro__faq p{padding:14px 18px;font-size:.88rem;color:#334155;line-height:1.65;margin:0}
+
+/* ==================================================================
+   PATIENT REVIEWS MODAL
+   ================================================================== */
+.dpro__modal-backdrop{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(0,0,0,.55);
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+  animation:dpro-fadeIn .25s ease;
+}
+@keyframes dpro-fadeIn{from{opacity:0}to{opacity:1}}
+.dpro__modal{
+  background:#fff;
+  border-radius:18px;
+  width:100%;
+  max-width:900px;
+  max-height:85vh;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+  animation:dpro-slideUp .3s ease;
+}
+@keyframes dpro-slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.dpro__modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 28px;
+  background:linear-gradient(135deg,#0b3d5b,#0284c7);
+  color:#fff;
+}
+.dpro__modal-header h2{font-size:1.2rem;font-weight:700;margin:0}
+.dpro__modal-header h2 span{font-weight:400;opacity:.9}
+.dpro__modal-close{
+  background:rgba(255,255,255,.15);
+  border:none;color:#fff;
+  width:34px;height:34px;
+  border-radius:50%;
+  font-size:1.1rem;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;
+}
+.dpro__modal-close:hover{background:rgba(255,255,255,.3)}
+.dpro__modal-subtitle{
+  padding:14px 28px 0;
+  font-size:.88rem;
+  color:#334155;
+  margin:0;
+}
+.dpro__modal-subtitle strong{color:#0b3d5b}
+.dpro__modal-table-wrap{
+  overflow-x:auto;
+  padding:16px 28px 24px;
+  flex:1;
+}
+.dpro__modal-table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  font-size:.85rem;
+}
+.dpro__modal-table thead{
+  background:#f1f5f9;
+  position:sticky;top:0;z-index:1;
+}
+.dpro__modal-table th{
+  padding:12px 14px;
+  text-align:left;
+  font-weight:700;
+  color:#0b3d5b;
+  font-size:.78rem;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+  border-bottom:2px solid #e2e8f0;
+  white-space:nowrap;
+}
+.dpro__modal-table td{
+  padding:12px 14px;
+  color:#334155;
+  border-bottom:1px solid #f1f5f9;
+  vertical-align:middle;
+}
+.dpro__modal-table tbody tr:hover{background:#f8fafc}
+.dpro__modal-table tbody tr:nth-child(even){background:#fafbfc}
+.dpro__modal-table tbody tr:nth-child(even):hover{background:#f1f5f9}
+.dpro__modal-name{
+  font-weight:600;
+  color:#0f172a;
+}
+
+/* ==================================================================
+   RESPONSIVE
+   ================================================================== */
+@media(max-width:900px){
+  .dpro__hero-inner{flex-direction:column-reverse;align-items:center;text-align:center}
+  .dpro__hero-photo{width:200px}
+  .dpro__stats-row{justify-content:center}
+  .dpro__tags{justify-content:center}
+  .dpro__actions{justify-content:center}
+  .dpro__timing-day{min-width:auto}
+}
+@media(max-width:768px){
+  .dpro__treatment-list{grid-template-columns:1fr}
+  .dpro__tabs{overflow-x:auto}
+  .dpro__tab{white-space:nowrap;min-width:100px}
+}
+@media(max-width:600px){
+  .dpro__hero-inner{padding:24px 18px}
+  .dpro__name{font-size:1.3rem}
+  .dpro__stats-row{flex-direction:column;gap:10px}
+  .dpro__stat{flex-direction:row;gap:10px;min-width:auto;width:100%}
+  .dpro__stat-hint{display:none}
+  .dpro__actions{flex-direction:column}
+  .dpro__btn{width:100%;text-align:center}
+  .dpro__nav-inner{flex-direction:column;height:auto;padding:12px 0;gap:8px}
+  .dpro__tab-content{padding:20px 16px}
+  .dpro__modal-backdrop{padding:10px}
+  .dpro__modal{max-height:90vh;border-radius:12px}
+  .dpro__modal-header{padding:16px 18px}
+  .dpro__modal-header h2{font-size:1rem}
+  .dpro__modal-table-wrap{padding:12px 14px 18px}
+  .dpro__modal-table{font-size:.76rem}
+  .dpro__modal-table th,.dpro__modal-table td{padding:8px 8px}
+}

@@ -1,0 +1,51 @@
+.vg { min-height:100vh; background:#f8fafc; }
+
+.vg__nav { background:#0b3d5b; padding:0 24px; }
+.vg__nav-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:60px; }
+.vg__brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; font-size:1.2rem; font-weight:700; }
+.vg__logo { height:36px; width:auto; }
+.vg__nav-links { display:flex; gap:24px; }
+.vg__nav-links a { color:rgba(255,255,255,.85); text-decoration:none; font-size:.9rem; font-weight:500; transition:color .2s; }
+.vg__nav-links a:hover { color:#fff; }
+
+.vg__banner { position:relative; height:220px; background:url("../../assets/hippocare-hospital.png") center/cover no-repeat; display:flex; align-items:center; justify-content:center; }
+.vg__banner-overlay { position:absolute; inset:0; background:rgba(11,61,91,.78); }
+.vg__banner-content { position:relative; z-index:1; text-align:center; color:#fff; }
+.vg__banner-content h1 { font-size:2.4rem; font-weight:800; margin:0 0 8px; }
+.vg__breadcrumb { font-size:.9rem; opacity:.9; margin:0; }
+.vg__breadcrumb a { color:#93c5fd; text-decoration:none; }
+.vg__breadcrumb span { margin:0 6px; opacity:.6; }
+
+.vg__section { max-width:1200px; margin:0 auto; padding:40px 24px 60px; }
+.vg__subtitle { text-align:center; color:#0284c7; font-weight:600; font-size:.9rem; margin:0 0 6px; }
+.vg__heading { text-align:center; font-size:1.8rem; font-weight:800; color:#0b3d5b; margin:0 0 36px; }
+
+.vg__grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+
+.vg__card { background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,.06); cursor:pointer; transition:transform .25s, box-shadow .25s; }
+.vg__card:hover { transform:translateY(-4px); box-shadow:0 8px 30px rgba(0,0,0,.1); }
+
+.vg__thumb-wrap { position:relative; }
+.vg__thumb { width:100%; height:200px; object-fit:cover; display:block; }
+.vg__play { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:56px; height:56px; background:rgba(0,0,0,.55); color:#fff; font-size:1.4rem; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background .2s; }
+.vg__card:hover .vg__play { background:rgba(2,132,199,.85); }
+
+.vg__card-title { padding:14px 18px; font-size:.95rem; font-weight:600; color:#0f172a; margin:0; }
+
+/* Overlay */
+.vg__overlay { position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:1000; display:flex; align-items:center; justify-content:center; padding:24px; }
+.vg__player { background:#fff; border-radius:14px; overflow:hidden; max-width:700px; width:100%; position:relative; }
+.vg__close { position:absolute; top:12px; right:12px; background:rgba(0,0,0,.5); color:#fff; border:none; width:32px; height:32px; border-radius:50%; font-size:1rem; cursor:pointer; z-index:2; display:flex; align-items:center; justify-content:center; }
+.vg__player-placeholder { position:relative; width:100%; aspect-ratio:16/9; background:#0f172a; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.vg__player-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.35; }
+.vg__player-icon { position:relative; font-size:2.4rem; color:#fff; background:rgba(2,132,199,.7); width:72px; height:72px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:12px; }
+.vg__player-text { position:relative; color:rgba(255,255,255,.8); font-size:.88rem; text-align:center; max-width:300px; }
+.vg__player-title { padding:16px 20px; font-size:1.05rem; font-weight:700; color:#0f172a; margin:0; }
+
+@media(max-width:960px){ .vg__grid{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:600px){
+  .vg__grid{ grid-template-columns:1fr; }
+  .vg__banner{ height:170px; }
+  .vg__banner-content h1{ font-size:1.8rem; }
+  .vg__nav-inner{ flex-direction:column; height:auto; padding:12px 0; gap:8px; }
+}

@@ -1,0 +1,113 @@
+.payment-modal__overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.payment-modal__box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+  min-width: 320px;
+  max-width: 95vw;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  position: relative;
+  text-align: center;
+}
+.payment-modal__section {
+  margin: 1.5rem 0;
+}
+.payment-modal__qr {
+  width: 160px;
+  height: 160px;
+  margin: 0.5rem auto;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  background: #fafbfc;
+}
+.upi-id {
+  font-family: monospace;
+  background: #f0f7ff;
+  padding: 0.2em 0.5em;
+  border-radius: 4px;
+  color: #0078d4;
+}
+.payment-modal__close {
+  margin-top: 1.5rem;
+  background: #0078d4;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6em 1.5em;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.payment-modal__close:hover {
+  background: #005fa3;
+}
+
+.payment-methods {
+  margin: 1.2rem 0 0.5rem 0;
+}
+.payment-methods__list {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0.5rem 0 1rem 0;
+}
+.payment-method-btn {
+  background: #f5faff;
+  border: 2px solid #e0e7ef;
+  border-radius: 8px;
+  padding: 0.7em 1.2em;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  transition: border 0.2s, background 0.2s;
+}
+.payment-method-btn.selected, .payment-method-btn:hover {
+  border: 2px solid #0078d4;
+  background: #e6f2ff;
+}
+.payment-method-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+.payment-modal__done, .payment-modal__download {
+  margin-top: 1.2rem;
+  background: #00b386;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6em 1.5em;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-right: 0.7em;
+}
+.payment-modal__done:hover, .payment-modal__download:hover {
+  background: #008f6b;
+}
+.payment-modal__scan-note {
+  color: #888;
+  font-size: 0.98em;
+  margin-top: 0.5em;
+}
+.receipt-box {
+  background: #f7fafd;
+  border-radius: 10px;
+  padding: 1.2em 1.5em;
+  margin: 1.2em 0;
+  text-align: left;
+  display: inline-block;
+  min-width: 220px;
+}

@@ -1,0 +1,138 @@
+/* ═══════════════════════════════════════════
+   Admin Doctors – Professional Dashboard
+   ═══════════════════════════════════════════ */
+
+/* ── Layout ── */
+.adm-doc { display: flex; flex-direction: column; gap: 20px; }
+
+/* ── Header ── */
+.adm-doc__header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.adm-doc__header h1 { margin: 0 0 4px; color: #0f172a; font-size: 1.55rem; }
+.adm-doc__header p { margin: 0; color: #64748b; font-size: 0.9rem; }
+.adm-doc__add-btn { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: #fff; border: none; padding: 10px 22px; border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 0.9rem; box-shadow: 0 6px 18px rgba(14,165,233,.25); transition: transform .15s, box-shadow .15s; }
+.adm-doc__add-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(14,165,233,.35); }
+
+/* ── Stat strip ── */
+.adm-doc__stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; }
+.adm-doc__stat { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px; text-align: center; box-shadow: 0 4px 14px rgba(15,23,42,.04); }
+.adm-doc__stat-val { display: block; font-size: 1.65rem; font-weight: 800; color: #0f172a; }
+.adm-doc__stat-lbl { font-size: .78rem; color: #64748b; text-transform: uppercase; letter-spacing: .5px; }
+.adm-doc__stat--blue  .adm-doc__stat-val { color: #0ea5e9; }
+.adm-doc__stat--green .adm-doc__stat-val { color: #16a34a; }
+.adm-doc__stat--amber .adm-doc__stat-val { color: #d97706; }
+.adm-doc__stat--red   .adm-doc__stat-val { color: #dc2626; }
+
+/* ── Filters ── */
+.adm-doc__filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.adm-doc__search { flex: 1 1 260px; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: .88rem; outline: none; transition: border-color .2s; }
+.adm-doc__search:focus { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,.12); }
+.adm-doc__select { padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: .88rem; background: #fff; cursor: pointer; outline: none; }
+.adm-doc__select:focus { border-color: #0ea5e9; }
+.adm-doc__collapse-all { padding: 10px 16px; border: 1px solid #e2e8f0; background: #fff; border-radius: 10px; font-size: .82rem; font-weight: 600; color: #475569; cursor: pointer; transition: background .15s; white-space: nowrap; }
+.adm-doc__collapse-all:hover { background: #f1f5f9; }
+.adm-doc__empty { text-align: center; color: #94a3b8; padding: 3rem 0; }
+
+/* ── Department Section ── */
+.adm-doc__dept { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 20px rgba(15,23,42,.04); }
+.adm-doc__dept-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; cursor: pointer; transition: background .15s; user-select: none; }
+.adm-doc__dept-header:hover { background: #f8fafc; }
+.adm-doc__dept-info { display: flex; align-items: center; gap: 14px; }
+.adm-doc__dept-name { margin: 0; font-size: 1.1rem; color: #0f172a; font-weight: 700; }
+.adm-doc__dept-count { display: inline-block; padding: 3px 12px; background: rgba(14,165,233,.08); color: #0284c7; border-radius: 20px; font-size: .75rem; font-weight: 600; }
+.adm-doc__dept-arrow { font-size: .85rem; color: #94a3b8; transition: transform .25s ease; }
+.adm-doc__dept-arrow--open { transform: rotate(90deg); }
+
+/* ── Cards grid inside dept ── */
+.adm-doc__dept-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; padding: 0 18px 18px; }
+
+.adm-doc__card { background: #fafbfc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 10px; transition: transform .15s, box-shadow .15s; }
+.adm-doc__card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(15,23,42,.07); }
+
+.adm-doc__card-top { display: flex; align-items: center; gap: 14px; }
+.adm-doc__avatar { width: 52px; height: 52px; border-radius: 50%; overflow: hidden; flex-shrink: 0; border: 2px solid #e2e8f0; background: #f1f5f9; }
+.adm-doc__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.adm-doc__initials { width: 100%; height: 100%; display: grid; place-items: center; font-weight: 700; color: #0ea5e9; font-size: .95rem; background: rgba(14,165,233,.08); }
+.adm-doc__initials--lg { font-size: 1.5rem; }
+.adm-doc__card-info { flex: 1; min-width: 0; }
+.adm-doc__card-info h3 { margin: 0; font-size: .95rem; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.adm-doc__spec { margin: 2px 0 0; font-size: .78rem; color: #0ea5e9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.adm-doc__exp { display: block; font-size: .72rem; color: #94a3b8; }
+.adm-doc__mobile { display: block; font-size: .75rem; color: #475569; margin-top: 2px; }
+
+/* ── Status badge ── */
+.adm-doc__badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: .7rem; font-weight: 600; cursor: pointer; user-select: none; white-space: nowrap; transition: opacity .15s; flex-shrink: 0; }
+.adm-doc__badge:hover { opacity: .85; }
+.adm-doc__badge--available { background: rgba(22,163,74,.1); color: #16a34a; }
+.adm-doc__badge--in-surgery { background: rgba(217,119,6,.1); color: #d97706; }
+.adm-doc__badge--on-leave { background: rgba(220,38,38,.1); color: #dc2626; }
+
+.adm-doc__card-meta { display: flex; gap: 12px; font-size: .75rem; color: #64748b; border-top: 1px solid #eef2f7; padding-top: 10px; }
+.adm-doc__card-actions { display: flex; gap: 8px; }
+.adm-doc__view-btn { flex: 1; padding: 8px 0; border: 1px solid #0ea5e9; background: transparent; color: #0ea5e9; border-radius: 8px; font-weight: 600; font-size: .8rem; cursor: pointer; transition: background .15s, color .15s; }
+.adm-doc__view-btn:hover { background: #0ea5e9; color: #fff; }
+.adm-doc__del-btn { padding: 8px 14px; border: 1px solid #fca5a5; background: transparent; color: #dc2626; border-radius: 8px; font-size: .8rem; cursor: pointer; transition: background .15s, color .15s; }
+.adm-doc__del-btn:hover { background: #dc2626; color: #fff; }
+
+/* ── Overlay + modal ── */
+.adm-doc__overlay { position: fixed; inset: 0; background: rgba(15,23,42,.45); backdrop-filter: blur(4px); z-index: 1000; display: grid; place-items: center; padding: 20px; animation: admFadeIn .2s ease; }
+@keyframes admFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.adm-doc__modal { background: #fff; border-radius: 20px; padding: 30px 28px; max-width: 520px; width: 100%; max-height: 85vh; overflow-y: auto; position: relative; box-shadow: 0 24px 60px rgba(15,23,42,.15); animation: admSlideUp .25s ease; }
+.adm-doc__modal--form { max-width: 560px; }
+@keyframes admSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.adm-doc__modal-close { position: absolute; top: 16px; right: 16px; background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 1rem; cursor: pointer; display: grid; place-items: center; transition: background .15s; }
+.adm-doc__modal-close:hover { background: #e2e8f0; }
+
+.adm-doc__modal-header { display: flex; align-items: center; gap: 18px; margin-bottom: 20px; }
+.adm-doc__modal-avatar { width: 72px; height: 72px; border-radius: 50%; overflow: hidden; flex-shrink: 0; border: 3px solid #0ea5e9; box-shadow: 0 4px 16px rgba(14,165,233,.2); }
+.adm-doc__modal-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.adm-doc__modal-header h2 { margin: 0; font-size: 1.2rem; color: #0f172a; }
+.adm-doc__modal-id { margin: 2px 0 6px; font-size: .78rem; color: #94a3b8; }
+
+.adm-doc__modal-body { display: flex; flex-direction: column; gap: 0; }
+.adm-doc__detail-row { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-size: .88rem; }
+.adm-doc__detail-label { min-width: 140px; font-weight: 600; color: #475569; flex-shrink: 0; }
+.adm-doc__detail-row span:last-child { color: #0f172a; }
+.adm-doc__dept-badge { display: inline-block; background: linear-gradient(135deg,#3b82f6,#6366f1); color: #fff; padding: 3px 12px; border-radius: 6px; font-size: .82rem; font-weight: 600; }
+
+/* ── Confirm modal ── */
+.adm-doc__confirm { background: #fff; border-radius: 16px; padding: 28px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 20px 50px rgba(15,23,42,.12); animation: admSlideUp .25s ease; }
+.adm-doc__confirm h3 { margin: 0 0 10px; color: #dc2626; }
+.adm-doc__confirm p { color: #475569; margin: 0 0 20px; font-size: .9rem; }
+.adm-doc__confirm-btns { display: flex; gap: 10px; justify-content: center; }
+.adm-doc__confirm-cancel { padding: 9px 20px; border: 1px solid #e2e8f0; background: #fff; border-radius: 8px; font-weight: 600; cursor: pointer; }
+.adm-doc__confirm-cancel:hover { background: #f8fafc; }
+.adm-doc__confirm-delete { padding: 9px 20px; border: none; background: #dc2626; color: #fff; border-radius: 8px; font-weight: 600; cursor: pointer; }
+.adm-doc__confirm-delete:hover { background: #b91c1c; }
+
+/* ── Photo Upload ── */
+.adm-doc__upload-area { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 4px; }
+.adm-doc__upload-preview { width: 100px; height: 100px; border-radius: 50%; border: 3px dashed #cbd5e1; overflow: hidden; cursor: pointer; display: grid; place-items: center; transition: border-color .2s, background .2s; background: #f8fafc; }
+.adm-doc__upload-preview:hover { border-color: #0ea5e9; background: rgba(14,165,233,.04); }
+.adm-doc__upload-preview img { width: 100%; height: 100%; object-fit: cover; }
+.adm-doc__upload-placeholder { text-align: center; font-size: .78rem; color: #94a3b8; line-height: 1.4; }
+.adm-doc__upload-input { display: none; }
+.adm-doc__upload-hint { font-size: .75rem; color: #94a3b8; margin: 0; }
+
+/* ── Form ── */
+.adm-doc__form { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
+.adm-doc__form label { display: flex; flex-direction: column; gap: 4px; font-size: .82rem; font-weight: 600; color: #475569; }
+.adm-doc__form input, .adm-doc__form select { padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: .88rem; outline: none; }
+.adm-doc__form input:focus, .adm-doc__form select:focus { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,.1); }
+.adm-doc__form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.adm-doc__submit-btn { padding: 12px; border: none; border-radius: 12px; background: linear-gradient(135deg, #0ea5e9, #0284c7); color: #fff; font-size: .9rem; font-weight: 700; cursor: pointer; box-shadow: 0 6px 18px rgba(14,165,233,.25); transition: transform .15s; margin-top: 4px; }
+.adm-doc__submit-btn:hover { transform: translateY(-1px); }
+
+/* ── Form section title ── */
+.adm-doc__form-section-title { display: flex; align-items: center; gap: 8px; font-size: .88rem; font-weight: 700; color: #0f172a; margin: 6px 0 -4px; padding: 8px 0 4px; border-top: 1px dashed #e2e8f0; }
+
+/* ── Credential badge in View Profile ── */
+.adm-doc__cred-badge { display: inline-block; padding: 3px 12px; background: rgba(14,165,233,.08); color: #0284c7; border-radius: 6px; font-size: .82rem; font-weight: 600; font-family: monospace; letter-spacing: .3px; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .adm-doc__dept-grid { grid-template-columns: 1fr; }
+  .adm-doc__stats { grid-template-columns: repeat(2, 1fr); }
+  .adm-doc__form-row { grid-template-columns: 1fr; }
+  .adm-doc__header { flex-direction: column; align-items: flex-start; }
+}

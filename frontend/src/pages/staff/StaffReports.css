@@ -1,0 +1,35 @@
+.sr{padding:4px 0}
+.sr__title{font-size:1.35rem;color:#1a3353;margin:0 0 4px}
+.sr__sub{color:#5a6a7e;font-size:.88rem;margin:0 0 20px}
+
+.sr__cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:22px}
+.sr__card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 2px 10px rgba(0,0,0,.05);display:flex;flex-direction:column;gap:4px;border-left:4px solid #e2e8f0}
+.sr__card--blue{border-left-color:#3b82f6}
+.sr__card--green{border-left-color:#16a34a}
+.sr__card--amber{border-left-color:#d97706}
+.sr__card--purple{border-left-color:#7c3aed}
+.sr__card-num{font-size:1.6rem;font-weight:800;color:#1a3353}
+.sr__card-label{font-size:.78rem;color:#718096;text-transform:uppercase;letter-spacing:.4px}
+
+.sr__panel{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);overflow:hidden}
+.sr__table-wrap{overflow-x:auto}
+.sr__table{width:100%;border-collapse:collapse;font-size:.88rem}
+.sr__table th{background:#f0f4fa;color:#3b5478;font-weight:600;padding:12px 14px;text-align:left;white-space:nowrap;border-bottom:2px solid #e2e8f0}
+.sr__table td{padding:11px 14px;border-bottom:1px solid #f0f4fa;color:#2d3748;vertical-align:middle}
+.sr__table tr:hover td{background:#f7faff}
+.sr__name{font-weight:600;color:#1a3353}
+.sr__date{color:#718096;font-size:.82rem}
+
+.sr__type{display:inline-block;padding:2px 10px;border-radius:5px;font-size:.74rem;font-weight:600}
+.sr__type--patient{background:#dbeafe;color:#1e40af}
+.sr__type--facility{background:#fef3c7;color:#92400e}
+.sr__type--attendance{background:#f3e8ff;color:#6b21a8}
+
+.sr__status{display:inline-block;padding:3px 11px;border-radius:6px;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+.sr__status--approved{background:#dcfce7;color:#166534}
+.sr__status--pending{background:#fef3c7;color:#92400e}
+.sr__status--submitted{background:#dbeafe;color:#1e40af}
+
+@media(max-width:600px){
+  .sr__cards{grid-template-columns:1fr 1fr}
+}

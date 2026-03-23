@@ -1,0 +1,34 @@
+.spf{padding:4px 0}
+.spf__title{font-size:1.35rem;color:#1a3353;margin:0 0 20px}
+
+.spf__layout{display:flex;gap:22px;align-items:flex-start}
+
+/* Left card */
+.spf__left{width:260px;flex-shrink:0}
+.spf__photo-card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);padding:28px 20px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.spf__avatar-wrap{width:110px;height:110px;border-radius:50%;overflow:hidden;cursor:pointer;position:relative;margin-bottom:14px;border:3px solid #e2e8f0}
+.spf__avatar-img{width:100%;height:100%;object-fit:cover}
+.spf__avatar-init{width:100%;height:100%;background:linear-gradient(135deg,#3b82f6,#1e40af);color:#fff;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:800}
+.spf__avatar-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:600;opacity:0;transition:opacity .2s}
+.spf__avatar-wrap:hover .spf__avatar-overlay{opacity:1}
+.spf__name{font-size:1.05rem;font-weight:700;color:#1a3353;margin:0 0 4px}
+.spf__id{font-size:.78rem;color:#718096;margin-bottom:10px}
+.spf__dept-tag{background:#dbeafe;color:#1e40af;font-size:.72rem;padding:3px 12px;border-radius:6px;font-weight:600;margin-bottom:4px}
+.spf__role-tag{background:#f3e8ff;color:#6b21a8;font-size:.72rem;padding:3px 12px;border-radius:6px;font-weight:600;margin-bottom:10px}
+.spf__online{font-size:.76rem;color:#16a34a;font-weight:600}
+
+/* Right */
+.spf__right{flex:1;display:flex;flex-direction:column;gap:18px}
+.spf__section{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);padding:22px 26px}
+.spf__sec-title{font-size:1rem;color:#1a3353;margin:0 0 16px;padding-bottom:10px;border-bottom:2px solid #f0f4fa}
+.spf__grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 28px}
+.spf__detail{display:flex;flex-direction:column;gap:3px}
+.spf__detail-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;color:#718096;font-weight:600}
+.spf__detail-value{font-size:.92rem;color:#1a3353;font-weight:500}
+.spf__detail-value--hl{color:#3b82f6;font-weight:700}
+
+@media(max-width:700px){
+  .spf__layout{flex-direction:column}
+  .spf__left{width:100%}
+  .spf__grid{grid-template-columns:1fr}
+}

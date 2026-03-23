@@ -1,0 +1,350 @@
+/* ───────────────────────────────────────────────
+   AuthForms – Login & Register forms inside SlidePanel
+   ─────────────────────────────────────────────── */
+
+.auth-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* ── Header ── */
+.auth-form__header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.auth-form__header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0b4b6b;
+  margin: 10px 0 6px;
+}
+
+.auth-form__header p {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Role badge pill */
+.auth-form__badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+.auth-form__badge--green {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* ── Form ── */
+.auth-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-form__label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.auth-form__input {
+  padding: 11px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  background: #f8fafc;
+  color: #0f172a;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.auth-form__input:focus {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+}
+
+/* Select element */
+.auth-form__input[name="role"] {
+  cursor: pointer;
+}
+
+/* ── Submit button ── */
+.auth-form__submit {
+  margin-top: 4px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-form__submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(2, 132, 199, 0.35);
+}
+
+.auth-form__submit--green {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  box-shadow: 0 6px 18px rgba(22, 163, 74, 0.25);
+}
+
+.auth-form__submit--green:hover {
+  box-shadow: 0 10px 24px rgba(22, 163, 74, 0.35);
+}
+
+/* ── Error / Success messages ── */
+.auth-form__error {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.auth-form__success {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+/* ── Demo credential hint ── */
+.auth-form__demo {
+  margin-top: 24px;
+  padding: 14px 16px;
+  background: #f0f9ff;
+  border-radius: 10px;
+  border: 1px solid #e0f2fe;
+}
+
+.auth-form__demo h4 {
+  margin: 0 0 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0284c7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.auth-form__demo ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.8rem;
+  color: #475569;
+  line-height: 1.7;
+}
+
+/* ── Note ── */
+.auth-form__note {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+/* ── Demo hint text ── */
+.auth-form__demo-hint {
+  font-weight: 400;
+  font-size: 0.72rem;
+  color: #94a3b8;
+}
+
+/* ── System quick pills ── */
+.auth-form__demo-system {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.auth-form__demo-pill {
+  all: unset;
+  cursor: pointer;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #0284c7;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.auth-form__demo-pill:hover {
+  background: #e0f2fe;
+  border-color: #0ea5e9;
+  transform: translateX(3px);
+}
+
+/* ── Department accordion container ── */
+.auth-form__demo-depts {
+  margin-top: 10px;
+  max-height: 320px;
+  overflow-y: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+}
+
+/* Custom scrollbar */
+.auth-form__demo-depts::-webkit-scrollbar {
+  width: 5px;
+}
+.auth-form__demo-depts::-webkit-scrollbar-track {
+  background: transparent;
+}
+.auth-form__demo-depts::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 99px;
+}
+
+/* ── Department row ── */
+.auth-form__dept {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.auth-form__dept:last-child {
+  border-bottom: none;
+}
+
+.auth-form__dept-btn {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1e293b;
+  background: transparent;
+  box-sizing: border-box;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.auth-form__dept-btn:hover {
+  background: #f8fafc;
+}
+
+.auth-form__dept--open .auth-form__dept-btn {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.auth-form__dept-arrow {
+  font-size: 0.6rem;
+  color: #94a3b8;
+}
+
+.auth-form__dept--open .auth-form__dept-arrow {
+  color: #0369a1;
+}
+
+/* ── Doctor list inside expanded department ── */
+.auth-form__dept-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 6px;
+  animation: authDeptSlide 0.2s ease;
+}
+
+@keyframes authDeptSlide {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.auth-form__dept-list li {
+  padding: 0 6px;
+}
+
+.auth-form__doc-btn {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  align-items: center;
+  width: 100%;
+  padding: 8px 10px;
+  margin: 2px 0;
+  border-radius: 6px;
+  background: #f8fafc;
+  box-sizing: border-box;
+  transition: background 0.15s ease;
+}
+
+.auth-form__doc-btn:hover {
+  background: #dbeafe;
+}
+
+.auth-form__doc-name {
+  font-weight: 600;
+  color: #334155;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.auth-form__doc-creds {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.auth-form__doc-email {
+  color: #64748b;
+  font-size: 0.72rem;
+  font-family: "Courier New", monospace;
+}
+
+.auth-form__doc-pwd {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #0ea5e9;
+  background: #e0f2fe;
+  padding: 1px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* ── Note ── */
+.auth-form__demo-note {
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: 0.76rem;
+  color: #64748b;
+}
+
+.auth-form__demo-note strong {
+  color: #0ea5e9;
+}
+
+/* ── Staff demo section ── */
+.auth-form__demo-staff { margin-top: 10px; border-top: 1px dashed #e2e8f0; padding-top: 8px; }
+.auth-form__demo-staff-title { margin: 0 0 6px; font-size: .82rem; font-weight: 700; color: #7c3aed; }

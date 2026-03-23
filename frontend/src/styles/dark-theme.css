@@ -1,0 +1,814 @@
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   DARK THEME  –  activated via  html.dark
+   Overrides all light-mode colors across the entire site.
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* ══════════════════════════════════════════════
+   1. GLOBAL / ROOT
+   ══════════════════════════════════════════════ */
+
+.dark,
+.dark body {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+/* ══════════════════════════════════════════════
+   2. LANDING PAGE
+   ══════════════════════════════════════════════ */
+
+.dark .landing {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+/* ── Navbar ── */
+.dark .landing__nav {
+  background: rgba(15, 23, 42, 0.92);
+  border-bottom-color: #1e293b;
+}
+
+.dark .landing__brand-text {
+  color: #38bdf8;
+}
+
+.dark .landing__menu a {
+  color: #cbd5e1;
+}
+
+.dark .landing__menu a:hover,
+.dark .landing__menu a:focus-visible {
+  color: #38bdf8;
+  text-decoration-color: #38bdf8;
+}
+
+/* Services dropdown */
+.dark .landing__services-btn {
+  color: #cbd5e1;
+}
+
+.dark .landing__services-btn:hover,
+.dark .landing__services-btn--active {
+  color: #38bdf8;
+  text-decoration-color: #38bdf8;
+}
+
+.dark .landing__services-panel-card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+.dark .landing__services-panel-card::before {
+  background: #1e293b;
+  border-left-color: #334155;
+  border-top-color: #334155;
+}
+
+.dark .landing__services-panel-title {
+  color: #94a3b8;
+  border-bottom-color: #334155;
+}
+
+.dark .landing__services-list-link {
+  color: #cbd5e1;
+}
+
+.dark .landing__services-list-link:hover {
+  background: rgba(56, 189, 248, 0.08);
+  color: #38bdf8;
+}
+
+/* Career dropdown */
+.dark .landing__career-btn {
+  color: #cbd5e1;
+}
+
+.dark .landing__career-btn:hover,
+.dark .landing__career-btn--active {
+  color: #4ade80;
+  text-decoration-color: #4ade80;
+}
+
+.dark .landing__career-panel-card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+.dark .landing__career-panel-card::before {
+  background: #1e293b;
+  border-left-color: #334155;
+  border-top-color: #334155;
+}
+
+.dark .landing__career-panel-title {
+  color: #94a3b8;
+  border-bottom-color: #334155;
+}
+
+.dark .landing__career-list-link:hover {
+  background: rgba(74, 222, 128, 0.08);
+}
+
+.dark .landing__career-list-title {
+  color: #cbd5e1;
+}
+
+.dark .landing__career-list-link:hover .landing__career-list-title {
+  color: #4ade80;
+}
+
+.dark .landing__career-list-dept {
+  color: #64748b;
+}
+
+/* ── Sections ── */
+.dark .landing__section h2 {
+  color: #f1f5f9;
+}
+
+.dark .landing__sub {
+  color: #94a3b8;
+}
+
+/* Cards */
+.dark .landing__card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+  color: #e2e8f0;
+}
+
+.dark .landing__card:hover {
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Alt section (blue bg) */
+.dark .landing__section--alt {
+  background: #162032;
+}
+
+/* Roles */
+.dark .landing__role {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+.dark .landing__role:hover {
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.3);
+}
+
+/* Reviews */
+.dark .landing__review {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.2);
+}
+
+.dark .landing__review p {
+  color: #94a3b8;
+}
+
+.dark .landing__review strong {
+  color: #f1f5f9;
+}
+
+.dark .landing__review span {
+  color: #64748b;
+}
+
+/* ══════════════════════════════════════════════
+   3. GLOBAL NAVBAR (dashboard)
+   ══════════════════════════════════════════════ */
+
+.dark .navbar {
+  background: #1e293b;
+  border-bottom-color: #334155;
+}
+
+.dark .navbar__left h2 {
+  color: #f1f5f9;
+}
+
+.dark .navbar__left span {
+  color: #94a3b8;
+}
+
+/* ══════════════════════════════════════════════
+   4. DASHBOARD LAYOUT
+   ══════════════════════════════════════════════ */
+
+.dark .layout {
+  background: #0f172a;
+}
+
+/* ══════════════════════════════════════════════
+   5. CARD COMPONENT
+   ══════════════════════════════════════════════ */
+
+.dark .card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.dark .card:hover {
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+}
+
+.dark .card__title {
+  color: #94a3b8;
+}
+
+.dark .card__value {
+  color: #f1f5f9;
+}
+
+.dark .card__subtitle {
+  color: #64748b;
+}
+
+/* ══════════════════════════════════════════════
+   6. SERVICE CARD COMPONENT
+   ══════════════════════════════════════════════ */
+
+.dark .service-card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.dark .service-card:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.dark .service-card__title {
+  color: #f1f5f9;
+}
+
+.dark .service-card__desc {
+  color: #94a3b8;
+}
+
+/* ══════════════════════════════════════════════
+   7. TABLE ROWS (global)
+   ══════════════════════════════════════════════ */
+
+.dark .table__row {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+.dark .table__head {
+  background: #162032;
+  color: #94a3b8;
+}
+
+/* ══════════════════════════════════════════════
+   8. SERVICES PAGES
+   ══════════════════════════════════════════════ */
+
+/* Services listing */
+.dark .services-page {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+/* Service Details */
+.dark .sd-page {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dark .sd-hero__icon {
+  background: #1e293b;
+}
+
+.dark .sd-section--alt {
+  background: #1e293b;
+}
+
+.dark .sd-doctor-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.dark .sd-cta {
+  background: #1e293b;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+
+/* Service Details – Image Slider */
+.dark .sd-slider {
+  background: #1e293b;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.dark .sd-ambulance-split__content h2 {
+  color: #38bdf8;
+  border-bottom-color: #38bdf8;
+}
+
+.dark .sd-ambulance-split__content p {
+  color: #cbd5e1;
+}
+
+/* Pharmacy */
+.dark .pharm {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dark .pharm__sidebar-card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.dark .pharm__sidebar-item a {
+  color: #cbd5e1;
+}
+
+.dark .pharm__sidebar-item a:hover {
+  background: #162032;
+  color: #38bdf8;
+}
+
+/* Accident & Trauma */
+.dark .atem {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dark .atem__sidebar-card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.dark .atem__sidebar-item a {
+  color: #cbd5e1;
+}
+
+.dark .atem__sidebar-item a:hover {
+  background: #162032;
+  color: #38bdf8;
+}
+
+/* ══════════════════════════════════════════════
+   9. SPECIALITY PAGES
+   ══════════════════════════════════════════════ */
+
+.dark .sp {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dark .sp__sidebar-card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.dark .sp__sidebar-item a {
+  color: #cbd5e1;
+}
+
+.dark .sp__sidebar-item a:hover {
+  background: #162032;
+  color: #38bdf8;
+}
+
+/* ══════════════════════════════════════════════
+   10. PHOTO GALLERY
+   ══════════════════════════════════════════════ */
+
+.dark .pg {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dark .pg__card-caption {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+/* ══════════════════════════════════════════════
+   11. VIDEO GALLERY
+   ══════════════════════════════════════════════ */
+
+.dark .vg {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dark .vg__card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.dark .vg__player {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+/* ══════════════════════════════════════════════
+   12. QUICK LINKS – Blog
+   ══════════════════════════════════════════════ */
+
+.dark .blog {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dark .blog__card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* ══════════════════════════════════════════════
+   13. QUICK LINKS – Career
+   ══════════════════════════════════════════════ */
+
+.dark .career {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dark .career__card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.dark .career__modal {
+  background: #1e293b;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+
+.dark .career__form input[readonly] {
+  background: #162032;
+  color: #94a3b8;
+}
+
+/* ══════════════════════════════════════════════
+   14. QUICK LINKS – Vision & Mission
+   ══════════════════════════════════════════════ */
+
+.dark .vm {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dark .vm__card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* ══════════════════════════════════════════════
+   15. SEARCH ANIMATION
+   ══════════════════════════════════════════════ */
+
+.dark .search-anim__btn {
+  color: #cbd5e1;
+}
+
+.dark .search-anim__btn:hover {
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.dark .search-anim__bar {
+  background: rgba(30, 41, 59, 0.95);
+  border-color: #334155;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.dark .search-anim__bar input {
+  color: #e2e8f0;
+}
+
+.dark .search-anim__bar input::placeholder {
+  color: #64748b;
+}
+
+.dark .search-anim__close {
+  color: #94a3b8;
+}
+
+.dark .search-anim__close:hover {
+  color: #f1f5f9;
+}
+
+.dark .search-anim__results {
+  background: rgba(30, 41, 59, 0.97);
+  border-color: #334155;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.dark .search-anim__result {
+  color: #e2e8f0;
+}
+
+.dark .search-anim__result:hover,
+.dark .search-anim__result--active {
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.dark .search-anim__result-cat {
+  color: #94a3b8;
+  background: #334155;
+}
+
+.dark .search-anim__no-results {
+  color: #64748b;
+}
+
+/* ══════════════════════════════════════════════
+   16. AUTH PAGES (Login / Register)
+   ══════════════════════════════════════════════ */
+
+.dark .auth {
+  background: #0f172a;
+}
+
+.dark .auth__card {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.dark .auth__card input,
+.dark .auth__card select {
+  background: #162032;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+.dark .auth__card input::placeholder {
+  color: #64748b;
+}
+
+.dark .auth__card label {
+  color: #cbd5e1;
+}
+
+.dark .auth__demo {
+  background: #162032;
+  color: #94a3b8;
+}
+
+/* ══════════════════════════════════════════════
+   17. CONTACT PAGE
+   ══════════════════════════════════════════════ */
+
+.dark .contact {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dark .contact__form input,
+.dark .contact__form textarea {
+  background: #162032;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+/* ══════════════════════════════════════════════
+   18. CONTACT MODAL
+   ══════════════════════════════════════════════ */
+
+.dark .contact-modal__content {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+/* ══════════════════════════════════════════════
+   19. DASHBOARD PAGES (Admin, Doctor, Patient)
+   ══════════════════════════════════════════════ */
+
+.dark .page {
+  color: #e2e8f0;
+}
+
+.dark .page h1,
+.dark .page h2,
+.dark .page h3 {
+  color: #f1f5f9;
+}
+
+.dark .page__section {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Book Appointment form */
+.dark .form {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+.dark .form input,
+.dark .form select,
+.dark .form textarea {
+  background: #162032;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+.dark .form input::placeholder,
+.dark .form textarea::placeholder {
+  color: #64748b;
+}
+
+/* Prescriptions */
+.dark .prescription-form,
+.dark .prescription-preview {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+.dark .prescription-form input,
+.dark .prescription-form select,
+.dark .prescription-form textarea {
+  background: #162032;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+/* Generic inputs fallback */
+.dark input,
+.dark select,
+.dark textarea {
+  background: #162032;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #64748b;
+}
+
+/* ══════════════════════════════════════════════
+   20. GEMINI CHAT PANEL
+   ══════════════════════════════════════════════ */
+
+.dark .gc-panel {
+  background: #1e293b;
+}
+
+.dark .gc-body {
+  background: #0f172a;
+}
+
+.dark .gc-msg--bot {
+  background: #162032;
+  color: #e2e8f0;
+}
+
+.dark .gc-input-area {
+  background: #1e293b;
+  border-top-color: #334155;
+}
+
+.dark .gc-input-area input,
+.dark .gc-input-area textarea {
+  background: #162032;
+  color: #e2e8f0;
+}
+
+/* ══════════════════════════════════════════════
+   21. LOCATION MAP
+   ══════════════════════════════════════════════ */
+
+.dark .location-map {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.dark .location-map__card-grid .card {
+  background: #162032;
+}
+
+/* ══════════════════════════════════════════════
+   22. SLIDE PANEL
+   ══════════════════════════════════════════════ */
+
+.dark .slide-panel__content {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+.dark .slide-panel__search-box {
+  background: #162032;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+/* ══════════════════════════════════════════════
+   23. LOGIN DROPDOWN
+   ══════════════════════════════════════════════ */
+
+.dark .login-dropdown__content {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  color: #e2e8f0;
+}
+
+/* ══════════════════════════════════════════════
+   24. AUTH FORMS COMPONENT
+   ══════════════════════════════════════════════ */
+
+.dark .auth-forms__input {
+  background: #162032;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+/* ══════════════════════════════════════════════
+   25. TOOLTIP OVERRIDES
+   ══════════════════════════════════════════════ */
+
+.dark [data-tooltip]::after {
+  background: #334155;
+  color: #f1f5f9;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+.dark [data-tooltip]::before {
+  border-top-color: #334155;
+}
+
+/* ══════════════════════════════════════════════
+   26. SCROLLBAR
+   ══════════════════════════════════════════════ */
+
+.dark ::-webkit-scrollbar {
+  width: 8px;
+  background: #0f172a;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* ══════════════════════════════════════════════
+   27. GENERIC HEADINGS & TEXT
+   ══════════════════════════════════════════════ */
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4 {
+  color: #162032;
+}
+
+.dark p {
+  color: #cbd5e1;
+}
+
+.dark a {
+  color: #38bdf8;
+}
+
+/* Keep already-styled links (buttons, CTA, etc.) from being overridden */
+.dark .landing__cta,
+.dark .landing__ghost,
+.dark .landing__services-viewall,
+.dark .landing__career-viewall,
+.dark .navbar__logout,
+.dark .topbar__register-btn,
+.dark .gf__emergency-btn {
+  color: inherit;
+}
+
+/* ══════════════════════════════════════════════
+   28. SMOOTH TRANSITION ON THEME CHANGE
+   ══════════════════════════════════════════════ */
+
+html.dark,
+html:not(.dark) {
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+body {
+  transition: background-color 0.35s ease, color 0.35s ease;
+}

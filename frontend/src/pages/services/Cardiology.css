@@ -1,0 +1,215 @@
+/* Cardiology.css – card__ prefix – Accent: #dc2626 (red) */
+.card{min-height:100vh;background:#f8fafc;font-family:inherit}
+.card__nav{background:#0b3d5b;padding:0 24px}
+.card__nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+.card__brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-size:1.2rem;font-weight:700}
+.card__logo{height:36px;width:auto}
+.card__nav-links{display:flex;gap:24px}
+.card__nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
+.card__nav-links a:hover{color:#fff}
+.card__banner{position:relative;height:220px;background:url("../../assets/hippocare-hospital.png") center/cover no-repeat;display:flex;align-items:center;justify-content:center}
+.card__banner-overlay{position:absolute;inset:0;background:rgba(0,0,0,.25)}
+.card__banner-content{position:relative;z-index:1;text-align:center;color:#fff}
+.card__banner-content h1{font-size:2.4rem;font-weight:800;margin:0 0 8px;letter-spacing:1px}
+.card__breadcrumb{font-size:.9rem;opacity:.9;margin:0}
+.card__breadcrumb a{color:#93c5fd;text-decoration:none}
+.card__breadcrumb a:hover{text-decoration:underline}
+.card__breadcrumb span{margin:0 6px;opacity:.6}
+.card__main{max-width:1200px;margin:36px auto;padding:0 24px}
+.card__left{min-width:0}
+.card__slider{position:relative;width:100%;aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:#e2e8f0;box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.card__slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease}
+.card__slide--active{opacity:1}
+.card__brand-overlay{position:absolute;bottom:18px;left:18px;z-index:5;pointer-events:none;perspective:500px}
+.card__brand-overlay-text{display:inline-block;background:linear-gradient(135deg,#0b3d5b,#0284c7);color:#fff;font-size:.82rem;font-weight:700;letter-spacing:.8px;padding:6px 14px;border-radius:5px;box-shadow:0 4px 12px rgba(11,61,91,.4),0 8px 24px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.15);text-transform:uppercase;font-family:'Segoe UI','Inter',Arial,sans-serif;transform:rotateX(8deg) rotateY(-4deg);text-shadow:0 2px 4px rgba(0,0,0,.4)}
+.card__dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2}
+.card__dot{width:10px;height:10px;border-radius:50%;border:2px solid #fff;background:transparent;cursor:pointer;transition:background .25s;padding:0}
+.card__dot--active{background:#fff}
+.card__content-box{margin-top:32px;border:2px solid #e2e8f0;border-radius:14px;padding:28px 28px 20px;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.card__content-box h2{font-size:1.5rem;font-weight:700;color:#0f172a;margin:0 0 16px;padding-bottom:8px;border-bottom:3px solid #dc2626;display:inline-block}
+.card__content-box p{color:#334155;font-size:.92rem;line-height:1.7;margin:0 0 14px;text-align:justify}
+.card__section{margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #e2e8f0}
+.card__section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.card__section-title{font-size:1.05rem;font-weight:700;color:#0b3d5b;margin:0 0 8px}
+.card__section-expand{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;opacity:0}
+.card__section-expand--open{max-height:600px;opacity:1}
+.card__read-more{background:none;border:none;color:#dc2626;font-size:.85rem;font-weight:600;cursor:pointer;padding:4px 0;margin-top:2px;transition:color .2s}
+.card__read-more:hover{color:#0b3d5b}
+/* ==================================================================
+   EXPERT DOCTORS CAROUSEL
+   ================================================================== */
+.card__experts{
+  margin-top:36px;
+  overflow:hidden;
+}
+.card__experts-header{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:12px;
+  margin-bottom:24px;
+}
+.card__experts-header h2{
+  font-size:1.5rem;
+  font-weight:800;
+  color:#0f172a;
+  margin:0;
+  padding-bottom:6px;
+  border-bottom:3px solid #dc2626;
+}
+.card__experts-sub{
+  flex:1;
+  color:#64748b;
+  font-size:.88rem;
+  margin:0;
+}
+.card__experts-arrows{
+  display:flex;
+  gap:8px;
+  margin-left:auto;
+}
+.card__experts-arrow{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  border:2px solid #0b3d5b;
+  background:#fff;
+  color:#0b3d5b;
+  font-size:1.3rem;
+  font-weight:700;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,color .2s;
+}
+.card__experts-arrow:hover:not(:disabled){background:#0b3d5b;color:#fff}
+.card__experts-arrow:disabled{opacity:.35;cursor:not-allowed}
+.card__experts-track{
+  display:flex;
+  gap:20px;
+  transition:transform .45s ease;
+}
+.card__expert-card{
+  min-width:calc(50% - 10px);
+  max-width:calc(50% - 10px);
+  background:#fff;
+  border:2px solid #e2e8f0;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 4px 20px rgba(0,0,0,.06);
+  transition:transform .25s,box-shadow .25s;
+}
+.card__expert-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 28px rgba(0,0,0,.1);
+}
+.card__expert-img-wrap{
+  position:relative;
+  width:100%;
+  aspect-ratio:4/3;
+  overflow:hidden;
+  background:#e2e8f0;
+}
+.card__expert-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.card__expert-exp{
+  position:absolute;
+  bottom:10px;
+  left:10px;
+  background:linear-gradient(135deg,#dc2626,#b91c1c);
+  color:#fff;
+  font-size:.72rem;
+  font-weight:700;
+  padding:4px 12px;
+  border-radius:20px;
+  letter-spacing:.4px;
+}
+.card__expert-body{
+  padding:16px 18px 18px;
+}
+.card__expert-partner{
+  display:inline-block;
+  font-size:.72rem;
+  font-weight:600;
+  color:#0b3d5b;
+  background:#e0f2fe;
+  padding:3px 10px;
+  border-radius:14px;
+  margin-bottom:8px;
+}
+.card__expert-name{
+  font-size:1.1rem;
+  font-weight:800;
+  color:#0b3d5b;
+  margin:0 0 4px;
+  transition:color .2s;
+}
+.card__expert-name:hover{color:#dc2626}
+.card__expert-spec{
+  font-size:.84rem;
+  color:#64748b;
+  margin:0 0 10px;
+}
+.card__expert-stats{
+  display:flex;
+  gap:14px;
+  font-size:.78rem;
+  color:#334155;
+  margin-bottom:8px;
+}
+.card__expert-fee{
+  font-size:.82rem;
+  color:#334155;
+  margin-bottom:14px;
+}
+.card__expert-fee strong{
+  color:#0b3d5b;
+}
+.card__expert-actions{
+  display:flex;
+  gap:10px;
+}
+.card__expert-cta{
+  flex:1;
+  padding:10px 0;
+  background:linear-gradient(135deg,#dc2626,#b91c1c);
+  color:#fff;
+  font-size:.82rem;
+  font-weight:700;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 4px 12px rgba(220,38,38,.25);
+}
+.card__expert-cta:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(220,38,38,.35);
+}
+.card__expert-profile{
+  padding:10px 16px;
+  background:none;
+  border:2px solid #0b3d5b;
+  color:#0b3d5b;
+  font-size:.82rem;
+  font-weight:700;
+  border-radius:10px;
+  cursor:pointer;
+  transition:background .2s,color .2s;
+}
+.card__expert-profile:hover{
+  background:#0b3d5b;
+  color:#fff;
+}
+
+/* ==================================================================
+   RESPONSIVE
+   ================================================================== */
+@media(max-width:768px){
+  .card__expert-card{min-width:100%;max-width:100%}
+  .card__experts-header{flex-direction:column;align-items:flex-start}
+  .card__experts-arrows{margin-left:0}
+}
+@media(max-width:600px){.card__banner{height:170px}.card__banner-content h1{font-size:1.8rem}.card__nav-inner{flex-direction:column;height:auto;padding:12px 0;gap:8px}.card__content-box{padding:20px 16px 16px}}

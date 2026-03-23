@@ -1,0 +1,105 @@
+/* ================================================================
+   StaffLayout – Layout wrapper for the Staff Portal
+   ================================================================ */
+
+.staff-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f1f5f9;
+}
+
+.staff-layout__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.staff-layout__content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* ── Top Navbar ── */
+.staff-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
+}
+
+.staff-nav__left h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.staff-nav__left span {
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.staff-nav__right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.staff-nav__date {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.staff-nav__icon-btn {
+  all: unset;
+  cursor: pointer;
+  position: relative;
+  color: #64748b;
+  transition: color 0.2s;
+}
+
+.staff-nav__icon-btn:hover {
+  color: #0284c7;
+}
+
+.staff-nav__notif-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  border: 2px solid #ffffff;
+}
+
+.staff-nav__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0284c7, #0ea5e9);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .staff-layout__content {
+    padding: 16px;
+  }
+  .staff-nav {
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+  }
+}
