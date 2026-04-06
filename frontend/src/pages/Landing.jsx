@@ -67,37 +67,6 @@ const Landing = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Gemini chat state
-  const [question, setQuestion] = useState('');
-  const [answer, setAnswer] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-
-  const handleAskGemini = async () => {
-    if (!question.trim()) return;
-    setLoading(true);
-    setError('');
-    setAnswer('');
-    try {
-      const res = await fetch('/api/gemini/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: question })
-      });
-      const data = await res.json();
-      if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
-        setAnswer(data.candidates[0].content.parts[0].text);
-      } else if (data.error) {
-        setError(data.error);
-      } else {
-        setError('No answer received.');
-      }
-    } catch (err) {
-      setError('Error: ' + err.message);
-    }
-    setLoading(false);
-  };
-
   return (
     <div className="landing" ref={revealRef}>
       {/* Slim top bar with contact info + login/register */}
@@ -334,30 +303,6 @@ const Landing = () => {
 
       {/* Contact Modal */}
       <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
-
-      <div style={{ margin: '2rem 0', padding: '1rem', border: '1px solid #ccc', borderRadius: 8, maxWidth: 500 }}>
-        <h2>Ask Gemini</h2>
-        <input
-          type="text"
-          value={question}
-          onChange={e => setQuestion(e.target.value)}
-          placeholder="Type your question..."
-          style={{ width: '80%', padding: 8, marginRight: 8 }}
-          onKeyDown={e => { if (e.key === 'Enter') handleAskGemini(); }}
-        />
-        <button onClick={handleAskGemini} disabled={loading} style={{ padding: 8 }}>
-          {loading ? 'Asking...' : 'Ask'}
-        </button>
-        {answer && (
-          <div style={{ marginTop: 16, background: '#f6f6f6', padding: 12, borderRadius: 6 }}>
-            <strong>Gemini:</strong>
-            <div>{answer}</div>
-          </div>
-        )}
-        {error && (
-          <div style={{ marginTop: 16, color: 'red' }}>{error}</div>
-        )}
-      </div>
     </div>
   );
 };

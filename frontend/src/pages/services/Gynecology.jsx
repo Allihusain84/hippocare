@@ -1,22 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import hippocareLogo from "../../assets/hippocare-logo.png";
-import { getDoctorPhoto } from "../../utils/getDoctorPhoto";
-import { applyDoctorOverrides, getAdminDoctorsForDept } from "../../utils/getDoctorData";
+import { supabase } from "../../lib/supabaseClient";
 import DeptNav from "../../components/DeptNav";
 import "./Gynecology.css";
 
 const sliderImages = ["/images/gynecology-1.jpg","/images/gynecology-2.jpg","/images/gynecology-3.jpg"];
 
-const _rawExperts = [
-  { id: "dr-sunita-agarwal", name: "Dr. Sunita Agarwal", photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&q=80", specialization: "High-Risk Pregnancy", experience: "22+", recommended: "100%", fee: "₹1200" },
-  { id: "dr-kavita-singh-gyne", name: "Dr. Kavita Singh", photo: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=400&q=80", specialization: "Infertility Treatment", experience: "14+", recommended: "98%", fee: "₹1000" },
-  { id: "dr-rekha-yadav-gyne", name: "Dr. Rekha Yadav", photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&q=80", specialization: "Gynecologic Oncology", experience: "16+", recommended: "99%", fee: "₹1300" },
-  { id: "dr-deepika-chaudhary-gyne", name: "Dr. Deepika Chaudhary", photo: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=400&q=80", specialization: "Obstetrics & Adolescent Health", experience: "10+", recommended: "97%", fee: "₹800" },
-];
-
 const Gynecology = () => {
-  const expertDoctors = [...applyDoctorOverrides(_rawExperts), ...getAdminDoctorsForDept("Gynecology")];
+  const [expertDoctors, setExpertDoctors] = useState([]);
   const [slide, setSlide] = useState(0);
   const [expanded, setExpanded] = useState({});
   const [docPage, setDocPage] = useState(0);
@@ -24,6 +16,7 @@ const Gynecology = () => {
   const docsPerView = 2;
   const totalPages = Math.ceil(expertDoctors.length / docsPerView);
   useEffect(() => { const t = setInterval(() => setSlide((p) => (p + 1) % sliderImages.length), 3500); return () => clearInterval(t); }, []);
+  useEffect(() => { supabase.from("doctors").select("*").eq("department", "Gynecology").then(({ data }) => setExpertDoctors(data || [])); }, []);
   const toggle = (k) => setExpanded((p) => ({ ...p, [k]: !p[k] }));
 
   return (
@@ -95,15 +88,15 @@ const Gynecology = () => {
               {expertDoctors.map((doc) => (
                 <div className="gyne__expert-card" key={doc.id}>
                   <div className="gyne__expert-img-wrap">
-                    <img src={getDoctorPhoto(doc.id, doc.photo)} alt={doc.name} className="gyne__expert-img" />
-                    <span className="gyne__expert-exp">{doc.experience} Yrs Exp.</span>
+                    <img src={doc.photo_url || ""} alt={doc.name} className="gyne__expert-img" />
+                    <span className="gyne__expert-exp">{doc.experience || "—"}</span>
                   </div>
                   <div className="gyne__expert-body">
                     <span className="gyne__expert-partner">🏥 Hippocare Partner</span>
                     <h3 className="gyne__expert-name" onClick={() => navigate(`/doctor/${doc.id}`)} style={{ cursor: "pointer" }}>{doc.name}</h3>
                     <p className="gyne__expert-spec">{doc.specialization}</p>
                     <div className="gyne__expert-stats"><span>👍 {doc.recommended} Recommended</span></div>
-                    <div className="gyne__expert-fee">Consultation Fee: <strong>{doc.fee}</strong></div>
+                    <div className="gyne__expert-fee">Consultation Fee: <strong>{doc.consultation_fee ? `₹${doc.consultation_fee}` : "—"}</strong></div>
                     <div className="gyne__expert-actions">
                       <button className="gyne__expert-cta" onClick={() => { const role = localStorage.getItem("hmsRole"); if (role === "patient") { navigate(`/patient/book?doctor=${doc.id}`); } else { navigate(`/login?redirect=/patient/book&doctor=${doc.id}`); } }}>📅 Book Appointment</button>
                       <button className="gyne__expert-profile" onClick={() => navigate(`/doctor/${doc.id}`)}>View Profile</button>

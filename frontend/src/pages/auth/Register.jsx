@@ -1,7 +1,6 @@
 import { supabase } from "../../lib/supabaseClient";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { credentials as demoCredentials } from "../../data/credentials";
 import "./Register.css";
 
 const Register = () => {
@@ -49,14 +48,6 @@ const Register = () => {
     });
 
     if (error) {
-      // Fallback: check if email matches a demo credential
-      const found = Object.values(demoCredentials).find(
-        (item) => item.email === email
-      );
-      if (found) {
-        showMessage("Demo account exists. You can login with demo credentials.");
-        return;
-      }
       showError(error.message);
       return;
     }
@@ -67,9 +58,9 @@ const Register = () => {
       return;
     }
 
-    // 2️⃣ Insert profile in users table
+    // 2️⃣ Insert profile in profiles table
     const { error: profileError } = await supabase
-      .from("users")
+      .from("profiles")
       .insert([
         {
           id: user.id,

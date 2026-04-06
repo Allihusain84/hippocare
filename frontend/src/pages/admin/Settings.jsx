@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../../lib/supabaseClient";
 import "./Settings.css";
 
 /* ═══════════════════════════════════════════════
@@ -124,19 +125,35 @@ const Settings = () => {
     showToast("Department updated");
   };
 
-  /* ── Users & Roles (reads from existing admin stores) ── */
-  const loadUsers = () => {
-    const doctors = load("hmsAdminDoctors", []);
-    const staff = load("hmsAdminStaff", []);
-    return [...doctors.map((d) => ({ ...d, _type: "Doctor" })), ...staff.map((s) => ({ ...s, _type: s.role || "Staff" }))];
-  };
-  const [users, setUsers] = useState(loadUsers);
-  const refreshUsers = () => setUsers(loadUsers());
-  const toggleUserStatus = (id) => {
+  /* ── Users & Roles (from Supabase) ── */
+  const [users, setUsers] = useState([]);
+  const [usersLoading, setUsersLoading] = useState(false);
+
+  const fetchUsers = useCallback(async () => {
+    setUsersLoading(true);
+    const [docRes, staffRes] = await Promise.all([
+      supabase.from("doctors").select("id, name, department, status"),
+      supabase.from("staff").select("id, name, department, role"),
+    ]);
+    const docs = (docRes.data || []).map((d) => ({ ...d, _type: "Doctor", _disabled: d.status !== "Active" }));
+    const stf = (staffRes.data || []).map((s) => ({ ...s, _type: s.role || "Staff", _disabled: false }));
+    setUsers([...docs, ...stf]);
+    setUsersLoading(false);
+  }, []);
+
+  useEffect(() => { if (tab === "users") fetchUsers(); }, [tab, fetchUsers]);
+
+  const refreshUsers = () => fetchUsers();
+
+  const toggleUserStatus = async (id) => {
+    const user = users.find((u) => u.id === id);
+    if (!user) return;
+    if (user._type === "Doctor") {
+      const newStatus = user._disabled ? "Active" : "Inactive";
+      await supabase.from("doctors").update({ status: newStatus }).eq("id", id);
+    }
     setUsers((prev) =>
-      prev.map((u) =>
-        u.id === id ? { ...u, _disabled: !u._disabled } : u
-      )
+      prev.map((u) => u.id === id ? { ...u, _disabled: !u._disabled } : u)
     );
     showToast("User status updated");
   };
@@ -247,8 +264,10 @@ const Settings = () => {
   const handleClearCache = () => { showToast("Cache cleared successfully!"); };
 
   /* ── Logout ── */
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     localStorage.removeItem("hmsRole");
+    localStorage.removeItem("hmsProfile");
     navigate("/");
   };
 
@@ -382,7 +401,10 @@ const Settings = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.length === 0 && (
+                  {usersLoading && (
+                    <tr><td colSpan="6" className="adm-set__empty">Loading users...</td></tr>
+                  )}
+                  {!usersLoading && users.length === 0 && (
                     <tr><td colSpan="6" className="adm-set__empty">No users found. Add doctors or staff from their pages.</td></tr>
                   )}
                   {users.map((u) => (
@@ -728,7 +750,7 @@ const Settings = () => {
               </div>
               <div className="adm-set__sys-item">
                 <span className="adm-set__sys-label">Database</span>
-                <span className="adm-set__sys-val">localStorage (client-side)</span>
+                <span className="adm-set__sys-val">Supabase (PostgreSQL)</span>
               </div>
               <div className="adm-set__sys-item">
                 <span className="adm-set__sys-label">Last Backup</span>

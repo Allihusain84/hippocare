@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { getDoctorPhoto } from "../utils/getDoctorPhoto";
-import { getDoctorData } from "../utils/getDoctorData";
+import { supabase } from "../lib/supabaseClient";
 import "./Sidebar.css";
 
 const menuConfig = {
@@ -27,10 +26,6 @@ const menuConfig = {
   ]
 };
 
-/* getDoctorInfo now uses the merged utility that applies saved overrides */
-const getDoctorInfo = (doctorId) => {
-  return getDoctorData(doctorId);
-};
 
 const Sidebar = ({ role }) => {
   const menuItems = menuConfig[role] || [];
@@ -68,14 +63,16 @@ const Sidebar = ({ role }) => {
     return () => window.removeEventListener("adminSettingsUpdated", refresh);
   }, [loadAdminProfile]);
 
-  const loadDoctorInfo = useCallback(() => {
+  const loadDoctorInfo = useCallback(async () => {
     if (role === "doctor") {
-      const doctorId = localStorage.getItem("hmsDoctorId");
-      if (doctorId) {
-        const info = getDoctorInfo(doctorId);
-        if (info) setDoctorInfo(info);
-        const savedPhoto = localStorage.getItem(`hmsProfilePhoto_${doctorId}`);
-        if (savedPhoto) setProfilePhoto(savedPhoto);
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data } = await supabase.from("doctors").select("id, name, specialization, photo_url").eq("id", user.id).maybeSingle();
+        if (data) setDoctorInfo(data);
+        else {
+          const { data: prof } = await supabase.from("profiles").select("id, name").eq("id", user.id).single();
+          if (prof) setDoctorInfo(prof);
+        }
       }
     }
   }, [role]);
@@ -109,30 +106,23 @@ const Sidebar = ({ role }) => {
       .slice(0, 2);
   };
 
-  const currentPhoto = doctorInfo
-    ? getDoctorPhoto(doctorInfo.id, doctorInfo.photo)
-    : null;
-  const displayPhoto = profilePhoto || currentPhoto;
+  const displayPhoto = profilePhoto || (doctorInfo?.photo_url || null);
 
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
     reader.onload = () => {
-      const dataUrl = reader.result;
-      setProfilePhoto(dataUrl);
-      const doctorId = localStorage.getItem("hmsDoctorId");
-      if (doctorId) {
-        localStorage.setItem(`hmsProfilePhoto_${doctorId}`, dataUrl);
-      }
+      setProfilePhoto(reader.result);
     };
     reader.readAsDataURL(file);
     setProfileOpen(false);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     localStorage.removeItem("hmsRole");
-    localStorage.removeItem("hmsDoctorId");
+    localStorage.removeItem("hmsProfile");
     navigate("/");
   };
 
@@ -166,7 +156,7 @@ const Sidebar = ({ role }) => {
             <h4 className="sidebar__doc-name">{doctorInfo.name}</h4>
             <p className="sidebar__doc-id">ID: {doctorInfo.id}</p>
             <p className="sidebar__doc-spec">
-              {doctorInfo.specializations?.[0] || "Specialist"}
+              {doctorInfo.specialization || "Specialist"}
             </p>
             <span className="sidebar__doc-online">● Online</span>
           </div>

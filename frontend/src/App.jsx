@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { supabase } from "./lib/supabaseClient";
 import Landing from "./pages/Landing";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -60,10 +61,50 @@ import DarkModeToggle from "./components/DarkModeToggle";
 import "./App.css";
 
 const RequireRole = ({ role, children }) => {
-  const storedRole = localStorage.getItem("hmsRole");
-  if (storedRole !== role) {
+  const [authorized, setAuthorized] = useState(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const verifyRole = async () => {
+      const { data: authData } = await supabase.auth.getUser();
+      const user = authData?.user;
+
+      if (!user) {
+        if (isMounted) setAuthorized(false);
+        return;
+      }
+
+      const { data: profile, error } = await supabase
+        .from("profiles")
+        .select("id, role, name, email")
+        .eq("id", user.id)
+        .single();
+
+      if (error || !profile || profile.role !== role) {
+        if (isMounted) setAuthorized(false);
+        return;
+      }
+
+      localStorage.setItem("hmsRole", profile.role);
+      localStorage.setItem("hmsProfile", JSON.stringify(profile));
+      if (isMounted) setAuthorized(true);
+    };
+
+    verifyRole();
+    return () => {
+      isMounted = false;
+    };
+  }, [role]);
+
+  if (authorized === null) {
+    return null;
+  }
+
+  if (!authorized) {
     return <Navigate to="/" replace />;
   }
+
   return children;
 };
 

@@ -1,22 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import hippocareLogo from "../../assets/hippocare-logo.png";
-import { getDoctorPhoto } from "../../utils/getDoctorPhoto";
-import { applyDoctorOverrides, getAdminDoctorsForDept } from "../../utils/getDoctorData";
+import { supabase } from "../../lib/supabaseClient";
 import DeptNav from "../../components/DeptNav";
 import "./Neurology.css";
 
 const sliderImages = ["/images/neurology-1.jpg","/images/neurology-2.jpg","/images/neurology-3.jpg"];
 
-const _rawExperts = [
-  { id: "dr-sandeep-kumar-neuro", name: "Dr. Sandeep Kumar", photo: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=400&q=80", specialization: "Stroke & Epileptology", experience: "20+", recommended: "100%", fee: "₹1400" },
-  { id: "dr-meera-patel-neuro", name: "Dr. Meera Patel", photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&q=80", specialization: "Movement Disorders", experience: "14+", recommended: "98%", fee: "₹1200" },
-  { id: "dr-amit-tiwari-neuro", name: "Dr. Amit Tiwari", photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80", specialization: "Headache & Neuro-Rehabilitation", experience: "11+", recommended: "97%", fee: "₹1000" },
-  { id: "dr-ritu-verma-neuro", name: "Dr. Ritu Verma", photo: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=400&q=80", specialization: "Pediatric Neurology", experience: "13+", recommended: "98%", fee: "₹1100" },
-];
-
 const Neurology = () => {
-  const expertDoctors = [...applyDoctorOverrides(_rawExperts), ...getAdminDoctorsForDept("Neurology")];
+  const [expertDoctors, setExpertDoctors] = useState([]);
   const [slide, setSlide] = useState(0);
   const [expanded, setExpanded] = useState({});
   const [docPage, setDocPage] = useState(0);
@@ -24,6 +16,7 @@ const Neurology = () => {
   const docsPerView = 2;
   const totalPages = Math.ceil(expertDoctors.length / docsPerView);
   useEffect(() => { const t = setInterval(() => setSlide((p) => (p + 1) % sliderImages.length), 3500); return () => clearInterval(t); }, []);
+  useEffect(() => { supabase.from("doctors").select("*").eq("department", "Neurology").then(({ data }) => setExpertDoctors(data || [])); }, []);
   const toggle = (k) => setExpanded((p) => ({ ...p, [k]: !p[k] }));
 
   return (
@@ -95,15 +88,15 @@ const Neurology = () => {
               {expertDoctors.map((doc) => (
                 <div className="neur__expert-card" key={doc.id}>
                   <div className="neur__expert-img-wrap">
-                    <img src={getDoctorPhoto(doc.id, doc.photo)} alt={doc.name} className="neur__expert-img" />
-                    <span className="neur__expert-exp">{doc.experience} Yrs Exp.</span>
+                    <img src={doc.photo_url || ""} alt={doc.name} className="neur__expert-img" />
+                    <span className="neur__expert-exp">{doc.experience || "—"}</span>
                   </div>
                   <div className="neur__expert-body">
                     <span className="neur__expert-partner">🏥 Hippocare Partner</span>
                     <h3 className="neur__expert-name" onClick={() => navigate(`/doctor/${doc.id}`)} style={{ cursor: "pointer" }}>{doc.name}</h3>
                     <p className="neur__expert-spec">{doc.specialization}</p>
                     <div className="neur__expert-stats"><span>👍 {doc.recommended} Recommended</span></div>
-                    <div className="neur__expert-fee">Consultation Fee: <strong>{doc.fee}</strong></div>
+                    <div className="neur__expert-fee">Consultation Fee: <strong>{doc.consultation_fee ? `₹${doc.consultation_fee}` : "—"}</strong></div>
                     <div className="neur__expert-actions">
                       <button className="neur__expert-cta" onClick={() => { const role = localStorage.getItem("hmsRole"); if (role === "patient") { navigate(`/patient/book?doctor=${doc.id}`); } else { navigate(`/login?redirect=/patient/book&doctor=${doc.id}`); } }}>📅 Book Appointment</button>
                       <button className="neur__expert-profile" onClick={() => navigate(`/doctor/${doc.id}`)}>View Profile</button>

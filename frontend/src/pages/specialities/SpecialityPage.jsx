@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import useScrollReveal from "../../hooks/useScrollReveal";
 import hippocareLogo from "../../assets/hippocare-logo.png";
-import { getDoctorPhoto } from "../../utils/getDoctorPhoto";
-import { applyDoctorOverrides } from "../../utils/getDoctorData";
 import { specialities } from "../../data/specialityData";
 import DeptNav from "../../components/DeptNav";
 import "./SpecialityPage.css";
@@ -23,7 +21,7 @@ const SpecialityPage = () => {
   const toggle = (k) => setExpanded((p) => ({ ...p, [k]: !p[k] }));
 
   const spec = specialities.find((s) => s.slug === slug);
-  const expertDoctors = applyDoctorOverrides(spec?.expertDoctors || []);
+  const expertDoctors = spec?.expertDoctors || [];
   const docsPerView = 2;
   const totalPages = Math.ceil(expertDoctors.length / docsPerView);
 
@@ -162,7 +160,7 @@ const SpecialityPage = () => {
                 {expertDoctors.map((doc) => (
                   <div className="sp__expert-card" key={doc.id}>
                     <div className="sp__expert-img-wrap">
-                      <img src={getDoctorPhoto(doc.id, doc.photo)} alt={doc.name} className="sp__expert-img" />
+                      <img src={doc.photo || ""} alt={doc.name} className="sp__expert-img" />
                       <span className="sp__expert-exp">{doc.experience} Yrs Exp.</span>
                     </div>
                     <div className="sp__expert-body">

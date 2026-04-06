@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { getDoctorPhoto } from "../utils/getDoctorPhoto";
-import { getDoctorData } from "../utils/getDoctorData";
+import { supabase } from "../lib/supabaseClient";
 import "./Navbar.css";
 
 const Navbar = ({ role }) => {
@@ -26,12 +25,16 @@ const Navbar = ({ role }) => {
     return () => window.removeEventListener("adminSettingsUpdated", refresh);
   }, [readSettings]);
 
-  const loadDoctorInfo = useCallback(() => {
+  const loadDoctorInfo = useCallback(async () => {
     if (role === "doctor") {
-      const doctorId = localStorage.getItem("hmsDoctorId");
-      if (doctorId) {
-        const merged = getDoctorData(doctorId);
-        if (merged) setDoctorInfo(merged);
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data } = await supabase.from("doctors").select("id, name, specialization, photo_url").eq("id", user.id).maybeSingle();
+        if (data) setDoctorInfo(data);
+        else {
+          const { data: prof } = await supabase.from("profiles").select("id, name").eq("id", user.id).single();
+          if (prof) setDoctorInfo(prof);
+        }
       }
     }
   }, [role]);
@@ -51,15 +54,16 @@ const Navbar = ({ role }) => {
     return () => document.removeEventListener("mousedown", close);
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     localStorage.removeItem("hmsRole");
-    localStorage.removeItem("hmsDoctorId");
+    localStorage.removeItem("hmsProfile");
     navigate("/");
   };
 
   const displayRole = role ? role.charAt(0).toUpperCase() + role.slice(1) : "User";
   const isDoctor = role === "doctor" && doctorInfo;
-  const displayPhoto = isDoctor ? getDoctorPhoto(doctorInfo.id, doctorInfo.photo) : null;
+  const displayPhoto = isDoctor ? (doctorInfo.photo_url || null) : null;
 
   const today = new Date().toLocaleDateString("en-IN", {
     weekday: "short", year: "numeric", month: "short", day: "numeric"
@@ -71,7 +75,7 @@ const Navbar = ({ role }) => {
         {isDoctor ? (
           <>
             <h2>Doctor Dashboard</h2>
-            <span>Welcome, {doctorInfo.name} · {doctorInfo.specializations?.[0]}</span>
+            <span>Welcome, {doctorInfo.name} · {doctorInfo.specialization || "Specialist"}</span>
           </>
         ) : (
           <>

@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import hippocareLogo from "../../assets/hippocare-logo.png";
-import { getDoctorPhoto } from "../../utils/getDoctorPhoto";
-import { applyDoctorOverrides, getAdminDoctorsForDept } from "../../utils/getDoctorData";
+import { supabase } from "../../lib/supabaseClient";
 import DeptNav from "../../components/DeptNav";
 import "./Radiology.css";
 
@@ -13,16 +12,8 @@ const sliderImages = [
   "/images/radiology-3.jpg",
 ];
 
-const _rawExperts = [
-  { id: "dr-ashok-kumar-radio", name: "Dr. Ashok Kumar", photo: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=400&q=80", specialization: "Interventional Radiology", experience: "18+", recommended: "99%", fee: "₹1200" },
-  { id: "dr-neelam-gupta-radio", name: "Dr. Neelam Gupta", photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&q=80", specialization: "Neuroradiology", experience: "12+", recommended: "98%", fee: "₹1000" },
-  { id: "dr-vivek-sharma-radio", name: "Dr. Vivek Sharma", photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80", specialization: "Ultrasound & Cardiac Imaging", experience: "10+", recommended: "97%", fee: "₹900" },
-  { id: "dr-pooja-rawat-radio", name: "Dr. Pooja Rawat", photo: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=400&q=80", specialization: "Breast Radiology", experience: "9+", recommended: "96%", fee: "₹800" },
-];
-
-
 const Radiology = () => {
-  const expertDoctors = [...applyDoctorOverrides(_rawExperts), ...getAdminDoctorsForDept("Radiology")];
+  const [expertDoctors, setExpertDoctors] = useState([]);
   const [slide, setSlide] = useState(0);
   const [expanded, setExpanded] = useState({});
   const [docPage, setDocPage] = useState(0);
@@ -36,6 +27,7 @@ const Radiology = () => {
     }, 3500);
     return () => clearInterval(timer);
   }, []);
+  useEffect(() => { supabase.from("doctors").select("*").eq("department", "Radiology").then(({ data }) => setExpertDoctors(data || [])); }, []);
 
   const toggle = (key) =>
     setExpanded((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -246,15 +238,15 @@ const Radiology = () => {
               {expertDoctors.map((doc) => (
                 <div className="radio__expert-card" key={doc.id}>
                   <div className="radio__expert-img-wrap">
-                    <img src={getDoctorPhoto(doc.id, doc.photo)} alt={doc.name} className="radio__expert-img" />
-                    <span className="radio__expert-exp">{doc.experience} Yrs Exp.</span>
+                    <img src={doc.photo_url || ""} alt={doc.name} className="radio__expert-img" />
+                    <span className="radio__expert-exp">{doc.experience || "—"}</span>
                   </div>
                   <div className="radio__expert-body">
                     <span className="radio__expert-partner">🏥 Hippocare Partner</span>
                     <h3 className="radio__expert-name" onClick={() => navigate(`/doctor/${doc.id}`)} style={{ cursor: "pointer" }}>{doc.name}</h3>
                     <p className="radio__expert-spec">{doc.specialization}</p>
                     <div className="radio__expert-stats"><span>👍 {doc.recommended} Recommended</span></div>
-                    <div className="radio__expert-fee">Consultation Fee: <strong>{doc.fee}</strong></div>
+                    <div className="radio__expert-fee">Consultation Fee: <strong>{doc.consultation_fee ? `₹${doc.consultation_fee}` : "—"}</strong></div>
                     <div className="radio__expert-actions">
                       <button className="radio__expert-cta" onClick={() => { const role = localStorage.getItem("hmsRole"); if (role === "patient") { navigate(`/patient/book?doctor=${doc.id}`); } else { navigate(`/login?redirect=/patient/book&doctor=${doc.id}`); } }}>📅 Book Appointment</button>
                       <button className="radio__expert-profile" onClick={() => navigate(`/doctor/${doc.id}`)}>View Profile</button>

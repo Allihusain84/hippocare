@@ -1,9 +1,9 @@
-
 import React, { useState } from "react";
 import jsPDF from "jspdf";
+import { supabase } from "../lib/supabaseClient";
 import "./PaymentModal.css";
 
-const UPI_ID = "allihusain184-1@okicici";
+const UPI_ID = "hippocare@upi";
 const PAYMENT_METHODS = [
   { name: "Google Pay", icon: "/images/services/gpay.png" },
   { name: "PhonePe", icon: "/images/services/phonepe.png" },
@@ -30,10 +30,12 @@ const PaymentModal = ({ isOpen, onClose, bill }) => {
   const [selectedMethod, setSelectedMethod] = useState(PAYMENT_METHODS[0].name);
   const [loading, setLoading] = useState(false);
 
-  // Show receipt automatically after payment method is clicked or QR is scanned
-  function handlePaymentAction(methodName) {
+  async function handlePaymentAction(methodName) {
     setSelectedMethod(methodName);
     setLoading(true);
+    if (bill.id) {
+      await supabase.from("payments").update({ status: "Paid", payment_date: new Date().toISOString() }).eq("id", bill.id);
+    }
     setTimeout(() => {
       setLoading(false);
       setStep("receipt");
@@ -41,12 +43,15 @@ const PaymentModal = ({ isOpen, onClose, bill }) => {
   }
   if (!isOpen) return null;
 
-  const handlePaymentDone = () => {
+  const handlePaymentDone = async () => {
     setLoading(true);
+    if (bill.id) {
+      await supabase.from("payments").update({ status: "Paid", payment_date: new Date().toISOString() }).eq("id", bill.id);
+    }
     setTimeout(() => {
       setLoading(false);
       setStep("receipt");
-    }, 1200); // Simulate payment processing
+    }, 1200);
   };
 
   const handleDownloadReceipt = () => {

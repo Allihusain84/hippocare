@@ -3,12 +3,14 @@ import { useOutletContext } from "react-router-dom";
 import "./StaffMessages.css";
 
 const demoMessages = [
-  { id: 1, from: "Admin Office",         subject: "March Duty Roster Published",        date: "2026-03-04 09:30", read: false, body: "The duty roster for March 2026 has been published. Please review your schedule." },
-  { id: 2, from: "Dr. Arjun Malhotra",   subject: "Patient handover notes – Room 204",  date: "2026-03-04 08:15", read: false, body: "Please ensure patient Kavita Sharma's vitals are updated in the chart before 11 AM." },
-  { id: 3, from: "HR Department",         subject: "ID Card Renewal Reminder",           date: "2026-03-03 14:00", read: true,  body: "Your staff ID card is due for renewal. Please visit HR with a passport-sized photo." },
-  { id: 4, from: "Infection Control",     subject: "New sanitisation protocol update",   date: "2026-03-02 11:45", read: true,  body: "Updated hand-hygiene protocol is now effective. Refer to notice board for full details." },
-  { id: 5, from: "IT Department",         subject: "System downtime – 6 Mar 2 AM",      date: "2026-03-01 16:20", read: true,  body: "The HMS portal will undergo maintenance on 6 March 2026, 2 AM – 4 AM." },
-  { id: 6, from: "Pharmacy",              subject: "Stock update – Paracetamol 500mg",   date: "2026-02-28 13:10", read: true,  body: "Paracetamol 500mg has been restocked. Please update ward inventory." },
+  { id: 1, from: "Admin Office",         subject: "April Duty Roster Published",                date: "2026-04-06 09:30", read: false, body: "The duty roster for April 2026 has been published. Please review your schedule and confirm your shifts by end of day." },
+  { id: 2, from: "Dr. Aisha Verma",      subject: "Patient handover notes \u2014 Room 204",            date: "2026-04-06 08:15", read: false, body: "Please ensure patient Sunita Devi\u2019s vitals (BP, pulse, SpO\u2082) are updated in the chart before 11 AM. She is scheduled for an ECG this afternoon." },
+  { id: 3, from: "HR Department",         subject: "Annual Health Checkup \u2014 Schedule Yours",       date: "2026-04-05 14:00", read: false, body: "Annual health checkups for all staff members are being conducted this month. Please book your slot via the HR portal or visit the HR desk." },
+  { id: 4, from: "Infection Control",     subject: "Updated PPE guidelines effective immediately", date: "2026-04-04 11:45", read: true,  body: "New PPE guidelines for all ward staff are now in effect. N95 masks are mandatory in ICU and isolation wards. Refer to the updated SOP on the notice board." },
+  { id: 5, from: "IT Department",         subject: "HMS Portal v2.5 \u2014 New features available",    date: "2026-04-03 16:20", read: true,  body: "The HMS portal has been updated to v2.5 with improved patient records, faster search, and new dashboard widgets. Report any issues to IT support." },
+  { id: 6, from: "Pharmacy",              subject: "Stock alert \u2014 Amoxicillin 500mg low",          date: "2026-04-02 13:10", read: true,  body: "Amoxicillin 500mg stock is running low. New supply expected by April 8. Please use alternative antibiotics where clinically appropriate and inform the attending physician." },
+  { id: 7, from: "Dr. Rohan Mehta",       subject: "Post-op care instructions \u2014 Room 302",        date: "2026-04-01 10:00", read: true,  body: "Patient Arun Patel (ACL repair) needs ice compression every 4 hours, leg elevation, and mobility exercises starting tomorrow morning. Please ensure physiotherapy is coordinated." },
+  { id: 8, from: "Admin Office",          subject: "Fire drill scheduled \u2014 April 10",              date: "2026-03-31 09:00", read: true,  body: "A hospital-wide fire drill is scheduled for April 10 at 3:00 PM. All staff must participate. Assembly point: main parking lot. Patients will be informed in advance." },
 ];
 
 const StaffMessages = () => {

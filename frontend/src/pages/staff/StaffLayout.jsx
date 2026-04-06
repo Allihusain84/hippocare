@@ -1,37 +1,49 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import staffData from "../../data/staffData";
+import { supabase } from "../../lib/supabaseClient";
 import StaffSidebar from "./StaffSidebar";
 import "./StaffLayout.css";
 
 const StaffLayout = () => {
   const navigate = useNavigate();
   const [staff, setStaff] = useState(null);
+  const [doctorName, setDoctorName] = useState("");
 
   useEffect(() => {
-    const role = localStorage.getItem("hmsRole");
-    const sid = localStorage.getItem("hmsStaffId");
-    if (role !== "staff" || !sid || !staffData[sid]) {
-      navigate("/staff-login");
-      return;
-    }
-    setStaff(staffData[sid]);
+    const load = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) { navigate("/staff-login"); return; }
+
+      const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).single();
+      if (!profile || profile.role !== "staff") { navigate("/staff-login"); return; }
+
+      const { data: staffRow } = await supabase.from("staff").select("*").eq("id", user.id).single();
+      if (!staffRow) { navigate("/staff-login"); return; }
+
+      if (staffRow.assigned_doctor_id) {
+        const { data: doc } = await supabase.from("doctors").select("name, department").eq("id", staffRow.assigned_doctor_id).single();
+        if (doc) {
+          setDoctorName(doc.name);
+          staffRow._assignedDoctorName = doc.name;
+          staffRow._assignedDoctorDept = doc.department;
+        }
+      }
+
+      setStaff(staffRow);
+    };
+    load();
   }, [navigate]);
 
   if (!staff) return null;
 
   const today = new Date().toLocaleDateString("en-IN", {
-    weekday: "short",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
+    weekday: "short", year: "numeric", month: "short", day: "numeric",
   });
 
   return (
     <div className="staff-layout">
       <StaffSidebar staff={staff} />
       <div className="staff-layout__main">
-        {/* ── Top Navbar ── */}
         <header className="staff-nav">
           <div className="staff-nav__left">
             <h2>Staff Dashboard</h2>
@@ -39,10 +51,6 @@ const StaffLayout = () => {
           </div>
           <div className="staff-nav__right">
             <span className="staff-nav__date">{today}</span>
-            <button className="staff-nav__icon-btn" title="Notifications">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-              <span className="staff-nav__notif-dot" />
-            </button>
             <div className="staff-nav__avatar">
               {staff.name.split(" ").map((w) => w[0]).join("")}
             </div>

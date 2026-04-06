@@ -1,61 +1,24 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import hippocareLogo from "../../assets/hippocare-logo.png";
-import { getDoctorPhoto } from "../../utils/getDoctorPhoto";
-import { applyDoctorOverrides, getAdminDoctorsForDept } from "../../utils/getDoctorData";
+import { supabase } from "../../lib/supabaseClient";
 import DeptNav from "../../components/DeptNav";
 import "./Cardiology.css";
 
 const sliderImages = ["/images/cardiology-1.jpg","/images/cardiology-2.jpg","/images/cardiology-3.jpg"];
 
-
-const _rawExperts = [
-  {
-    id: "dr-aisha-verma",
-    name: "Dr. Aisha Verma",
-    photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&q=80",
-    specialization: "Interventional Cardiology",
-    experience: "16+",
-    recommended: "100%",
-    fee: "₹1200",
-  },
-  {
-    id: "dr-vikram-deshmukh",
-    name: "Dr. Vikram Deshmukh",
-    photo: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=400&q=80",
-    specialization: "Cardiac Electrophysiology",
-    experience: "20+",
-    recommended: "99%",
-    fee: "₹1400",
-  },
-  {
-    id: "dr-nisha-kapoor",
-    name: "Dr. Nisha Kapoor",
-    photo: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=400&q=80",
-    specialization: "Preventive Cardiology",
-    experience: "12+",
-    recommended: "98%",
-    fee: "₹1000",
-  },
-  {
-    id: "dr-arjun-malhotra",
-    name: "Dr. Arjun Malhotra",
-    photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80",
-    specialization: "Non-Invasive Cardiology",
-    experience: "10+",
-    recommended: "97%",
-    fee: "₹900",
-  },
-];
-
 const Cardiology = () => {
-  const expertDoctors = [...applyDoctorOverrides(_rawExperts), ...getAdminDoctorsForDept("Cardiology")];
+  const [expertDoctors, setExpertDoctors] = useState([]);
   const [slide, setSlide] = useState(0);
   const [expanded, setExpanded] = useState({});
   const [docPage, setDocPage] = useState(0);
   const navigate = useNavigate();
   const docsPerView = 2;
   const totalPages = Math.ceil(expertDoctors.length / docsPerView);
+
+  useEffect(() => {
+    supabase.from("doctors").select("*").eq("department", "Cardiology").then(({ data }) => setExpertDoctors(data || []));
+  }, []);
 
   useEffect(() => { const t = setInterval(() => setSlide((p) => (p + 1) % sliderImages.length), 3500); return () => clearInterval(t); }, []);
   const toggle = (k) => setExpanded((p) => ({ ...p, [k]: !p[k] }));
@@ -136,8 +99,8 @@ const Cardiology = () => {
               {expertDoctors.map((doc) => (
                 <div className="card__expert-card" key={doc.id}>
                   <div className="card__expert-img-wrap">
-                    <img src={getDoctorPhoto(doc.id, doc.photo)} alt={doc.name} className="card__expert-img" />
-                    <span className="card__expert-exp">{doc.experience} Yrs Exp.</span>
+                    <img src={doc.photo_url || ""} alt={doc.name} className="card__expert-img" />
+                    <span className="card__expert-exp">{doc.experience || "—"}</span>
                   </div>
                   <div className="card__expert-body">
                     <span className="card__expert-partner">🏥 Hippocare Partner</span>
@@ -146,7 +109,7 @@ const Cardiology = () => {
                     <div className="card__expert-stats">
                       <span>👍 {doc.recommended} Recommended</span>
                     </div>
-                    <div className="card__expert-fee">Consultation Fee: <strong>{doc.fee}</strong></div>
+                    <div className="card__expert-fee">Consultation Fee: <strong>{doc.consultation_fee ? `₹${doc.consultation_fee}` : "—"}</strong></div>
                     <div className="card__expert-actions">
                       <button className="card__expert-cta" onClick={() => {
                         const role = localStorage.getItem("hmsRole");

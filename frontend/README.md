@@ -1,29 +1,44 @@
-# Hospital Management System (Frontend)
+# Hippocare Hospital Management System (Frontend)
 
-A frontend-only Hospital Management System built with React (Vite). It includes role-based dashboards for Admin, Doctor, and Patient, using static data and mock workflows.
+React (Vite) frontend for the Hippocare Hospital full-stack application.
 
 ## Tech Stack
-- React (Vite)
-- React Router DOM
-- Plain CSS
+- React 19 + Vite 7
+- React Router
+- Supabase (Auth + PostgreSQL database)
+- jsPDF (receipt generation)
 
-## Demo Credentials
-- Admin — admin@hms.local / admin
-- Doctor — doctor@hms.local / doctor
-- Patient — patient@hms.local / patient
+## Architecture
+- **Authentication** — Supabase Auth with email/password. Role-based access is validated against the `profiles` table (`admin`, `doctor`, `patient`, `staff`).
+- **Data** — All medical data (doctors, patients, appointments, prescriptions, payments, staff) is stored in Supabase PostgreSQL with Row-Level Security.
+- **AI Chat** — Gemini API requests are proxied through the backend (`VITE_API_URL/api/gemini/chat`) to keep the API key server-side.
 
-## Available Routes
-- /
-- /login
-- /register
-- /admin/*
-- /doctor/*
-- /patient/*
+## Required Environment Variables
+
+Create a `.env` file (see `.env.example`):
+
+| Variable | Description |
+|---|---|
+| `VITE_SUPABASE_URL` | Your Supabase project URL |
+| `VITE_SUPABASE_ANON_KEY` | Supabase anon/public key |
+| `VITE_API_URL` | Backend API URL (default: `http://localhost:5000`) |
 
 ## Run Locally
-1. npm install
-2. npm run dev
+1. `npm install`
+2. `npm run dev`
 
-## Notes
-- This project is frontend-only and uses dummy data.
-- All authentication is mock logic for demo purposes.
+## Build
+```
+npm run build
+```
+
+## Login Credentials (Seeded)
+
+| Role | Email | Password |
+|---|---|---|
+| Admin | admin@hippocare.com | Admin@123 |
+| Doctor | aisha.verma@hippocare.com | Doctor@123 |
+| Patient | patient@hippocare.com | Patient@123 |
+| Staff | staff@hippocare.com | Staff@123 |
+
+All 8 doctors share the password `Doctor@123` — see `backend/seed-users.js` for the full list.

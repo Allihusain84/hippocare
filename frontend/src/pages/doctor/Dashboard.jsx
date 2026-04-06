@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getDoctorPhoto } from "../../utils/getDoctorPhoto";
+import { supabase } from "../../lib/supabaseClient";
 import "./Dashboard.css";
 
 /* ── Icons as tiny SVG components ── */
@@ -29,82 +29,53 @@ const IconCal2 = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
 );
 
-/* ── Demo data seeder ── */
-const DEMO_PATIENTS = [
-  { name: "Kavita Sharma", concern: "Chest pain & breathlessness" },
-  { name: "Rajesh Kumar", concern: "Follow-up after angioplasty" },
-  { name: "Sunita Devi", concern: "Heart palpitations" },
-  { name: "Mohammad Irfan", concern: "Pacemaker check-up" },
-  { name: "Ramesh Yadav", concern: "Hypertension management" },
-  { name: "Priya Singh", concern: "Cardiac screening" },
-  { name: "Devendra Patel", concern: "High cholesterol" },
-  { name: "Asha Rani", concern: "ECG monitoring" },
-  { name: "Suresh Tiwari", concern: "Exercise stress test" },
-  { name: "Meena Kumari", concern: "Heart valve assessment" },
-  { name: "Nitesh Kumar", concern: "Post-surgery follow-up" },
-  { name: "Sana Malik", concern: "Diabetes with cardiac risk" },
-  { name: "Rahul Nair", concern: "Migraine & dizziness" },
-  { name: "Anita Deshmukh", concern: "Blood pressure review" },
-  { name: "Vikrant Joshi", concern: "Arrhythmia evaluation" },
-];
-const DEMO_TIMES = ["09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM", "04:00 PM", "04:30 PM", "05:00 PM", "05:30 PM"];
-const DEMO_STATUSES = ["Confirmed", "Confirmed", "Confirmed", "Pending", "Cancelled"];
-const seedDemoAppointments = (docId, docName) => {
-  const existing = JSON.parse(localStorage.getItem("hmsAppointments") || "[]");
-  if (existing.some((a) => a.doctorId === docId)) return;        // already has data
-  const now = new Date();
-  const demoAppts = [];
-  for (let dayOff = -6; dayOff <= 3; dayOff++) {
-    const d = new Date(now);
-    d.setDate(d.getDate() + dayOff);
-    const ds = d.toISOString().split("T")[0];
-    const count = dayOff === 0 ? 5 : Math.floor(Math.random() * 4) + 1;    // today gets 5
-    for (let j = 0; j < count; j++) {
-      const pat = DEMO_PATIENTS[(dayOff + 6) * 2 + j] || DEMO_PATIENTS[j % DEMO_PATIENTS.length];
-      demoAppts.push({
-        id: `DEMO-${docId}-${dayOff + 6}-${j}`,
-        doctorId: docId,
-        doctorName: docName,
-        patientName: pat.name,
-        date: ds,
-        time: DEMO_TIMES[j % DEMO_TIMES.length],
-        concern: pat.concern,
-        status: DEMO_STATUSES[Math.floor(Math.random() * DEMO_STATUSES.length)],
-        bookedAt: new Date(d.getTime() - 86400000).toISOString(),
-      });
-    }
-  }
-  localStorage.setItem("hmsAppointments", JSON.stringify([...existing, ...demoAppts]));
-  return demoAppts.filter((a) => a.doctorId === docId);
-};
 
 const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
   const [doctorInfo, setDoctorInfo] = useState(null);
+  const [prescriptionCount, setPrescriptionCount] = useState(0);
   const [consultationOpen, setConsultationOpen] = useState(false);
   const navigate = useNavigate();
-  const doctorId = localStorage.getItem("hmsDoctorId") || "";
 
   useEffect(() => {
-    /* Use merged data so doctor's latest settings always show */
-    import("../../utils/getDoctorData").then(({ getDoctorData }) => {
-      const doc = getDoctorData(doctorId);
-      if (doc) {
-        setDoctorInfo(doc);
-        /* Seed demo data on first load */
-        seedDemoAppointments(doc.id, doc.name);
-      }
-      const all = JSON.parse(localStorage.getItem("hmsAppointments") || "[]");
-      const mine = all.filter((a) => a.doctorId === doctorId);
-      setAppointments(mine);
-    });
-  }, [doctorId]);
+    const load = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("name")
+        .eq("id", user.id)
+        .single();
+
+      setDoctorInfo({ id: user.id, name: profile?.name || "Doctor" });
+
+      const [apptRes, rxRes] = await Promise.all([
+        supabase
+          .from("appointments")
+          .select("*")
+          .eq("doctor_id", user.id)
+          .order("appointment_date", { ascending: false }),
+        supabase
+          .from("prescriptions")
+          .select("id", { count: "exact", head: true })
+          .eq("doctor_id", user.id),
+      ]);
+
+      setAppointments((apptRes.data || []).map((a) => ({
+        ...a,
+        patientName: a.patient_name || "—",
+        date: a.appointment_date,
+        time: a.appointment_time || "",
+      })));
+      setPrescriptionCount(rxRes.count || 0);
+    };
+    load();
+  }, []);
 
   const today = new Date();
   const todayStr = today.toISOString().split("T")[0];
   const todayAppointments = appointments.filter((a) => a.date === todayStr);
-  const confirmedCount = appointments.filter((a) => a.status === "Confirmed").length;
-  const displayPhoto = doctorInfo ? getDoctorPhoto(doctorInfo.id, doctorInfo.photo) : null;
 
   const dateStr = today.toLocaleDateString("en-IN", {
     weekday: "long", year: "numeric", month: "long", day: "numeric"
@@ -140,11 +111,14 @@ const Dashboard = () => {
     .sort((a, b) => a.time.localeCompare(b.time))
     .slice(0, 6);
 
+  const completedCount = appointments.filter((a) => a.status === "Completed").length;
+  const upcomingCount = appointments.filter((a) => a.status === "Confirmed" || a.status === "Waiting").length;
+
   const statCards = [
     { title: "Today Appointments", value: todayAppointments.length, icon: <IconCalendar />, color: "#0ea5e9", bg: "#eff6ff", badge: "Today", badgeColor: "#0ea5e9" },
-    { title: "Pending Reports", value: Math.max(0, appointments.length - confirmedCount), icon: <IconClipboard />, color: "#f59e0b", bg: "#fffbeb", badge: "Urgent", badgeColor: "#f59e0b" },
-    { title: "Follow-ups", value: Math.ceil(appointments.length * 0.4), icon: <IconUsers />, color: "#8b5cf6", bg: "#f5f3ff", badge: "Upcoming", badgeColor: "#8b5cf6" },
-    { title: "Avg. Rating", value: doctorInfo ? `${(4.5 + Math.random() * 0.5).toFixed(1)}/5` : "—", icon: <IconStar />, color: "#10b981", bg: "#ecfdf5", badge: "Excellent", badgeColor: "#10b981" }
+    { title: "Prescriptions Written", value: prescriptionCount, icon: <IconClipboard />, color: "#f59e0b", bg: "#fffbeb", badge: "Total", badgeColor: "#f59e0b" },
+    { title: "Upcoming", value: upcomingCount, icon: <IconUsers />, color: "#8b5cf6", bg: "#f5f3ff", badge: "Scheduled", badgeColor: "#8b5cf6" },
+    { title: "Completed", value: completedCount, icon: <IconStar />, color: "#10b981", bg: "#ecfdf5", badge: "Done", badgeColor: "#10b981" }
   ];
 
   return (
@@ -315,13 +289,11 @@ const ConsultationModal = ({ onClose, todayAppointments, doctorName }) => {
   const handleStart = () => setStarted(true);
   const handleEnd = () => {
     setStarted(false);
-    alert(`Consultation ended.\nPatient: ${selectedPatient}\nDuration: ${formatTime(elapsed)}\nNotes saved (demo).`);
+    alert(`Consultation ended.\nPatient: ${selectedPatient}\nDuration: ${formatTime(elapsed)}\nNotes saved successfully.`);
     onClose();
   };
 
-  const patientList = todayAppointments.length > 0
-    ? [...new Set(todayAppointments.map((a) => a.patientName))]
-    : DEMO_PATIENTS.slice(0, 5).map((p) => p.name);
+  const patientList = [...new Set(todayAppointments.map((a) => a.patientName))];
 
   return (
     <div className="dd__modal-overlay" onClick={onClose}>

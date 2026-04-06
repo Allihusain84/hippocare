@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import hippocareLogo from "../../assets/hippocare-logo.png";
-import { getDoctorsDataMerged } from "../../utils/getDoctorData";
-import { getDoctorPhoto } from "../../utils/getDoctorPhoto";
+import { supabase } from "../../lib/supabaseClient";
 import "./DoctorProfile.css";
 
 const tabs = ["Overview", "Treatments", "Hospitals", "FAQs"];
@@ -12,8 +11,22 @@ const DoctorProfile = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Overview");
   const [showReviews, setShowReviews] = useState(false);
-  const doctorsData = getDoctorsDataMerged();
-  const doc = doctorsData[doctorId];
+  const [doc, setDoc] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    supabase
+      .from("doctors")
+      .select("*")
+      .eq("id", doctorId)
+      .single()
+      .then(({ data }) => {
+        setDoc(data);
+        setLoading(false);
+      });
+  }, [doctorId]);
+
+  if (loading) return <p>Loading...</p>;
 
   if (!doc) {
     return (
@@ -66,31 +79,31 @@ const DoctorProfile = () => {
             </div>
 
             <div className="dpro__tags">
-              {(doc.specializations || []).map((s, i) => (
+              {[doc.specialization].filter(Boolean).map((s, i) => (
                 <span className="dpro__tag" key={i}>{s}</span>
               ))}
             </div>
 
-            <p className="dpro__qualifications">{(doc.qualifications || []).join(", ")}</p>
+            <p className="dpro__qualifications">{doc.qualification || "—"}</p>
 
             <div className="dpro__stats-row">
               <div className="dpro__stat">
-                <span className="dpro__stat-val">{doc.experience} Years</span>
+                <span className="dpro__stat-val">{doc.experience || "—"} Years</span>
                 <span className="dpro__stat-label">Experience</span>
               </div>
               <div className="dpro__stat">
-                <span className="dpro__stat-val">{doc.recommended}</span>
+                <span className="dpro__stat-val">{doc.recommended || "—"}</span>
                 <span className="dpro__stat-label">Recommended</span>
               </div>
               <div className="dpro__stat dpro__stat--clickable" onClick={() => setShowReviews(true)} title="Click to view patient details">
-                <span className="dpro__stat-val">{doc.ratingsCount}</span>
+                <span className="dpro__stat-val">{doc.ratingsCount || "—"}</span>
                 <span className="dpro__stat-label">Patient Reviews</span>
                 <span className="dpro__stat-hint">Click to view ›</span>
               </div>
             </div>
 
             <p className="dpro__enquiry">
-              📋 <strong>{doc.patientsEnquired}+</strong> patients enquired about this doctor in the last 30 days
+              📋 <strong>{doc.patientsEnquired || 0}+</strong> patients enquired about this doctor in the last 30 days
             </p>
 
             {/* Timings */}
@@ -110,7 +123,7 @@ const DoctorProfile = () => {
 
             {/* Fee + Actions */}
             <div className="dpro__fee-row">
-              <span className="dpro__fee">Consultation Fee: <strong>{doc.fee}</strong></span>
+              <span className="dpro__fee">Consultation Fee: <strong>{doc.consultation_fee ? `₹${doc.consultation_fee}` : "—"}</strong></span>
             </div>
             <div className="dpro__actions">
               <button className="dpro__btn dpro__btn--primary" onClick={() => {
@@ -126,7 +139,7 @@ const DoctorProfile = () => {
           </div>
 
           <div className="dpro__hero-photo">
-            <img src={getDoctorPhoto(doc.id, doc.photo)} alt={doc.name} />
+            <img src={doc.photo_url || ""} alt={doc.name} />
           </div>
         </div>
       </section>

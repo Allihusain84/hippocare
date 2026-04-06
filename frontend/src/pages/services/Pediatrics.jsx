@@ -1,22 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import hippocareLogo from "../../assets/hippocare-logo.png";
-import { getDoctorPhoto } from "../../utils/getDoctorPhoto";
-import { applyDoctorOverrides, getAdminDoctorsForDept } from "../../utils/getDoctorData";
+import { supabase } from "../../lib/supabaseClient";
 import DeptNav from "../../components/DeptNav";
 import "./Pediatrics.css";
 
 const sliderImages = ["/images/pediatrics-1.jpg","/images/pediatrics-2.jpg","/images/pediatrics-3.jpg"];
 
-const _rawExperts = [
-  { id: "dr-priya-sharma", name: "Dr. Priya Sharma", photo: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=400&q=80", specialization: "Neonatology", experience: "18+", recommended: "100%", fee: "₹1000" },
-  { id: "dr-rahul-gupta-pedi", name: "Dr. Rahul Gupta", photo: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=400&q=80", specialization: "Pediatric Emergency", experience: "12+", recommended: "97%", fee: "₹800" },
-  { id: "dr-anita-joshi-pedi", name: "Dr. Anita Joshi", photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&q=80", specialization: "Developmental Pediatrics", experience: "15+", recommended: "99%", fee: "₹1100" },
-  { id: "dr-sudhir-kumar-pedi", name: "Dr. Sudhir Kumar", photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80", specialization: "Pediatric Gastroenterology", experience: "10+", recommended: "96%", fee: "₹900" },
-];
-
 const Pediatrics = () => {
-  const expertDoctors = [...applyDoctorOverrides(_rawExperts), ...getAdminDoctorsForDept("Pediatrics")];
+  const [expertDoctors, setExpertDoctors] = useState([]);
   const [slide, setSlide] = useState(0);
   const [expanded, setExpanded] = useState({});
   const [docPage, setDocPage] = useState(0);
@@ -24,6 +16,7 @@ const Pediatrics = () => {
   const docsPerView = 2;
   const totalPages = Math.ceil(expertDoctors.length / docsPerView);
   useEffect(() => { const t = setInterval(() => setSlide((p) => (p + 1) % sliderImages.length), 3500); return () => clearInterval(t); }, []);
+  useEffect(() => { supabase.from("doctors").select("*").eq("department", "Pediatrics").then(({ data }) => setExpertDoctors(data || [])); }, []);
   const toggle = (k) => setExpanded((p) => ({ ...p, [k]: !p[k] }));
 
   return (
@@ -95,15 +88,15 @@ const Pediatrics = () => {
               {expertDoctors.map((doc) => (
                 <div className="pedi__expert-card" key={doc.id}>
                   <div className="pedi__expert-img-wrap">
-                    <img src={getDoctorPhoto(doc.id, doc.photo)} alt={doc.name} className="pedi__expert-img" />
-                    <span className="pedi__expert-exp">{doc.experience} Yrs Exp.</span>
+                    <img src={doc.photo_url || ""} alt={doc.name} className="pedi__expert-img" />
+                    <span className="pedi__expert-exp">{doc.experience || "—"}</span>
                   </div>
                   <div className="pedi__expert-body">
                     <span className="pedi__expert-partner">🏥 Hippocare Partner</span>
                     <h3 className="pedi__expert-name" onClick={() => navigate(`/doctor/${doc.id}`)} style={{ cursor: "pointer" }}>{doc.name}</h3>
                     <p className="pedi__expert-spec">{doc.specialization}</p>
                     <div className="pedi__expert-stats"><span>👍 {doc.recommended} Recommended</span></div>
-                    <div className="pedi__expert-fee">Consultation Fee: <strong>{doc.fee}</strong></div>
+                    <div className="pedi__expert-fee">Consultation Fee: <strong>{doc.consultation_fee ? `₹${doc.consultation_fee}` : "—"}</strong></div>
                     <div className="pedi__expert-actions">
                       <button className="pedi__expert-cta" onClick={() => { const role = localStorage.getItem("hmsRole"); if (role === "patient") { navigate(`/patient/book?doctor=${doc.id}`); } else { navigate(`/login?redirect=/patient/book&doctor=${doc.id}`); } }}>📅 Book Appointment</button>
                       <button className="pedi__expert-profile" onClick={() => navigate(`/doctor/${doc.id}`)}>View Profile</button>

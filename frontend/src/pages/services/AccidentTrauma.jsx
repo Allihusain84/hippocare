@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useScrollReveal from "../../hooks/useScrollReveal";
 import hippocareLogo from "../../assets/hippocare-logo.png";
-import { getDoctorPhoto } from "../../utils/getDoctorPhoto";
-import { applyDoctorOverrides, getAdminDoctorsForDept } from "../../utils/getDoctorData";
+import { supabase } from "../../lib/supabaseClient";
 import DeptNav from "../../components/DeptNav";
 import "./AccidentTrauma.css";
 
@@ -14,16 +13,8 @@ const sliderImages = [
   "/images/accident-trauma-3.jpg",
 ];
 
-const _rawExperts = [
-  { id: "dr-vikrant-chauhan-trauma", name: "Dr. Vikrant Chauhan", photo: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=400&q=80", specialization: "Emergency Medicine", experience: "16+", recommended: "99%", fee: "₹1100" },
-  { id: "dr-shalini-rao-trauma", name: "Dr. Shalini Rao", photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&q=80", specialization: "Trauma Surgery", experience: "12+", recommended: "97%", fee: "₹1000" },
-  { id: "dr-pawan-mishra-trauma", name: "Dr. Pawan Mishra", photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80", specialization: "Orthopedic Trauma", experience: "10+", recommended: "96%", fee: "₹900" },
-  { id: "dr-nandini-singh-trauma", name: "Dr. Nandini Singh", photo: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=400&q=80", specialization: "Critical Care & Polytrauma", experience: "8+", recommended: "95%", fee: "₹800" },
-];
-
-
 const AccidentTrauma = () => {
-  const expertDoctors = [...applyDoctorOverrides(_rawExperts), ...getAdminDoctorsForDept(["Trauma", "Emergency", "Accident"])];
+  const [expertDoctors, setExpertDoctors] = useState([]);
   const [slide, setSlide] = useState(0);
   const [expanded, setExpanded] = useState({});
   const [docPage, setDocPage] = useState(0);
@@ -39,6 +30,7 @@ const AccidentTrauma = () => {
     }, 3500);
     return () => clearInterval(timer);
   }, []);
+  useEffect(() => { supabase.from("doctors").select("*").eq("department", "Emergency Medicine").then(({ data }) => setExpertDoctors(data || [])); }, []);
 
   const toggle = (key) =>
     setExpanded((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -308,15 +300,15 @@ const AccidentTrauma = () => {
               {expertDoctors.map((doc) => (
                 <div className="atem__expert-card" key={doc.id}>
                   <div className="atem__expert-img-wrap">
-                    <img src={getDoctorPhoto(doc.id, doc.photo)} alt={doc.name} className="atem__expert-img" />
-                    <span className="atem__expert-exp">{doc.experience} Yrs Exp.</span>
+                    <img src={doc.photo_url || ""} alt={doc.name} className="atem__expert-img" />
+                    <span className="atem__expert-exp">{doc.experience || "—"}</span>
                   </div>
                   <div className="atem__expert-body">
                     <span className="atem__expert-partner">🏥 Hippocare Partner</span>
                     <h3 className="atem__expert-name" onClick={() => navigate(`/doctor/${doc.id}`)} style={{ cursor: "pointer" }}>{doc.name}</h3>
                     <p className="atem__expert-spec">{doc.specialization}</p>
                     <div className="atem__expert-stats"><span>👍 {doc.recommended} Recommended</span></div>
-                    <div className="atem__expert-fee">Consultation Fee: <strong>{doc.fee}</strong></div>
+                    <div className="atem__expert-fee">Consultation Fee: <strong>{doc.consultation_fee ? `₹${doc.consultation_fee}` : "—"}</strong></div>
                     <div className="atem__expert-actions">
                       <button className="atem__expert-cta" onClick={() => { const role = localStorage.getItem("hmsRole"); if (role === "patient") { navigate(`/patient/book?doctor=${doc.id}`); } else { navigate(`/login?redirect=/patient/book&doctor=${doc.id}`); } }}>📅 Book Appointment</button>
                       <button className="atem__expert-profile" onClick={() => navigate(`/doctor/${doc.id}`)}>View Profile</button>

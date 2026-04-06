@@ -1,22 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import hippocareLogo from "../../assets/hippocare-logo.png";
-import { getDoctorPhoto } from "../../utils/getDoctorPhoto";
-import { applyDoctorOverrides, getAdminDoctorsForDept } from "../../utils/getDoctorData";
+import { supabase } from "../../lib/supabaseClient";
 import DeptNav from "../../components/DeptNav";
 import "./Orthopedics.css";
 
 const sliderImages = ["/images/orthopedics-1.jpg","/images/orthopedics-2.jpg","/images/orthopedics-3.jpg"];
 
-const _rawExperts = [
-  { id: "dr-rajesh-bhatia", name: "Dr. Rajesh Bhatia", photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80", specialization: "Joint Replacement Surgery", experience: "18+", recommended: "99%", fee: "₹1300" },
-  { id: "dr-sneha-mehta", name: "Dr. Sneha Mehta", photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&q=80", specialization: "Spine Surgery", experience: "14+", recommended: "98%", fee: "₹1100" },
-  { id: "dr-prakash-reddy", name: "Dr. Prakash Reddy", photo: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=400&q=80", specialization: "Arthroscopy & Pediatric Ortho", experience: "12+", recommended: "97%", fee: "₹1000" },
-  { id: "dr-manish-tanwar", name: "Dr. Manish Tanwar", photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80", specialization: "Trauma & Bone Tumor Surgery", experience: "10+", recommended: "96%", fee: "₹900" },
-];
-
 const Orthopedics = () => {
-  const expertDoctors = [...applyDoctorOverrides(_rawExperts), ...getAdminDoctorsForDept("Orthopedics")];
+  const [expertDoctors, setExpertDoctors] = useState([]);
   const [slide, setSlide] = useState(0);
   const [expanded, setExpanded] = useState({});
   const [docPage, setDocPage] = useState(0);
@@ -24,6 +16,7 @@ const Orthopedics = () => {
   const docsPerView = 2;
   const totalPages = Math.ceil(expertDoctors.length / docsPerView);
   useEffect(() => { const t = setInterval(() => setSlide((p) => (p + 1) % sliderImages.length), 3500); return () => clearInterval(t); }, []);
+  useEffect(() => { supabase.from("doctors").select("*").eq("department", "Orthopedics").then(({ data }) => setExpertDoctors(data || [])); }, []);
   const toggle = (k) => setExpanded((p) => ({ ...p, [k]: !p[k] }));
 
   return (
@@ -96,15 +89,15 @@ const Orthopedics = () => {
               {expertDoctors.map((doc) => (
                 <div className="orth__expert-card" key={doc.id}>
                   <div className="orth__expert-img-wrap">
-                    <img src={getDoctorPhoto(doc.id, doc.photo)} alt={doc.name} className="orth__expert-img" />
-                    <span className="orth__expert-exp">{doc.experience} Yrs Exp.</span>
+                    <img src={doc.photo_url || ""} alt={doc.name} className="orth__expert-img" />
+                    <span className="orth__expert-exp">{doc.experience || "—"}</span>
                   </div>
                   <div className="orth__expert-body">
                     <span className="orth__expert-partner">🏥 Hippocare Partner</span>
                     <h3 className="orth__expert-name" onClick={() => navigate(`/doctor/${doc.id}`)} style={{ cursor: "pointer" }}>{doc.name}</h3>
                     <p className="orth__expert-spec">{doc.specialization}</p>
                     <div className="orth__expert-stats"><span>👍 {doc.recommended} Recommended</span></div>
-                    <div className="orth__expert-fee">Consultation Fee: <strong>{doc.fee}</strong></div>
+                    <div className="orth__expert-fee">Consultation Fee: <strong>{doc.consultation_fee ? `₹${doc.consultation_fee}` : "—"}</strong></div>
                     <div className="orth__expert-actions">
                       <button className="orth__expert-cta" onClick={() => { const role = localStorage.getItem("hmsRole"); if (role === "patient") { navigate(`/patient/book?doctor=${doc.id}`); } else { navigate(`/login?redirect=/patient/book&doctor=${doc.id}`); } }}>📅 Book Appointment</button>
                       <button className="orth__expert-profile" onClick={() => navigate(`/doctor/${doc.id}`)}>View Profile</button>
