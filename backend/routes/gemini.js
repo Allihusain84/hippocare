@@ -2,35 +2,22 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
-// ✅ Correct: v1beta + latest stable model
-const GEMINI_URL =
-  'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+// ✅ Updated to current stable model (gemini-1.5-flash is deprecated)
+const GEMINI_MODEL = 'gemini-2.0-flash';
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
-/**
- * POST /api/gemini/chat
- * Sends user message to Gemini API and returns response
- */
 router.post('/chat', async (req, res) => {
   try {
-    // ✅ Check API key
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({
-        success: false,
-        error: 'GEMINI_API_KEY not configured'
-      });
+      return res.status(500).json({ success: false, error: 'GEMINI_API_KEY not configured' });
     }
 
-    // ✅ Validate input
     const { message } = req.body;
     if (!message || typeof message !== 'string' || message.trim() === '') {
-      return res.status(400).json({
-        success: false,
-        error: 'Valid message is required'
-      });
+      return res.status(400).json({ success: false, error: 'Valid message is required' });
     }
 
-    // ✅ Request body (Gemini REST format per docs)
     const requestBody = {
       contents: [
         {
@@ -40,16 +27,14 @@ router.post('/chat', async (req, res) => {
       ]
     };
 
-    // ✅ API call — using x-goog-api-key header (official docs pattern)
     const response = await axios.post(GEMINI_URL, requestBody, {
       headers: {
         'Content-Type': 'application/json',
-        'x-goog-api-key': apiKey          // ✅ correct auth header
+        'x-goog-api-key': apiKey   // ✅ official auth header from docs
       },
       timeout: 10000
     });
 
-    // ✅ Extract response safely
     const reply =
       response?.data?.candidates?.[0]?.content?.parts?.[0]?.text ||
       'No response from Gemini';
