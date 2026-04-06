@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
-// ✅ Use stable API version + model
+// ✅ Correct: v1beta + latest stable model
 const GEMINI_URL =
-  'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
+  'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
 
 /**
  * POST /api/gemini/chat
@@ -30,40 +30,33 @@ router.post('/chat', async (req, res) => {
       });
     }
 
-    // ✅ Request body (Gemini format)
+    // ✅ Request body (Gemini REST format per docs)
     const requestBody = {
       contents: [
         {
+          role: 'user',
           parts: [{ text: message.trim() }]
         }
       ]
     };
 
-    // ✅ API call
-    const response = await axios.post(
-      `${GEMINI_URL}?key=${apiKey}`,
-      requestBody,
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        timeout: 10000 // prevent hanging
-      }
-    );
+    // ✅ API call — using x-goog-api-key header (official docs pattern)
+    const response = await axios.post(GEMINI_URL, requestBody, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-goog-api-key': apiKey          // ✅ correct auth header
+      },
+      timeout: 10000
+    });
 
     // ✅ Extract response safely
     const reply =
       response?.data?.candidates?.[0]?.content?.parts?.[0]?.text ||
       'No response from Gemini';
 
-    // ✅ Send success response
-    return res.status(200).json({
-      success: true,
-      reply
-    });
+    return res.status(200).json({ success: true, reply });
 
   } catch (error) {
-    // ✅ Log full error (important for debugging)
     console.error('Gemini API Error:', error.response?.data || error.message);
 
     const errorMessage =
@@ -71,10 +64,7 @@ router.post('/chat', async (req, res) => {
       error.message ||
       'Something went wrong';
 
-    return res.status(500).json({
-      success: false,
-      error: errorMessage
-    });
+    return res.status(500).json({ success: false, error: errorMessage });
   }
 });
 
