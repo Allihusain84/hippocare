@@ -14,40 +14,66 @@ const StaffLogin = () => {
     e.preventDefault();
     setError("");
     setLoading(true);
+    localStorage.removeItem("hmsRole");
+    localStorage.removeItem("hmsProfile");
 
-    const { data, error: authError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      const normalizedEmail = email.trim().toLowerCase();
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
+        email: normalizedEmail,
+        password,
+      });
 
-    if (authError || !data?.user) {
-      setError(authError?.message || "Invalid credentials.");
+      if (authError || !data?.user) {
+        setError(authError?.message || "Invalid credentials.");
+        setLoading(false);
+        return;
+      }
+
+      const { data: profile, error: profileError } = await supabase
+        .from("profiles")
+        .select("id, role, name, email")
+        .eq("id", data.user.id)
+        .single();
+
+      if (profileError || !profile) {
+        setError("Profile not found. Please contact admin.");
+        setLoading(false);
+        return;
+      }
+
+      if (profile.role !== "staff") {
+        setError("This account is not registered as staff.");
+        setLoading(false);
+        return;
+      }
+
+      const { data: staffRecord, error: staffError } = await supabase
+        .from("staff")
+        .select("id, email")
+        .eq("id", data.user.id)
+        .single();
+
+      if (staffError || !staffRecord) {
+        setError("Staff record not found. Please contact admin.");
+        setLoading(false);
+        return;
+      }
+
+      if ((staffRecord.email || "").toLowerCase() !== normalizedEmail) {
+        setError("Staff email mismatch. Please contact admin.");
+        setLoading(false);
+        return;
+      }
+
+      localStorage.setItem("hmsRole", profile.role);
+      localStorage.setItem("hmsProfile", JSON.stringify(profile));
       setLoading(false);
-      return;
-    }
-
-    const { data: profile, error: profileError } = await supabase
-      .from("profiles")
-      .select("id, role, name, email")
-      .eq("id", data.user.id)
-      .single();
-
-    if (profileError || !profile) {
-      setError("Profile not found. Please contact admin.");
+      navigate("/staff");
+    } catch {
+      setError("Unable to login right now. Please try again.");
       setLoading(false);
-      return;
     }
-
-    if (profile.role !== "staff") {
-      setError("This account is not registered as staff.");
-      setLoading(false);
-      return;
-    }
-
-    localStorage.setItem("hmsRole", profile.role);
-    localStorage.setItem("hmsProfile", JSON.stringify(profile));
-    setLoading(false);
-    navigate("/staff");
   };
 
   return (

@@ -8,7 +8,7 @@ const supabase = require('../services/supabaseService');
  * create a Supabase Auth user + insert their profile row.
  */
 router.post('/register', async (req, res) => {
-  const { email, password, name, role } = req.body;
+  const { email, password, name, role, staff } = req.body;
 
   if (!email || !password || !name || !role) {
     return res.status(400).json({ success: false, message: 'email, password, name, and role are required' });
@@ -19,11 +19,18 @@ router.post('/register', async (req, res) => {
     return res.status(400).json({ success: false, message: `role must be one of: ${allowed.join(', ')}` });
   }
 
+  if (role === 'staff' && (!staff || !staff.department || !staff.role)) {
+    return res.status(400).json({ success: false, message: 'staff.department and staff.role are required for staff registration' });
+  }
+
   try {
+    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedName = name.trim();
     const { data, error: authErr } = await supabase.auth.admin.createUser({
-      email,
+      email: normalizedEmail,
       password,
       email_confirm: true,
+      user_metadata: { name: normalizedName, role },
     });
 
     if (authErr) return res.status(400).json({ success: false, message: authErr.message });
@@ -31,11 +38,46 @@ router.post('/register', async (req, res) => {
     const userId = data.user.id;
     const { error: profileErr } = await supabase
       .from('profiles')
-      .insert([{ id: userId, name, email, role }]);
+      .insert([{ id: userId, name: normalizedName, email: normalizedEmail, role }]);
 
-    if (profileErr) return res.status(400).json({ success: false, message: profileErr.message });
+    if (profileErr) {
+      await supabase.auth.admin.deleteUser(userId);
+      return res.status(400).json({ success: false, message: profileErr.message });
+    }
 
-    res.json({ success: true, data: { id: userId, name, email, role } });
+    if (role === 'staff') {
+      const shift = staff.shift || 'Morning Shift';
+      const shiftTime = staff.shift_time || (
+        shift === 'Evening Shift'
+          ? '02:00 PM – 10:00 PM'
+          : shift === 'Night Shift'
+            ? '10:00 PM – 06:00 AM'
+            : '06:00 AM – 02:00 PM'
+      );
+
+      const { error: staffErr } = await supabase.from('staff').insert([{
+        id: userId,
+        name: normalizedName,
+        email: normalizedEmail,
+        department: staff.department,
+        role: staff.role,
+        phone: staff.phone || null,
+        assigned_doctor_id: staff.assigned_doctor_id || null,
+        room_number: staff.room_number || null,
+        shift,
+        shift_time: shiftTime,
+      }]);
+
+      if (staffErr) {
+        await Promise.all([
+          supabase.from('profiles').delete().eq('id', userId),
+          supabase.auth.admin.deleteUser(userId),
+        ]);
+        return res.status(400).json({ success: false, message: staffErr.message });
+      }
+    }
+
+    res.json({ success: true, data: { id: userId, name: normalizedName, email: normalizedEmail, role } });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }

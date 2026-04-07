@@ -10,14 +10,19 @@ const shiftMap = {
 
 const emptyForm = {
   name: "", department: "", role: "", phone: "", email: "",
+  password: "",
   assigned_doctor_id: "", room_number: "", shift: "Morning Shift",
   shift_time: "06:00 AM – 02:00 PM",
 };
+
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const Staff = () => {
   const [staff, setStaff] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [adding, setAdding] = useState(false);
+  const [addError, setAddError] = useState("");
   const [search, setSearch] = useState("");
   const [filterDept, setFilterDept] = useState("All");
   const [filterShift, setFilterShift] = useState("All");
@@ -54,16 +59,49 @@ const Staff = () => {
 
   const handleAdd = async (e) => {
     e.preventDefault();
-    const { error } = await supabase.from("staff").insert([{
-      name: form.name, department: form.department, role: form.role,
-      phone: form.phone, email: form.email,
-      assigned_doctor_id: form.assigned_doctor_id || null,
-      room_number: form.room_number, shift: form.shift, shift_time: form.shift_time,
-    }]);
-    if (error) { alert(error.message); return; }
-    setForm({ ...emptyForm });
-    setShowAdd(false);
-    fetchData();
+    setAddError("");
+    setAdding(true);
+
+    if (!form.email || !form.password) {
+      setAddError("Email and password are required so staff can sign in.");
+      setAdding(false);
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE}/api/admin/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: form.email,
+          password: form.password,
+          name: form.name,
+          role: "staff",
+          staff: {
+            department: form.department,
+            role: form.role,
+            phone: form.phone,
+            assigned_doctor_id: form.assigned_doctor_id || null,
+            room_number: form.room_number,
+            shift: form.shift,
+            shift_time: form.shift_time,
+          },
+        }),
+      });
+
+      const payload = await response.json().catch(() => null);
+      if (!response.ok || !payload?.success) {
+        throw new Error(payload?.message || "Failed to create staff account.");
+      }
+
+      setForm({ ...emptyForm });
+      setShowAdd(false);
+      await fetchData();
+    } catch (err) {
+      setAddError(err.message || "Failed to create staff account.");
+    } finally {
+      setAdding(false);
+    }
   };
 
   const handleDelete = async (id) => {
@@ -194,8 +232,9 @@ const Staff = () => {
               </div>
               <div className="adm-stf__form-row">
                 <label>Phone<input placeholder="+91 98765 43201" value={form.phone} onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))} /></label>
-                <label>Email<input type="email" placeholder="name@hippocare.com" value={form.email} onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))} /></label>
+                <label>Email *<input required type="email" placeholder="name@hippocare.com" value={form.email} onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))} /></label>
               </div>
+              <label>Password *<input required type="password" placeholder="Create temporary password" value={form.password} onChange={(e) => setForm((p) => ({ ...p, password: e.target.value }))} /></label>
               <div className="adm-stf__form-row">
                 <label>Assigned Doctor
                   <select value={form.assigned_doctor_id} onChange={(e) => setForm((p) => ({ ...p, assigned_doctor_id: e.target.value }))}>
@@ -214,7 +253,8 @@ const Staff = () => {
                   </select>
                 </label>
               </div>
-              <button type="submit" className="adm-stf__submit-btn">Add Staff Member</button>
+              {addError && <p style={{ color: "#dc2626", margin: 0 }}>{addError}</p>}
+              <button type="submit" className="adm-stf__submit-btn" disabled={adding}>{adding ? "Creating Staff Account..." : "Add Staff Member"}</button>
             </form>
           </div>
         </div>
