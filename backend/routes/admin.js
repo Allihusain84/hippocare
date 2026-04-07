@@ -9,8 +9,10 @@ const supabase = require('../services/supabaseService');
  */
 router.post('/register', async (req, res) => {
   const { email, password, name, role, staff } = req.body;
+  const normalizedEmail = (email || '').trim().toLowerCase();
+  const normalizedName = (name || '').trim();
 
-  if (!email || !password || !name || !role) {
+  if (!normalizedEmail || !password || !normalizedName || !role) {
     return res.status(400).json({ success: false, message: 'email, password, name, and role are required' });
   }
 
@@ -24,8 +26,6 @@ router.post('/register', async (req, res) => {
   }
 
   try {
-    const normalizedEmail = email.trim().toLowerCase();
-    const normalizedName = name.trim();
     const { data, error: authErr } = await supabase.auth.admin.createUser({
       email: normalizedEmail,
       password,
@@ -70,11 +70,19 @@ router.post('/register', async (req, res) => {
 
       if (staffErr) {
         const cleanupErrors = [];
-        const { error: profileDeleteErr } = await supabase.from('profiles').delete().eq('id', userId);
-        if (profileDeleteErr) cleanupErrors.push(`profile cleanup failed: ${profileDeleteErr.message}`);
+        try {
+          const { error: profileDeleteErr } = await supabase.from('profiles').delete().eq('id', userId);
+          if (profileDeleteErr) cleanupErrors.push(`profile cleanup failed: ${profileDeleteErr.message}`);
+        } catch (cleanupErr) {
+          cleanupErrors.push(`profile cleanup exception: ${cleanupErr.message}`);
+        }
 
-        const { error: userDeleteErr } = await supabase.auth.admin.deleteUser(userId);
-        if (userDeleteErr) cleanupErrors.push(`auth cleanup failed: ${userDeleteErr.message}`);
+        try {
+          const { error: userDeleteErr } = await supabase.auth.admin.deleteUser(userId);
+          if (userDeleteErr) cleanupErrors.push(`auth cleanup failed: ${userDeleteErr.message}`);
+        } catch (cleanupErr) {
+          cleanupErrors.push(`auth cleanup exception: ${cleanupErr.message}`);
+        }
 
         if (cleanupErrors.length) {
           return res.status(500).json({

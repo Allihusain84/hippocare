@@ -14,8 +14,6 @@ const StaffLogin = () => {
     e.preventDefault();
     setError("");
     setLoading(true);
-    localStorage.removeItem("hmsRole");
-    localStorage.removeItem("hmsProfile");
 
     try {
       const normalizedEmail = email.trim().toLowerCase();
@@ -60,12 +58,20 @@ const StaffLogin = () => {
         return;
       }
 
+      if (!staffRecord.email) {
+        setError("Staff email is missing. Please contact admin.");
+        setLoading(false);
+        return;
+      }
+
       if ((staffRecord.email || "").toLowerCase() !== normalizedEmail) {
         setError("Staff email mismatch. Please contact admin.");
         setLoading(false);
         return;
       }
 
+      localStorage.removeItem("hmsRole");
+      localStorage.removeItem("hmsProfile");
       localStorage.setItem("hmsRole", profile.role);
       localStorage.setItem("hmsProfile", JSON.stringify(profile));
       setLoading(false);

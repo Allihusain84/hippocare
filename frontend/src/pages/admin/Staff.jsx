@@ -91,14 +91,24 @@ const Staff = () => {
 
       const rawResponse = await response.text();
       let payload = null;
-      try {
-        payload = rawResponse ? JSON.parse(rawResponse) : null;
-      } catch (parseError) {
-        console.error("Failed to parse register response:", parseError);
+      let parseErrorMessage = "";
+      if (!rawResponse.trim()) {
+        parseErrorMessage = "Empty server response.";
+      } else {
+        try {
+          payload = JSON.parse(rawResponse);
+        } catch (parseError) {
+          parseErrorMessage = "Invalid server response format.";
+          console.error("Failed to parse register response:", parseError);
+        }
       }
 
       if (!response.ok || !payload?.success) {
-        throw new Error(payload?.message || rawResponse || "Failed to create staff account.");
+        throw new Error(payload?.message || rawResponse || parseErrorMessage || "Failed to create staff account.");
+      }
+
+      if (!payload) {
+        throw new Error(parseErrorMessage || "Invalid server response from register endpoint.");
       }
 
       setForm({ ...emptyForm });
