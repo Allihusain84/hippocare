@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FaMapMarkerAlt,
   FaEnvelope,
@@ -8,6 +8,7 @@ import {
   FaInstagram,
 } from "react-icons/fa";
 import { SiX } from "react-icons/si";
+import emailjs from "@emailjs/browser";
 import "./Contact.css";
 
 const Contact = () => {
@@ -18,6 +19,20 @@ const Contact = () => {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!submitted) return;
+    const timer = setTimeout(() => setSubmitted(false), 4000);
+    return () => clearTimeout(timer);
+  }, [submitted]);
+
+  useEffect(() => {
+    if (!error) return;
+    const timer = setTimeout(() => setError(false), 4000);
+    return () => clearTimeout(timer);
+  }, [error]);
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -25,10 +40,35 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In a real app this would POST to a backend
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
-    setForm({ name: "", phone: "", email: "", message: "" });
+    setLoading(true);
+
+    const templateParams = {
+      ...form,
+      time: new Date().toLocaleString(),
+    };
+
+    emailjs
+      .send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+      .then(() => {
+        setSubmitted(true);
+        setLoading(false);
+        setForm({
+          name: "",
+          phone: "",
+          email: "",
+          message: "",
+        });
+      })
+      .catch((sendError) => {
+        console.error("EmailJS Error:", sendError);
+        setLoading(false);
+        setError(true);
+      });
   };
 
   return (
@@ -90,6 +130,12 @@ const Contact = () => {
           </div>
         )}
 
+        {error && (
+          <div className="contact__error">
+            ❌ Failed to send message. Please try again.
+          </div>
+        )}
+
         <form className="contact__form" onSubmit={handleSubmit}>
           <input
             type="text"
@@ -104,6 +150,8 @@ const Contact = () => {
             name="phone"
             placeholder="Phone *"
             required
+            pattern="[0-9]{10}"
+            title="Enter a valid 10-digit phone number"
             value={form.phone}
             onChange={handleChange}
           />
@@ -122,8 +170,8 @@ const Contact = () => {
             value={form.message}
             onChange={handleChange}
           />
-          <button type="submit" className="contact__send-btn">
-            SEND
+          <button type="submit" className="contact__send-btn" disabled={loading}>
+            {loading ? "Sending..." : "SEND"}
           </button>
         </form>
       </div>

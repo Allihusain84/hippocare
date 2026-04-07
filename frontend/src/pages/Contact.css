@@ -159,6 +159,16 @@
   font-weight: 600;
 }
 
+.contact__error {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 12px 18px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
 /* Form */
 .contact__form {
   display: flex;
@@ -219,6 +229,13 @@
 
 .contact__send-btn:active {
   transform: translateY(0);
+}
+
+.contact__send-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 /* ==================================================================
