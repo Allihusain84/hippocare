@@ -70,7 +70,8 @@ const StaffLogin = () => {
       localStorage.setItem("hmsProfile", JSON.stringify(profile));
       setLoading(false);
       navigate("/staff");
-    } catch {
+    } catch (err) {
+      console.error("Staff login failed:", err);
       setError("Unable to login right now. Please try again.");
       setLoading(false);
     }

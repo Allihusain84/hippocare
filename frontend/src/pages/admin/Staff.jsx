@@ -89,9 +89,16 @@ const Staff = () => {
         }),
       });
 
-      const payload = await response.json().catch(() => null);
+      const rawResponse = await response.text();
+      let payload = null;
+      try {
+        payload = rawResponse ? JSON.parse(rawResponse) : null;
+      } catch (parseError) {
+        console.error("Failed to parse register response:", parseError);
+      }
+
       if (!response.ok || !payload?.success) {
-        throw new Error(payload?.message || "Failed to create staff account.");
+        throw new Error(payload?.message || rawResponse || "Failed to create staff account.");
       }
 
       setForm({ ...emptyForm });

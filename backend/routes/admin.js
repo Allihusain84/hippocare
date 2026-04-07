@@ -69,10 +69,19 @@ router.post('/register', async (req, res) => {
       }]);
 
       if (staffErr) {
-        await Promise.all([
-          supabase.from('profiles').delete().eq('id', userId),
-          supabase.auth.admin.deleteUser(userId),
-        ]);
+        const cleanupErrors = [];
+        const { error: profileDeleteErr } = await supabase.from('profiles').delete().eq('id', userId);
+        if (profileDeleteErr) cleanupErrors.push(`profile cleanup failed: ${profileDeleteErr.message}`);
+
+        const { error: userDeleteErr } = await supabase.auth.admin.deleteUser(userId);
+        if (userDeleteErr) cleanupErrors.push(`auth cleanup failed: ${userDeleteErr.message}`);
+
+        if (cleanupErrors.length) {
+          return res.status(500).json({
+            success: false,
+            message: `${staffErr.message}. Cleanup issue(s): ${cleanupErrors.join('; ')}`,
+          });
+        }
         return res.status(400).json({ success: false, message: staffErr.message });
       }
     }
