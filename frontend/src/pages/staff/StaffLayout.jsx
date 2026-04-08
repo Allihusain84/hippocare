@@ -12,13 +12,10 @@ const StaffLayout = () => {
   useEffect(() => {
     const load = async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) { navigate("/staff-login"); return; }
-
-      const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).single();
-      if (!profile || profile.role !== "staff") { navigate("/staff-login"); return; }
+      if (!user) { navigate("/login"); return; }
 
       const { data: staffRow } = await supabase.from("staff").select("*").eq("id", user.id).single();
-      if (!staffRow) { navigate("/staff-login"); return; }
+      if (!staffRow) { navigate("/login"); return; }
 
       if (staffRow.assigned_doctor_id) {
         const { data: doc } = await supabase.from("doctors").select("name, department").eq("id", staffRow.assigned_doctor_id).single();

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import LoginDropdown from "./LoginDropdown";
 import SlidePanel from "./SlidePanel";
 import { LoginForm } from "./AuthForms";
@@ -14,7 +13,6 @@ import "./TopBar.css";
  * When a login role or Register is clicked, a SlidePanel opens from the right.
  */
 const TopBar = () => {
-  const navigate = useNavigate();
   /* Which panel is currently open: null | "login" */
   const [panelType, setPanelType] = useState(null);
   /* The role selected from the login dropdown (admin / doctor / patient / staff) */
@@ -24,10 +22,6 @@ const TopBar = () => {
 
   /* Called when a dropdown option is clicked */
   const handleLoginSelect = (role) => {
-    if (role === "staff") {
-      navigate("/staff-login");
-      return;
-    }
     setSelectedRole(role);
     setPanelType("login");
     setPanelKey((k) => k + 1); /* force fresh mount */

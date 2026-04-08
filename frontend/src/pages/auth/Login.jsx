@@ -1,24 +1,28 @@
 import { supabase } from "../../lib/supabaseClient";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import "./Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
+    setLoading(true);
 
     const { data, error: supabaseError } = await supabase.auth.signInWithPassword({
       email,
-      password
+      password,
     });
 
     if (supabaseError || !data?.user) {
       setError(supabaseError?.message || "Invalid credentials.");
+      setLoading(false);
       return;
     }
 
@@ -31,6 +35,7 @@ const Login = () => {
 
     if (profileError || !profile) {
       setError("Profile not found. Please contact admin.");
+      setLoading(false);
       return;
     }
 
@@ -39,6 +44,7 @@ const Login = () => {
     localStorage.removeItem("hmsDoctorId");
     localStorage.removeItem("hmsStaffId");
 
+    setLoading(false);
     navigate(`/${profile.role}`);
   };
 
@@ -46,6 +52,7 @@ const Login = () => {
     <div className="auth">
       <div className="auth__card">
         <h1>Login</h1>
+        <p>Sign in to your Hippocare portal</p>
         <form onSubmit={handleSubmit}>
           <label>
             Email
@@ -66,8 +73,14 @@ const Login = () => {
             />
           </label>
           {error && <p className="auth__error">{error}</p>}
-          <button type="submit" className="auth__button">Login</button>
+          <button type="submit" className="auth__button" disabled={loading}>
+            {loading ? "Signing in…" : "Login"}
+          </button>
         </form>
+
+        <div className="auth__links">
+          Don't have an account? <Link to="/register">Register</Link>
+        </div>
       </div>
     </div>
   );

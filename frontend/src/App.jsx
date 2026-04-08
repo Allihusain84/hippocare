@@ -43,7 +43,6 @@ import Blog from "./pages/quicklinks/Blog";
 import VideoGallery from "./pages/quicklinks/VideoGallery";
 import Career from "./pages/quicklinks/Career";
 import AboutUs from "./pages/quicklinks/AboutUs";
-import StaffLogin from "./pages/staff/StaffLogin";
 import StaffLayout from "./pages/staff/StaffLayout";
 import StaffDashboard from "./pages/staff/StaffDashboard";
 import StaffDutySchedule from "./pages/staff/StaffDutySchedule";
@@ -143,7 +142,6 @@ function App() {
         <Route path="/video-gallery" element={<VideoGallery />} />
         <Route path="/career" element={<Career />} />
         <Route path="/about" element={<AboutUs />} />
-        <Route path="/staff-login" element={<StaffLogin />} />
 
         <Route
           path="/admin"
