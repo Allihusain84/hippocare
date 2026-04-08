@@ -67,9 +67,9 @@ const Login = () => {
     }
   }, [searchParams]);
 
-  const fillCredentials = (e, pw) => {
-    setEmail(e);
-    setPassword(pw);
+  const fillCredentials = (demoEmail, demoPassword) => {
+    setEmail(demoEmail);
+    setPassword(demoPassword);
     setError("");
   };
 
@@ -157,7 +157,7 @@ const Login = () => {
             >
               {DEMO_ADMIN.label}
               <br />
-              <span style={{ fontWeight: 400, fontSize: "0.75rem", color: "#64748b" }}>
+              <span className="auth__demo-pill-email">
                 {DEMO_ADMIN.email}
               </span>
             </button>
@@ -168,7 +168,7 @@ const Login = () => {
             >
               {DEMO_PATIENT.label}
               <br />
-              <span style={{ fontWeight: 400, fontSize: "0.75rem", color: "#64748b" }}>
+              <span className="auth__demo-pill-email">
                 {DEMO_PATIENT.email}
               </span>
             </button>
@@ -221,12 +221,11 @@ const Login = () => {
             <p className="auth__demo-staff-title">Staff Portal</p>
             <button
               type="button"
-              className="auth__demo-pill"
-              style={{ width: "100%" }}
+              className="auth__demo-pill auth__demo-pill--full"
               onClick={() => fillCredentials(DEMO_STAFF.email, DEMO_STAFF.password)}
             >
               {DEMO_STAFF.label}&nbsp;—&nbsp;
-              <span style={{ fontWeight: 400, fontSize: "0.75rem" }}>{DEMO_STAFF.email}</span>
+              <span className="auth__demo-pill-email">{DEMO_STAFF.email}</span>
             </button>
           </div>
 
@@ -236,7 +235,7 @@ const Login = () => {
         </div>
 
         <div className="auth__links">
-          Don&apos;t have an account? <Link to="/register">Register</Link>
+          Don't have an account? <Link to="/register">Register</Link>
         </div>
       </div>
     </div>

@@ -262,3 +262,15 @@
 /* Staff demo section */
 .auth__demo-staff { margin-top: 12px; border-top: 1px dashed #e2e8f0; padding-top: 10px; }
 .auth__demo-staff-title { margin: 0 0 8px; font-size: .88rem; font-weight: 700; color: #7c3aed; }
+
+/* Pill sub-label (email shown inside pill) */
+.auth__demo-pill-email {
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+/* Full-width pill variant */
+.auth__demo-pill--full {
+  width: 100%;
+}
