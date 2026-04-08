@@ -75,6 +75,18 @@ const Register = () => {
       return;
     }
 
+    // 3️⃣ If registering as staff, also insert a row in the staff table
+    //    so StaffLayout can look them up by auth user id
+    if (role === "staff") {
+      const { error: staffError } = await supabase
+        .from("staff")
+        .insert([{ id: user.id, name: name, email: email }]);
+      if (staffError) {
+        showError("Profile created but staff record insert failed: " + staffError.message);
+        return;
+      }
+    }
+
     showMessage("Registration successful. You can now login.");
     setForm({ name: "", email: "", password: "", role: "patient" });
   };
